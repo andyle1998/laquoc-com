@@ -1,0 +1,1169 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bác sĩ Chain</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a clay "clinic" — tabbed site (Trang chủ / Bài viết / Lab / Báo chí). Home = 3D logo + topic cards; articles open in a Medium-style reader. */
+:root{
+  --bg:#E3E9EF;--light:#FFFFFF;--shade:#B2C0CC;--ink:#122B35;--muted:#4C6270;
+  --accent:#00A896;--accent-ink:#007A6E;--accent-deep:#005C55;--spark:#FF7A33;--spark-ink:#B5470C;
+  --lift:rgba(0,90,82,.28);--glass:rgba(255,255,255,.55);--paper:#EEF2F6;
+  --f-display:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r-s:12px;--r-m:20px;--r-l:32px;--r-pill:999px;
+  --out:8px 8px 18px var(--shade),-8px -8px 18px var(--light);
+  --out-s:4px 4px 10px var(--shade),-4px -4px 10px var(--light);
+  --in:inset 6px 6px 12px var(--shade),inset -6px -6px 12px var(--light);
+  --in-s:inset 3px 3px 6px var(--shade),inset -3px -3px 6px var(--light);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1B252D;--light:#26333D;--shade:#10171C;--ink:#E4EEF2;--muted:#9AB0BB;--accent:#2BD9C5;--accent-ink:#4FE6D4;--accent-deep:#8FF0E4;
+  --spark:#FF9257;--spark-ink:#FFAA7A;--lift:rgba(43,217,197,.25);--glass:rgba(38,51,61,.6);--paper:#1F2A33;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1B252D;--light:#26333D;--shade:#10171C;--ink:#E4EEF2;--muted:#9AB0BB;--accent:#2BD9C5;--accent-ink:#4FE6D4;--accent-deep:#8FF0E4;
+  --spark:#FF9257;--spark-ink:#FFAA7A;--lift:rgba(43,217,197,.25);--glass:rgba(38,51,61,.6);--paper:#1F2A33;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+[hidden]{display:none!important}
+.wrap{max-width:1160px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pop{color:var(--accent-ink);text-shadow:-1px -1px 0 var(--light),2px 3px 6px var(--lift)}
+.pop-big{color:var(--accent);text-shadow:-2px -2px 0 var(--light),4px 6px 12px var(--lift),1px 1px 0 var(--accent-deep)}
+.ink-raise{text-shadow:-2px -2px 0 var(--light),4px 5px 10px var(--shade)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.mono{font-family:var(--f-mono)}
+#glow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;left:0;top:0;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 14%,transparent),transparent 65%);transform:translate(-50%,-50%);transition:opacity .4s;opacity:0}
+main,header,footer{position:relative;z-index:1}
+
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;background:var(--bg);box-shadow:var(--out-s);
+  border-radius:var(--r-pill);padding:13px 22px;font-weight:700;font-size:15px;text-decoration:none;transition:box-shadow .2s,transform .2s,color .2s}
+.btn:hover{transform:translateY(-1px);color:var(--accent-ink)}
+.btn:active,.btn[aria-pressed="true"]{box-shadow:var(--in-s);transform:none;color:var(--accent-ink)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:var(--out-s),inset 0 -3px 0 rgba(0,0,0,.12);text-shadow:0 1px 1px rgba(0,0,0,.2)}
+:root[data-theme="dark"] .btn.primary{color:#062A27;text-shadow:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#062A27;text-shadow:none}}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.sm{padding:9px 16px;font-size:13px}
+.btn .dot{width:9px;height:9px;border-radius:50%;background:var(--spark)}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding-block:14px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 14px;border-radius:var(--r-pill);
+  background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--out-s)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand .mk{width:40px;height:40px;flex:none;border-radius:12px;box-shadow:var(--in-s);display:grid;place-items:center}
+.brand .mk svg{width:28px;height:22px;fill:var(--accent);filter:drop-shadow(1px 2px 2px var(--lift))}
+.brand b{font-weight:900;font-size:17px;letter-spacing:-.02em;line-height:1;white-space:nowrap}
+.brand small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:var(--accent-ink);font-weight:600;margin-top:3px}
+.tabs-nav{display:flex;gap:4px;padding:5px;border-radius:var(--r-pill);box-shadow:var(--in-s)}
+.tabs-nav a{display:block;padding:8px 16px;border-radius:var(--r-pill);text-decoration:none;font-weight:700;font-size:14px;color:var(--muted);transition:.2s;white-space:nowrap}
+.tabs-nav a:hover{color:var(--ink)}
+.tabs-nav a.on{color:var(--accent-ink);background:var(--bg);box-shadow:var(--out-s)}
+.theme{width:42px;height:42px;flex:none;border-radius:50%;border:0;background:var(--bg);box-shadow:var(--out-s);cursor:pointer;display:grid;place-items:center}
+.theme:active{box-shadow:var(--in-s)}
+.theme svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2}
+.mtabs{display:none}
+@media (max-width:860px){
+  .nav .tabs-nav{display:none}
+  .mtabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;justify-content:space-around;gap:4px;
+    padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));
+    background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 -6px 16px var(--shade)}
+  .mtabs a{flex:1;text-align:center;padding:9px 4px;border-radius:14px;text-decoration:none;font-weight:700;font-size:13px;color:var(--muted)}
+  .mtabs a.on{color:var(--accent-ink);box-shadow:var(--in-s)}
+  footer{padding-bottom:90px!important}
+}
+
+/* views */
+.view{animation:viewIn .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{transform:translateY(14px)}}
+section{padding-block:64px 16px;scroll-margin-top:90px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:32px}
+.sec-head h2{font-size:clamp(30px,4.8vw,52px);font-weight:900;letter-spacing:-.035em;margin-top:10px}
+.sec-head p{color:var(--muted);max-width:46ch}
+.more{font-weight:700;color:var(--accent-ink);text-decoration:none;white-space:nowrap}
+.more:hover{text-decoration:underline}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:center;padding-block:36px 16px}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:8px 14px;border-radius:var(--r-pill);box-shadow:var(--in-s);font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1{font-size:clamp(54px,8.6vw,116px);font-weight:900;letter-spacing:-.045em;line-height:.92}
+.hero h1 .l2{display:flex;align-items:center;flex-wrap:wrap;gap:.18em}
+.slogan{display:inline-flex;align-items:center;gap:10px;font-size:clamp(16px,1.7vw,20px);letter-spacing:.02em;font-weight:800;padding:10px 18px 10px 14px;border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--out-s);line-height:1}
+.slogan i{width:10px;height:10px;border-radius:50%;background:var(--spark);box-shadow:0 0 0 4px color-mix(in srgb,var(--spark) 22%,transparent)}
+.who{font-size:clamp(18px,2vw,21px);font-weight:600;color:var(--muted)}
+.who .rot{font-weight:800;display:inline-block}
+.who .rot::after{content:"";display:inline-block;width:3px;height:1em;background:var(--accent);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lede{font-size:17px;color:var(--muted);max-width:50ch}
+.lede b{color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.stage{position:relative;height:clamp(320px,44vw,540px);border-radius:var(--r-l);box-shadow:var(--in);overflow:hidden;min-width:0}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+.stage-fallback{position:absolute;inset:0;display:grid;place-items:center}
+.stage-fallback svg{width:62%;fill:var(--accent);filter:drop-shadow(-3px -3px 2px var(--light)) drop-shadow(8px 10px 14px var(--lift));animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.stage{order:-1}}
+.ticker{margin-block:24px 0;border-radius:var(--r-pill);box-shadow:var(--in-s);overflow:hidden;padding-block:12px}
+.ticker-track{display:flex;gap:40px;width:max-content;animation:scroll 44s linear infinite;font-family:var(--f-mono);font-size:13px;color:var(--muted);white-space:nowrap}
+.ticker-track span::before{content:"◆";color:var(--accent);margin-right:12px;font-size:9px;vertical-align:2px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* topic cards */
+.topics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.topic{display:flex;flex-direction:column;gap:14px;text-align:left;border:0;cursor:pointer;background:var(--bg);box-shadow:var(--out);border-radius:var(--r-m);padding:22px;min-height:250px;text-decoration:none;
+  transition:transform .25s,box-shadow .25s;min-width:0}
+.topic:hover{transform:translateY(-5px)}
+.topic:active{box-shadow:var(--in)}
+.topic .row1{display:flex;justify-content:space-between;align-items:center}
+.ico{width:46px;height:46px;border-radius:14px;box-shadow:var(--in-s);display:grid;place-items:center;flex:none}
+.ico svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(1px 2px 1px var(--lift))}
+.topic .k{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
+.topic h3{font-size:21px;font-weight:800;letter-spacing:-.02em}
+.topic .sym{font-size:14px;color:var(--muted)}
+.topic .go{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.topic .go b{color:var(--accent-ink);font-weight:600}
+@media (max-width:980px){.topics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.topics{grid-template-columns:1fr}.topic{min-height:0}}
+
+/* learning path */
+.orbit{margin-top:40px;padding:28px;border-radius:var(--r-l);box-shadow:var(--out)}
+.orbit h3{font-size:18px;font-weight:800;margin-bottom:22px}
+.track{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.track::before{content:"";position:absolute;left:4%;right:4%;top:15px;height:6px;border-radius:6px;box-shadow:var(--in-s)}
+.track .fill{position:absolute;left:4%;top:15px;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--spark));width:92%}
+.stop-pt{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;text-decoration:none;border-radius:var(--r-s);padding-bottom:6px}
+.stop-pt div{display:flex;flex-direction:column;align-items:inherit}
+.stop-pt i{width:36px;height:36px;border-radius:50%;background:var(--bg);box-shadow:var(--out-s);display:grid;place-items:center;font-style:normal;font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--accent-ink);transition:.2s}
+.stop-pt:hover i{box-shadow:var(--in-s)}
+.stop-pt b{font-size:13px;font-weight:800}
+.stop-pt span{font-size:12.5px;color:var(--muted);line-height:1.35}
+@media (max-width:760px){.track{grid-template-columns:1fr;gap:16px}.track::before,.track .fill{left:15px;right:auto;top:6px;bottom:6px;width:6px;height:auto}.stop-pt{flex-direction:row;text-align:left}}
+
+/* home strips */
+.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.qcard{border-radius:var(--r-m);padding:24px;box-shadow:var(--out);display:flex;flex-direction:column;gap:14px;min-width:0}
+.qcard q{font-size:16.5px;font-weight:600;line-height:1.5;quotes:"“" "”"}
+.qcard q::before{content:"“";display:block;font-size:54px;line-height:.6;color:var(--accent);text-shadow:2px 3px 6px var(--lift);margin-bottom:6px;font-weight:900}
+.qcard q::after{content:""}
+.qcard .src{margin-top:auto;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.qcard .src a{color:var(--accent-ink)}
+@media (max-width:900px){.strip{grid-template-columns:1fr}}
+.author{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;border-radius:var(--r-l);padding:32px;box-shadow:var(--out)}
+.author .mark{width:150px;height:150px;border-radius:50%;box-shadow:var(--in);display:grid;place-items:center}
+.author .mark svg{width:96px;fill:var(--accent);filter:drop-shadow(-2px -2px 1px var(--light)) drop-shadow(4px 6px 8px var(--lift))}
+.author h3{font-size:26px;font-weight:900;letter-spacing:-.03em;margin-block:8px 10px}
+.author p{color:var(--muted);max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.facts span{font-family:var(--f-mono);font-size:12px;padding:7px 12px;border-radius:var(--r-pill);box-shadow:var(--in-s);color:var(--muted)}
+@media (max-width:640px){.author{grid-template-columns:1fr;padding:24px}.author .mark{width:120px;height:120px}}
+
+/* feed (Medium-like list) */
+.feed{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;padding-block:40px 20px}
+.feed h1{font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-.035em}
+.feed-list{display:flex;flex-direction:column}
+.fitem{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:24px;padding-block:26px;text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--shade) 70%,transparent)}
+.fitem .by{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-bottom:8px}
+.fitem .by .av{width:22px;height:22px;border-radius:50%;box-shadow:var(--in-s);display:grid;place-items:center}
+.fitem .by .av svg{width:15px;fill:var(--accent)}
+.fitem h3{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.25}
+.fitem p{color:var(--muted);margin-top:6px;font-size:15.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fitem .meta{display:flex;gap:12px;align-items:center;margin-top:12px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.fitem .meta b{padding:4px 10px;border-radius:var(--r-pill);box-shadow:var(--in-s);color:var(--accent-ink);font-weight:600}
+.fitem .thumb{width:120px;aspect-ratio:1;max-width:100%;border-radius:var(--r-m);box-shadow:var(--out-s);display:grid;place-items:center;transition:.2s}
+.fitem .thumb svg{width:46px;height:46px;stroke:var(--accent);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(2px 3px 2px var(--lift))}
+.fitem:hover h3{color:var(--accent-ink)}
+.fitem:hover .thumb{box-shadow:var(--in-s)}
+.side{display:flex;flex-direction:column;gap:28px;position:sticky;top:110px;align-self:start}
+.side h4{margin:0 0 12px;font-size:15px;font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .btn{padding:8px 14px;font-size:13px}
+.side ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.side ol a{display:flex;gap:12px;text-decoration:none;font-weight:600;font-size:14px;align-items:baseline}
+.side ol a::before{counter-increment:s;content:"0" counter(s);font-family:var(--f-mono);font-size:12px;color:var(--accent-ink)}
+.side ol a:hover{color:var(--accent-ink)}
+@media (max-width:900px){.feed{grid-template-columns:1fr}.side{position:static}}
+@media (max-width:520px){.fitem{grid-template-columns:minmax(0,1fr) 72px;gap:14px}.fitem .thumb{width:72px}.fitem .thumb svg{width:30px;height:30px}.fitem h3{font-size:18px}}
+
+/* reader */
+#progress{position:fixed;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--spark));z-index:70;transition:width .1s}
+.reader{max-width:700px;margin:0 auto;padding-block:30px 20px}
+.back{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--muted);text-decoration:none;margin-bottom:26px}
+.back:hover{color:var(--accent-ink)}
+.reader .tagline{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.reader .tagline b{font-family:var(--f-mono);font-size:12px;padding:5px 12px;border-radius:var(--r-pill);box-shadow:var(--in-s);color:var(--accent-ink);font-weight:600}
+.reader h1{font-size:clamp(32px,5.2vw,46px);font-weight:900;letter-spacing:-.035em;line-height:1.12}
+.reader .sub{font-size:clamp(18px,2.4vw,22px);color:var(--muted);margin-top:14px;line-height:1.45;font-weight:500}
+.byline{display:flex;align-items:center;gap:14px;margin-top:28px}
+.byline .av{width:48px;height:48px;border-radius:50%;box-shadow:var(--out-s);display:grid;place-items:center;flex:none}
+.byline .av svg{width:32px;fill:var(--accent)}
+.byline b{display:block;font-size:15px}
+.byline span{font-size:13.5px;color:var(--muted)}
+.actbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding:10px 14px;border-radius:var(--r-pill);box-shadow:var(--in-s)}
+.actbar .grp{display:flex;gap:6px;align-items:center}
+.ibtn{display:inline-flex;align-items:center;gap:7px;border:0;background:none;cursor:pointer;padding:7px 12px;border-radius:var(--r-pill);font-size:13.5px;font-weight:600;color:var(--muted);transition:.2s}
+.ibtn:hover{color:var(--accent-ink)}
+.ibtn:active{box-shadow:var(--in-s)}
+.ibtn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ibtn.clapped{color:var(--accent-ink)}
+.ibtn.clapped svg{fill:color-mix(in srgb,var(--accent) 25%,transparent)}
+.cover{margin-block:34px 8px;height:240px;border-radius:var(--r-l);box-shadow:var(--in);position:relative;overflow:hidden;display:grid;place-items:center}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%}
+.cover .big{position:relative;width:110px;height:110px;border-radius:30px;background:var(--bg);box-shadow:var(--out);display:grid;place-items:center}
+.cover .big svg{width:54px;height:54px;stroke:var(--accent);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(2px 3px 2px var(--lift))}
+.cover figcaption{position:absolute;left:18px;bottom:14px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.body{font-size:19px;line-height:1.8;margin-top:30px}
+.body>*+*{margin-top:1.15em}
+.body h2{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:1.8em;line-height:1.25}
+.body p:first-child::first-letter{float:left;font-size:3.6em;line-height:.9;font-weight:900;margin:.05em .1em 0 0;color:var(--accent);text-shadow:-2px -2px 0 var(--light),3px 4px 8px var(--lift)}
+.body strong{font-weight:700;color:var(--ink)}
+.body em{font-style:italic}
+.body code{font-family:var(--f-mono);font-size:.82em;padding:2px 7px;border-radius:8px;box-shadow:var(--in-s);word-break:break-all}
+.body blockquote{margin:1.8em 0;padding:0 0 0 0;font-size:25px;line-height:1.45;font-weight:600;font-style:italic;color:var(--ink);text-align:center}
+.body blockquote::before{content:"“";display:block;font-size:64px;line-height:.5;color:var(--accent);font-style:normal;font-weight:900;text-shadow:2px 3px 6px var(--lift);margin-bottom:12px}
+.body ul,.body ol{padding-left:1.2em}
+.body li+li{margin-top:.45em}
+.box{border-radius:var(--r-m);box-shadow:var(--in);padding:22px 24px;font-size:17px;line-height:1.7}
+.box .lbl{display:block;font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--accent-ink);margin-bottom:8px}
+.box.take{box-shadow:var(--out)}
+.codeb{margin:0;padding:18px 20px;border-radius:var(--r-m);box-shadow:var(--in);overflow-x:auto;font-family:var(--f-mono);font-size:14px;line-height:1.7}
+.codeb code{box-shadow:none;padding:0;font-size:inherit;word-break:normal;white-space:pre}
+.tblw{overflow-x:auto;border-radius:var(--r-m);box-shadow:var(--out-s)}
+.tblw table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;min-width:520px}
+.tblw th{text-align:left;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);padding:12px 16px;box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--shade) 60%,transparent)}
+.tblw td{padding:12px 16px;vertical-align:top;border-top:1px solid color-mix(in srgb,var(--shade) 45%,transparent)}
+.tblw td:first-child{font-weight:700;white-space:nowrap}
+.tblw td a{color:var(--accent-ink);text-decoration:none;font-family:var(--f-mono);font-size:13.5px;font-weight:600}
+.tblw td a:hover{text-decoration:underline}
+.body p a{color:var(--accent-ink)}
+.tblw code{word-break:normal;white-space:nowrap}
+.flowb{list-style:none;padding:0!important;display:flex;flex-wrap:wrap;gap:12px;counter-reset:f}
+.flowb li{counter-increment:f;flex:1 1 150px;border-radius:var(--r-m);box-shadow:var(--out-s);padding:14px 16px;display:flex;flex-direction:column;gap:2px;margin:0!important;position:relative}
+.flowb li::before{content:counter(f);font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--accent-ink)}
+.flowb li b{font-size:15px;line-height:1.3}
+.flowb li span{font-size:13px;color:var(--muted);line-height:1.4}
+.box.note{box-shadow:var(--out);background:color-mix(in srgb,var(--accent) 9%,var(--bg));font-size:18px}
+#featured{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:22px;margin-bottom:26px}
+.feat{display:grid;grid-template-columns:auto minmax(0,1fr);gap:26px;align-items:center;border-radius:var(--r-l);padding:28px;box-shadow:var(--out);text-decoration:none;transition:transform .25s}
+.feat:hover{transform:translateY(-4px)}
+.feat .ico.big{width:96px;height:96px;border-radius:28px}
+.feat .ico.big svg{width:44px;height:44px}
+.feat h3{font-size:clamp(22px,3vw,30px);font-weight:900;letter-spacing:-.025em;margin-block:8px 8px}
+.feat p{color:var(--muted);max-width:70ch}
+.feat .go{display:block;margin-top:12px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.feat .go b{color:var(--accent-ink)}
+@media (max-width:560px){.feat{grid-template-columns:1fr;padding:22px}.feat .ico.big{width:72px;height:72px}}
+.box ul{margin:0;padding-left:1.1em}
+.labcta{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.disc{font-size:13px;color:var(--muted);margin-top:34px;font-style:italic}
+.endbar{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.next{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:40px}
+.next a{border-radius:var(--r-m);box-shadow:var(--out);padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.next a span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.next a b{font-size:17px;font-weight:800;line-height:1.3}
+.next a:hover b{color:var(--accent-ink)}
+@media (max-width:560px){.next{grid-template-columns:1fr}.body{font-size:18px}.body blockquote{font-size:21px}.cover{height:180px}}
+
+/* lab */
+.apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.app{position:relative;border-radius:var(--r-l);padding:26px;background:var(--bg);box-shadow:var(--out);display:flex;flex-direction:column;gap:14px;text-decoration:none;min-width:0;min-height:300px;
+  transform-style:preserve-3d;transition:transform .15s ease-out}
+.app .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.state{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:11px;padding:6px 10px;border-radius:var(--r-pill);box-shadow:var(--in-s);color:var(--accent-ink);font-weight:600}
+.state i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.state.soon{color:var(--muted)}
+.state.soon i{background:var(--muted);animation:none}
+.app h3{font-size:23px;font-weight:800;letter-spacing:-.025em;transform:translateZ(26px)}
+.app p{color:var(--muted);font-size:15px;transform:translateZ(16px)}
+.app .vis{margin-top:auto;height:92px;border-radius:var(--r-m);box-shadow:var(--in-s);overflow:hidden}
+.app .vis canvas{width:100%;height:100%;display:block}
+.app .open{font-family:var(--f-mono);font-size:12px;color:var(--accent-ink);font-weight:600}
+.app.soon{box-shadow:var(--in);cursor:default}
+@media (max-width:980px){.apps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.apps{grid-template-columns:1fr}}
+.apphead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-block:30px 24px}
+.apphead h1{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.035em}
+.panel{border-radius:var(--r-l);box-shadow:var(--out);padding:26px}
+.panel-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:start}
+.panel-grid>*{min-width:0}
+@media (max-width:860px){.panel-grid{grid-template-columns:1fr}.panel{padding:18px}}
+.panel h3{font-size:24px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px}
+.panel .desc{color:var(--muted);margin-bottom:18px}
+.qbox{border-radius:var(--r-m);box-shadow:var(--in);padding:24px;display:flex;flex-direction:column;gap:16px}
+.qprog{height:8px;border-radius:8px;box-shadow:var(--in-s);overflow:hidden}
+.qprog i{display:block;height:100%;width:0;background:var(--accent);border-radius:8px;transition:width .4s}
+.qtext{font-size:19px;font-weight:700;line-height:1.35}
+.opts{display:grid;gap:12px}
+.opt{border:0;text-align:left;padding:14px 18px;border-radius:var(--r-s);background:var(--bg);box-shadow:var(--out-s);cursor:pointer;font-weight:600;font-size:15px;transition:.2s}
+.opt:hover{color:var(--accent-ink)}
+.opt.right{box-shadow:var(--in-s);color:var(--accent-ink)}
+.opt.right::after{content:"  ✓"}
+.opt.wrong{box-shadow:var(--in-s);color:var(--spark-ink)}
+.opt.wrong::after{content:"  ✕"}
+.opt:disabled{cursor:default}
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.qexp{font-size:14px;padding:12px 14px;border-radius:var(--r-s);box-shadow:var(--in-s)}
+.score-big{font-size:64px;font-weight:900;letter-spacing:-.04em}
+.form{display:grid;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.field input,.field textarea{font:inherit;color:var(--ink);background:var(--bg);border:0;border-radius:var(--r-s);box-shadow:var(--in-s);padding:13px 16px;resize:vertical;width:100%}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.8}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.chain{display:flex;gap:18px;overflow-x:auto;padding:14px 6px 22px;scroll-snap-type:x mandatory}
+.block{flex:0 0 240px;scroll-snap-align:start;border-radius:var(--r-m);padding:18px;box-shadow:var(--out);display:flex;flex-direction:column;gap:8px;position:relative;animation:drop .6s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes drop{from{transform:translateY(-30px) scale(.9)}}
+.block+.block::before{content:"";position:absolute;left:-18px;top:50%;width:18px;height:4px;background:var(--accent);border-radius:4px}
+.block.bad{box-shadow:var(--in)}
+.block.bad::before{background:var(--spark)!important}
+.block .bh{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12px}
+.block .bh b{color:var(--accent-ink)}
+.block.bad .bh b{color:var(--spark-ink)}
+.block .msg{font-size:14px;font-weight:600;word-break:break-word}
+.block .who2{font-size:12px;color:var(--muted)}
+.block .hx{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);word-break:break-all;line-height:1.4}
+.block .hx em{font-style:normal;color:var(--ink)}
+.status{font-family:var(--f-mono);font-size:13px;padding:10px 14px;border-radius:var(--r-s);box-shadow:var(--in-s)}
+.status.ok{color:var(--accent-ink)}
+.status.bad{color:var(--spark-ink)}
+.hashout{font-family:var(--f-mono);font-size:14px;line-height:1.6;word-break:break-all;padding:16px;border-radius:var(--r-s);box-shadow:var(--in-s)}
+.hashout span.d{color:var(--spark-ink);font-weight:600}
+.meter{display:flex;align-items:center;gap:12px;font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.meter .bar{flex:1;height:10px;border-radius:10px;box-shadow:var(--in-s);overflow:hidden}
+.meter .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--spark));transition:width .3s}
+.wheel-wrap{position:relative;width:min(100%,400px);aspect-ratio:1;margin:0 auto;border-radius:50%;box-shadow:var(--out);padding:16px}
+.wheel-wrap canvas{width:100%;height:100%;border-radius:50%;display:block;transition:transform 5s cubic-bezier(.12,.8,.12,1)}
+.pin{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid var(--spark);filter:drop-shadow(0 3px 3px var(--shade));z-index:2}
+.hub{position:absolute;inset:0;margin:auto;width:88px;height:88px;border-radius:50%;border:0;background:var(--bg);box-shadow:var(--out-s);cursor:pointer;font-weight:900;font-size:13px;z-index:2;line-height:1.15}
+.hub:active{box-shadow:var(--in-s)}
+.result{border-radius:var(--r-m);box-shadow:var(--in);padding:22px;min-height:130px;display:flex;flex-direction:column;justify-content:center;gap:8px;align-items:flex-start}
+.result .big{font-size:22px;font-weight:800}
+.result small{font-family:var(--f-mono);color:var(--muted)}
+
+/* press */
+.pstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:34px}
+.pstat{border-radius:var(--r-m);box-shadow:var(--in-s);padding:18px 20px}
+.pstat b{display:block;font-size:34px;font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pstat span{font-size:13px;color:var(--muted)}
+@media (max-width:560px){.pstats{grid-template-columns:1fr}}
+.timeline{position:relative;display:flex;flex-direction:column;gap:26px;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:6px;border-radius:6px;box-shadow:var(--in-s)}
+.ev{position:relative;border-radius:var(--r-l);box-shadow:var(--out);padding:24px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px}
+.ev.noimg{grid-template-columns:1fr}
+.ev::before{content:"";position:absolute;left:-30px;top:30px;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--bg),0 0 0 7px color-mix(in srgb,var(--accent) 40%,transparent)}
+.ev.internal::before{background:var(--spark)}
+.ev .date{font-family:var(--f-mono);font-size:12.5px;font-weight:600}
+.ev h3{font-size:21px;font-weight:800;letter-spacing:-.02em;margin-top:6px;line-height:1.3}
+.ev .place{font-size:14px;color:var(--muted);margin-top:4px}
+.ev q{display:block;margin-top:14px;font-size:16px;font-weight:600;font-style:italic;line-height:1.5}
+.ev q::before{content:"“";color:var(--accent);font-weight:900;font-size:1.4em;margin-right:2px}
+.ev q::after{content:"”";color:var(--accent);font-weight:900}
+.links{display:flex;flex-direction:column;gap:6px;margin-top:16px;padding:0;list-style:none}
+.links a{display:flex;justify-content:space-between;gap:12px;font-size:14px;text-decoration:none;padding:9px 14px;border-radius:var(--r-s);box-shadow:var(--in-s)}
+.links a b{font-weight:700;white-space:nowrap}
+.links a span{color:var(--muted);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.links a:hover b{color:var(--accent-ink)}
+.ev figure{margin:0;border-radius:var(--r-m);overflow:hidden;box-shadow:var(--out-s);align-self:start}
+.ev figure img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.ev .note{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:10px}
+@media (max-width:760px){.ev{grid-template-columns:1fr}.ev figure{order:-1}}
+.ptabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.vir{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;border-radius:var(--r-l);box-shadow:var(--out);padding:26px;margin-bottom:34px}
+.vir img{width:100%;border-radius:var(--r-m);box-shadow:var(--out-s);display:block}
+.vir h3{font-size:24px;font-weight:900;letter-spacing:-.02em;margin-block:8px 6px}
+.vir q{display:block;font-size:17px;font-weight:600;font-style:italic;margin-top:14px;line-height:1.5}
+.vir q::before{content:"“";color:var(--accent);font-weight:900}
+.vir q::after{content:"”";color:var(--accent);font-weight:900}
+@media (max-width:760px){.vir{grid-template-columns:1fr}.vir img{max-width:320px}}
+
+footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:12px 20px;border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--out-s);font-weight:700;font-size:14px;z-index:80;color:var(--accent-ink)}
+@media (max-width:860px){#toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 1242 942"><path id="logo-path" fill-rule="evenodd" d="M217.7,940.9C208.9,939.7 197.2,935.8 189.3,931.4C182.4,927.6 170.4,918.3 165.1,912.6C163.2,910.6 160.9,909.0 160.0,909.0C158.0,909.0 146.1,901.5 144.3,899.1C143.6,898.2 143.0,895.8 143.0,893.6C143.0,890.3 143.6,889.2 147.2,885.9C152.3,881.3 156.1,879.6 159.5,880.4C164.5,881.7 166.2,884.8 170.8,902.0C171.7,905.0 184.6,916.3 193.1,921.3C206.8,929.3 224.6,932.6 240.7,930.0C269.4,925.4 306.7,903.3 329.1,877.5C338.1,867.2 338.1,867.2 336.7,862.3C335.6,858.2 335.8,857.8 342.2,845.3C353.4,823.5 357.8,805.8 356.7,786.6C355.0,755.3 338.4,729.9 310.1,715.2C295.2,707.5 275.1,702.0 261.4,702.0C254.9,702.0 251.4,700.7 247.4,696.9L244.3,693.9L235.4,695.0C183.2,701.4 134.8,732.1 123.5,765.9C120.8,774.0 119.0,786.9 119.7,793.1C121.4,809.8 122.3,813.5 124.9,816.0C126.4,817.4 129.5,821.0 131.8,824.1C139.0,833.7 137.2,840.3 126.5,843.6C119.7,845.6 117.3,845.4 114.4,842.5C111.9,840.0 111.8,839.6 112.1,827.7C112.2,819.9 111.7,812.1 110.6,806.0C102.9,761.3 123.8,727.4 174.5,702.4C194.7,692.5 217.0,686.0 236.8,684.4C243.5,683.8 245.3,683.3 246.1,681.8C249.3,675.9 258.3,674.7 277.7,677.6C307.3,681.9 332.3,694.2 351.8,713.7L361.0,723.1L364.3,720.6C370.8,715.7 394.7,701.6 408.4,694.6C487.5,654.1 576.9,640.3 664.5,655.1C713.3,663.3 757.5,677.0 846.0,711.5C933.0,745.4 975.2,758.5 1023.0,766.4C1065.8,773.5 1097.5,773.7 1129.9,767.0C1177.5,757.2 1210.5,735.9 1226.0,705.0C1233.4,690.3 1236.7,675.2 1235.5,661.5C1233.8,642.4 1224.2,616.1 1211.3,595.7L1208.8,591.8L1205.5,595.0C1203.6,596.8 1201.5,598.0 1200.8,597.7C1200.1,597.4 1179.1,585.3 1154.1,570.7L1108.7,544.3L1096.6,552.2C1082.3,561.6 1057.1,574.2 1041.0,580.0C976.1,603.5 901.2,601.8 838.2,575.4C764.4,544.5 706.0,481.7 681.0,406.2C671.6,377.9 668.1,356.6 667.3,324.5C666.5,288.1 670.6,259.9 681.7,227.1C710.9,140.7 784.8,71.7 873.1,48.6C984.5,19.3 1099.5,59.0 1168.5,150.6C1197.3,188.7 1215.2,232.6 1222.2,282.0C1224.2,296.7 1223.9,342.5 1221.7,357.0C1215.0,400.3 1201.4,436.1 1178.4,471.3L1172.0,481.1L1199.1,527.7L1226.1,574.3L1222.4,578.1L1218.6,581.9L1224.2,593.7C1240.9,628.8 1245.8,667.5 1238.1,702.9C1229.5,742.1 1203.2,769.6 1159.6,784.9C1115.6,800.4 1067.2,801.5 1003.6,788.5C963.4,780.3 928.1,768.9 854.0,740.3C804.1,721.0 788.1,715.0 765.5,707.3C718.4,691.3 677.3,681.7 635.5,676.8C618.4,674.8 568.8,675.1 551.5,677.3C500.7,683.9 454.5,697.7 411.8,719.1C400.8,724.6 380.8,736.0 374.9,740.1L372.3,742.0L375.7,751.0C381.1,765.6 382.5,773.4 382.5,791.5C382.5,815.0 378.5,831.5 367.2,853.9C360.5,867.4 356.5,872.0 351.5,872.0C347.6,872.0 347.6,872.0 337.2,884.3C320.7,903.6 294.3,922.5 269.6,932.6C252.0,939.8 232.6,942.9 217.7,940.9ZM88.7,597.1L79.0,596.5L358.5,317.0L638.0,37.5L637.8,312.7L637.5,587.9L635.4,590.6C634.3,592.1 632.1,594.3 630.6,595.4C627.9,597.4 626.6,597.5 579.6,597.8L531.4,598.1L527.1,595.8C524.5,594.4 522.0,592.0 520.9,590.0C519.1,586.7 519.0,581.2 519.0,456.0L519.0,325.5L384.2,460.2C288.5,556.0 248.4,595.4 245.8,596.5C242.5,597.8 232.8,598.0 170.3,597.8C130.8,597.7 94.1,597.4 88.7,597.1ZM52.8,572.3C44.9,564.4 40.0,558.8 40.0,557.6C40.0,555.0 65.9,529.0 68.5,529.0C69.5,529.0 75.7,534.3 82.7,541.2C92.2,550.6 95.0,554.0 95.0,556.0C95.0,558.0 92.0,561.6 81.7,571.8C74.3,579.1 67.7,585.0 67.0,585.0C66.3,585.0 59.9,579.3 52.8,572.3ZM13.2,532.7C4.1,523.6 1.0,519.8 1.0,518.0C1.0,516.0 7.2,509.3 28.8,487.7C45.3,471.2 57.3,460.0 58.5,460.0C59.5,460.0 65.7,465.3 72.7,472.2C82.1,481.5 85.0,485.0 85.0,487.0C85.0,489.0 79.1,495.4 57.2,517.3C39.3,535.2 28.8,545.0 27.5,545.0C26.2,545.0 20.8,540.3 13.2,532.7ZM93.7,531.2C86.0,523.4 81.0,517.7 81.0,516.5C81.0,513.7 294.8,300.0 297.5,300.0C300.6,300.0 324.0,323.9 324.0,327.0C324.0,329.0 301.7,351.8 216.7,436.8C157.7,495.7 108.8,544.0 108.0,544.0C107.1,544.0 100.7,538.3 93.7,531.2ZM959.5,477.0C1023.3,470.8 1076.8,428.5 1096.9,368.3C1103.2,349.6 1104.4,341.7 1104.4,318.0C1104.4,299.5 1104.1,295.1 1102.2,286.4C1088.1,221.5 1039.7,173.8 974.8,160.8C958.7,157.6 932.3,157.6 916.2,160.8C858.8,172.3 813.5,211.4 794.6,265.9C788.0,284.9 786.6,293.8 786.5,317.5C786.5,340.4 787.3,346.5 793.1,365.5C807.9,413.7 846.7,453.2 895.0,469.3C917.0,476.6 937.7,479.1 959.5,477.0ZM85.3,460.7C76.2,451.6 73.0,447.8 73.0,445.9C73.0,442.4 97.5,418.0 101.0,418.0C104.2,418.0 128.0,441.4 128.0,444.5C128.0,447.2 102.2,473.0 99.5,473.0C98.4,473.0 92.6,468.0 85.3,460.7ZM127.8,420.2C118.1,410.7 114.0,405.7 114.0,403.4C114.0,403.0 119.9,396.7 127.2,389.3C135.7,380.8 141.1,376.0 142.5,376.0C144.8,376.0 170.0,400.6 170.0,402.9C170.0,403.7 164.1,410.3 156.8,417.7C147.0,427.5 143.0,431.0 141.1,431.0C139.4,431.0 135.7,428.0 127.8,420.2ZM168.7,377.2C160.8,369.3 156.0,363.7 156.0,362.4C156.0,361.2 160.9,355.5 169.4,347.1C181.0,335.7 183.2,333.9 185.2,334.5C186.5,334.9 192.8,340.5 199.2,346.9C207.9,355.6 211.0,359.3 211.0,361.1C211.0,363.0 207.6,367.0 197.7,376.8C190.3,384.1 183.7,390.0 182.9,390.0C182.1,390.0 175.7,384.3 168.7,377.2ZM210.2,335.7C201.1,326.6 198.0,322.8 198.0,321.0C198.0,317.5 222.4,293.0 225.9,293.0C228.8,293.0 251.7,315.1 252.7,318.8C253.2,320.9 251.3,323.2 239.9,334.6C231.5,343.0 225.8,348.0 224.5,348.0C223.2,348.0 217.9,343.4 210.2,335.7ZM325.2,299.7C316.1,290.6 313.0,286.8 313.0,285.0C313.0,281.5 337.4,257.0 340.9,257.0C343.8,257.0 366.7,279.1 367.7,282.8C368.2,284.9 366.3,287.2 354.9,298.6C346.5,307.0 340.8,312.0 339.5,312.0C338.2,312.0 332.9,307.4 325.2,299.7ZM251.8,294.3C243.5,286.1 239.0,280.9 239.0,279.5C239.0,276.9 264.9,251.0 267.5,251.0C268.5,251.0 274.9,256.5 281.7,263.2C291.2,272.6 294.0,276.0 294.0,278.0C294.0,280.0 291.0,283.6 280.7,293.8C273.3,301.1 266.7,307.0 266.0,307.0C265.3,307.0 258.9,301.3 251.8,294.3ZM368.2,256.7C359.1,247.6 356.0,243.8 356.0,242.0C356.0,238.4 380.4,214.0 384.1,214.0C386.0,214.0 389.6,217.0 398.8,226.3C405.9,233.5 411.0,239.5 411.0,240.6C411.0,243.2 385.1,269.0 382.5,269.0C381.2,269.0 375.7,264.3 368.2,256.7ZM293.2,252.7C284.1,243.6 281.0,239.8 281.0,238.0C281.0,234.4 305.4,210.0 309.1,210.0C311.0,210.0 314.6,213.0 323.8,222.3C330.9,229.5 336.0,235.5 336.0,236.6C336.0,239.2 310.1,265.0 307.5,265.0C306.2,265.0 300.7,260.3 293.2,252.7ZM412.7,212.2C404.9,204.4 400.0,198.7 400.0,197.5C400.0,196.2 407.6,187.9 420.8,174.7C436.5,159.1 442.1,154.0 444.0,154.0C447.1,154.0 471.0,177.5 471.0,180.6C471.0,182.9 429.2,225.0 426.9,225.0C426.1,225.0 419.7,219.3 412.7,212.2ZM334.1,210.6C323.6,200.1 321.8,197.8 322.3,195.9C322.7,194.6 340.9,175.6 362.8,153.6C398.3,118.3 403.0,113.9 405.1,114.5C406.4,114.9 412.8,120.5 419.2,126.9C427.8,135.4 431.0,139.3 431.0,141.1C431.0,144.7 352.6,223.0 349.0,223.0C347.1,223.0 343.4,219.9 334.1,210.6ZM501.1,122.6C490.6,112.1 488.8,109.8 489.3,107.8C490.1,104.6 513.2,82.0 515.6,82.0C517.8,82.0 543.0,106.8 543.0,109.0C543.0,109.7 537.5,115.9 530.8,122.7C521.5,132.1 518.0,135.0 516.0,135.0C514.1,135.0 510.5,132.0 501.1,122.6ZM542.1,81.6C531.6,71.1 529.8,68.8 530.3,66.8C531.1,63.6 554.2,41.0 556.6,41.0C558.8,41.0 584.0,65.8 584.0,68.0C584.0,68.7 578.5,74.9 571.8,81.7C562.5,91.1 559.0,94.0 557.0,94.0C555.1,94.0 551.5,91.0 542.1,81.6ZM503.2,42.7C494.1,33.6 491.0,29.8 491.0,28.0C491.0,24.4 513.5,2.0 517.0,2.0C520.2,2.0 544.0,25.4 544.0,28.5C544.0,31.2 520.2,55.0 517.5,55.0C516.2,55.0 510.7,50.3 503.2,42.7ZM583.8,41.3C576.1,33.6 571.0,27.8 571.0,26.6C571.0,24.2 593.6,1.1 596.8,0.3C598.8,-0.2 601.1,1.6 611.6,12.1C621.0,21.5 624.0,25.1 624.0,27.0C624.0,29.0 621.1,32.5 611.7,41.8C604.9,48.5 598.7,54.0 598.0,54.0C597.3,54.0 590.9,48.3 583.8,41.3Z"/></symbol>
+</svg>
+<div id="glow" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+<div id="toast" role="status" hidden></div>
+
+<header>
+  <div class="wrap">
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a class="brand" href="#trang-chu" aria-label="Bác sĩ Chain, trang chủ">
+        <span class="mk"><svg viewBox="0 0 1242 942"><use href="#logo"/></svg></span>
+        <span><b>Bác sĩ Chain</b><small>HÀNH AI</small></span>
+      </a>
+      <div class="tabs-nav" data-tabs>
+        <a href="#trang-chu" data-tab="home">Trang chủ</a>
+        <a href="#bai-viet" data-tab="feed">Bài viết</a>
+        <a href="#lab" data-tab="lab">Lab</a>
+        <a href="#bao-chi" data-tab="press">Báo chí</a>
+      </div>
+      <button class="theme" id="themeBtn" aria-label="Đổi giao diện sáng / tối">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+<nav class="mtabs" data-tabs aria-label="Điều hướng">
+  <a href="#trang-chu" data-tab="home">Trang chủ</a><a href="#bai-viet" data-tab="feed">Bài viết</a><a href="#lab" data-tab="lab">Lab</a><a href="#bao-chi" data-tab="press">Báo chí</a>
+</nav>
+
+<main class="wrap">
+  <!-- HOME -->
+  <div class="view" id="v-home">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="chip"><span class="pulse"></span>Kiến thức Blockchain · AI · Công nghệ</span>
+        <h1><span class="ink-raise">Bác sĩ</span><span class="l2"><span class="pop-big">Chain.</span><span class="slogan"><i></i><span class="pop">Hành AI</span></span></span></h1>
+        <p class="who">Hôm nay khám: <span class="rot pop" id="rot">hợp đồng thông minh</span></p>
+        <p class="lede">Nơi khám, chẩn đoán và kê đơn cho những khái niệm công nghệ khó nuốt. Viết bởi một người <b>làm trong thị trường blockchain và AI từ 2018</b>, giải thích bằng ví dụ đời thường.</p>
+        <div class="cta">
+          <a class="btn primary" href="#bai-viet"><span class="dot"></span>Đọc bài viết</a>
+          <a class="btn" href="#lab">Mở Lab sản phẩm</a>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <div class="stage-fallback" id="fallback"><svg viewBox="0 0 1242 942" aria-hidden="true"><use href="#logo"/></svg></div>
+        <canvas id="scene" aria-label="Logo Bác sĩ Chain dạng 3D"></canvas>
+      </div>
+    </div>
+    <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+    <section>
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Chủ đề</span><h2 class="ink-raise">Phòng khám khái niệm</h2></div>
+        <p>Mỗi thẻ là một chủ đề. Bấm vào để đọc bài đầy đủ.</p>
+      </div>
+      <div id="featured"></div>
+      <div class="topics" id="topics"></div>
+      <div class="orbit">
+        <h3>Phác đồ học: từ con số 0 đến ứng dụng</h3>
+        <div class="track" id="track"><i class="fill"></i></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Lab</span><h2 class="ink-raise">Sản phẩm đang chạy</h2></div>
+        <a class="more" href="#lab">Xem tất cả sản phẩm →</a>
+      </div>
+      <div class="apps" id="homeApps"></div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Báo chí</span><h2 class="ink-raise">Trên mặt báo</h2></div>
+        <a class="more" href="#bao-chi">Toàn bộ tư liệu báo chí →</a>
+      </div>
+      <div class="strip" id="homeQuotes"></div>
+    </section>
+
+    <section>
+      <div class="author">
+        <div class="mark"><svg viewBox="0 0 1242 942" aria-hidden="true"><use href="#logo"/></svg></div>
+        <div>
+          <span class="eyebrow pop">Người viết</span>
+          <h3>Từ ống nghe đến sổ cái</h3>
+          <p>Lê Anh Quốc. Được đào tạo để khám bệnh, rồi dành phần lớn thời gian từ 2018 đến nay cho thị trường blockchain, tài sản số và AI: vận hành dự án, làm sản phẩm, đứng lớp. Trang này là nơi ghi lại những gì học được trên đường đi.</p>
+          <div class="facts"><span>Blockchain từ 2018</span><span>AI trong vận hành</span><span>Giảng dạy</span><span>Hà Nội</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FEED -->
+  <div class="view" id="v-feed" hidden>
+    <div class="feed">
+      <div>
+        <span class="eyebrow pop">Bài viết</span>
+        <h1 class="ink-raise" style="margin-top:10px">Bệnh án công nghệ</h1>
+        <div class="feed-list" id="feedList"></div>
+      </div>
+      <aside class="side">
+        <div><h4>Chuyên mục</h4><div class="chips" id="feedChips" role="group" aria-label="Lọc chuyên mục"></div></div>
+        <div><h4>Phác đồ học</h4><ol id="feedPath"></ol></div>
+        <div><h4>Thử bằng tay</h4><p style="font-size:14px;color:var(--muted);margin-bottom:12px">Đọc xong, mở Lab để tự chạy thử khái niệm.</p><a class="btn sm" href="#lab">Mở Lab</a></div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- READER -->
+  <article class="view reader" id="v-article" hidden></article>
+
+  <!-- LAB -->
+  <div class="view" id="v-lab" hidden>
+    <section style="padding-top:36px">
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Lab</span><h2 class="ink-raise">Sản phẩm công nghệ</h2></div>
+        <p>Nơi phát hành và chạy thử các sản phẩm. Mỗi sản phẩm chạy ngay trên trình duyệt, không cần cài đặt.</p>
+      </div>
+      <div class="apps" id="labApps"></div>
+    </section>
+  </div>
+
+  <!-- APP RUNNER -->
+  <div class="view" id="v-app" hidden>
+    <div class="apphead"><div><a class="back" href="#lab">← Lab</a><h1 class="ink-raise" id="appTitle"></h1></div><span class="state"><i></i>Đang chạy</span></div>
+
+    <div class="panel" data-app="chain" hidden>
+      <div class="panel-grid">
+        <div>
+          <h3>Blockchain chạy thế nào?</h3>
+          <p class="desc">Viết nội dung và khắc thành một khối. Mỗi khối mang dấu vân tay SHA-256 của chính nó và của khối trước. Thử sửa một khối cũ để thấy cả chuỗi phía sau gãy.</p>
+          <form class="form" id="chainForm">
+            <div class="field"><label for="cName">Người tạo khối</label><input id="cName" maxlength="40" placeholder="Ví dụ: Minh" required></div>
+            <div class="field"><label for="cMsg">Nội dung khối</label><textarea id="cMsg" rows="3" maxlength="140" placeholder="Ví dụ: Minh chuyển cho Lan 5 triệu" required></textarea></div>
+            <div class="row">
+              <button class="btn primary" type="submit"><span class="dot"></span>Khắc lên chuỗi</button>
+              <button class="btn" type="button" id="tamper">Thử sửa khối #1</button>
+              <button class="btn" type="button" id="repair">Khôi phục</button>
+            </div>
+          </form>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <div class="status ok" id="chainStatus" aria-live="polite">Chuỗi hợp lệ · 1 khối</div>
+          <div class="chain" id="chain"></div>
+          <p class="mono" style="font-size:12px;color:var(--muted)">Mô phỏng chạy trong trình duyệt của bạn, không gửi dữ liệu đi đâu.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" data-app="hash" hidden>
+      <div class="panel-grid">
+        <div>
+          <h3>Máy băm SHA-256</h3>
+          <p class="desc">Gõ hai đoạn văn gần giống nhau và xem dấu vân tay thay đổi thế nào. Ký tự hex khác nhau được tô màu.</p>
+          <div class="form">
+            <div class="field"><label for="hA">Bản gốc</label><textarea id="hA" rows="3">Hợp đồng: chị Lan bán căn hộ cho anh Minh giá 500 triệu đồng.</textarea></div>
+            <div class="field"><label for="hB">Bản bị sửa</label><textarea id="hB" rows="3">Hợp đồng: chị Lan bán căn hộ cho anh Minh giá 800 triệu đồng.</textarea></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <span class="eyebrow pop">Dấu vân tay bản gốc</span><div class="hashout" id="hoA"></div>
+          <span class="eyebrow pop">Dấu vân tay bản bị sửa</span><div class="hashout" id="hoB"></div>
+          <div class="meter"><span>Khác nhau</span><div class="bar"><i id="hmeter"></i></div><b id="hpct">0/64</b></div>
+          <p style="font-size:14px;color:var(--muted)">Chỉ đổi một chữ số, gần như toàn bộ dấu vân tay đổi theo. Đây là lý do blockchain phát hiện được mọi chỉnh sửa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" data-app="quiz" hidden>
+      <div class="panel-grid">
+        <div>
+          <h3>Kiến thức của bạn khỏe đến đâu?</h3>
+          <p class="desc">Sáu câu hỏi về blockchain và AI. Mỗi câu có giải thích ngay sau khi trả lời.</p>
+          <button class="btn" id="qRestart">Làm lại từ đầu</button>
+        </div>
+        <div class="qbox" id="qbox" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="panel" data-app="wheel" hidden>
+      <div class="panel-grid">
+        <div class="wheel-wrap">
+          <span class="pin" aria-hidden="true"></span>
+          <canvas id="wheel" width="800" height="800" aria-label="Vòng quay tám chủ đề"></canvas>
+          <button class="hub pop" id="spin">BỐC<br>THUỐC</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <h3>Hôm nay học gì?</h3>
+          <p class="desc" style="margin:0">Quay để bốc một chủ đề. Bác sĩ kê đơn, bạn đọc bài tương ứng.</p>
+          <div class="result" id="result" aria-live="polite"><small>Đơn thuốc</small><span class="big">Bấm BỐC THUỐC để bắt đầu</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESS -->
+  <div class="view" id="v-press" hidden>
+    <section style="padding-top:36px">
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Báo chí</span><h2 class="ink-raise">Lê Anh Quốc trên mặt báo</h2></div>
+        <p>Các bài báo có nhắc tên và trích lời, sắp theo thời gian. Bấm vào tên báo để đọc bài gốc.</p>
+      </div>
+      <div class="pstats" id="pstats"></div>
+      <div class="strip" id="pressQuotes" style="margin-bottom:34px"></div>
+      <div class="ptabs" role="group" aria-label="Lọc">
+        <button class="btn sm" aria-pressed="true" data-pf="all">Tất cả</button>
+        <button class="btn sm" aria-pressed="false" data-pf="press">Báo chí</button>
+        <button class="btn sm" aria-pressed="false" data-pf="internal">Hoạt động</button>
+      </div>
+      <div class="vir" id="vir"></div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+  </div>
+</main>
+
+<div class="wrap"><footer><span>© 2026 Bác sĩ Chain · Hành AI</span><span>kê đơn bằng hash, đất sét số và cà phê</span></footer></div>
+<script>
+/* ================= DATA ================= */
+const ICONS={
+ hash:'<path d="M5 9h14M5 15h14M10 4l-2 16M16 4l-2 16"/>',
+ key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2"/>',
+ code:'<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/>',
+ coin:'<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1.1 0-2.1-.5-2.6-1.5M12 6.5v11"/>',
+ id:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16c.6-1.5 1.8-2.3 3.2-2.3s2.6.8 3.2 2.3M14.5 10h4M14.5 13.5h3"/>',
+ home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',
+ bot:'<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 16h5"/>',
+ eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/><path d="M4 4l16 16"/>',
+ chain:'<rect x="2.5" y="8" width="7" height="8" rx="2"/><rect x="14.5" y="8" width="7" height="8" rx="2"/><path d="M9.5 12h5"/>',
+ quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>',
+ wheel:'<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ rocket:'<path d="M14 4c3.5 0 6 2.5 6 6-1.5 3.5-4.5 6.5-8 8l-6-6c1.5-3.5 4.5-6.5 8-8z"/><circle cx="14.5" cy="9.5" r="1.6"/><path d="M6 12l-2.5 1 1 3M12 18l-1 2.5-3-1M5 19l2-2"/>',
+ term:'<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/>'
+};
+const svg=(k,cls='')=>`<svg viewBox="0 0 24 24" class="${cls}" aria-hidden="true">${ICONS[k]}</svg>`;
+
+/* Articles: b = blocks [type, content] ; p, h2, quote, ex (example), take (list), lab (cta) */
+const ARTICLES=[
+{id:'hash',n:'01',icon:'hash',cat:'Blockchain',title:'Hash: dấu vân tay của dữ liệu',sym:'Sửa một dấu phẩy, cả hồ sơ lộ.',
+ sub:'Vì sao chỉ cần sửa một chữ số trong hợp đồng là hệ thống phát hiện ngay, và vì sao đây là viên gạch đầu tiên của mọi blockchain.',
+ b:[
+ ['p','Hãy hình dung mỗi tài liệu đều có một dấu vân tay riêng. Dấu vân tay đó ngắn, luôn cùng độ dài, và chỉ cần tài liệu đổi một ký tự là dấu vân tay đổi hoàn toàn. Trong công nghệ, thứ tạo ra dấu vân tay ấy gọi là <strong>hàm băm</strong> (hash function).'],
+ ['h2','Hàm băm làm gì?'],
+ ['p','Hàm băm nhận vào dữ liệu bất kỳ, một câu, một file hợp đồng hay cả một bộ phim, và trả ra một chuỗi có độ dài cố định. Với <strong>SHA-256</strong>, hàm băm dùng trong Bitcoin, kết quả luôn dài 256 bit, thường viết thành 64 ký tự hệ thập lục phân. Ví dụ, chuỗi <code>abc</code> cho kết quả <code>ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad</code>.'],
+ ['p','Một hàm băm tốt có bốn tính chất: cùng đầu vào luôn cho cùng kết quả; đổi một chút đầu vào làm kết quả đổi gần như toàn bộ; không thể suy ngược từ kết quả ra dữ liệu gốc; và gần như không thể tìm hai dữ liệu khác nhau cho cùng một kết quả.'],
+ ['ex','Chị Lan ký hợp đồng bán căn hộ cho anh Minh giá 500 triệu đồng, rồi lưu dấu vân tay của file hợp đồng. Một tháng sau có người sửa con số thành 800 triệu. Chỉ cần băm lại file và so với dấu vân tay đã lưu: hai chuỗi không khớp, chỉnh sửa bị lộ ngay, dù không ai phải đọc lại từng trang.'],
+ ['h2','Từ dấu vân tay đến chuỗi khối'],
+ ['p','Blockchain gom giao dịch thành từng khối. Mỗi khối chứa dấu vân tay của khối liền trước. Nếu ai đó sửa một giao dịch cũ, dấu vân tay của khối đó đổi, kéo theo khối sau không còn khớp, rồi khối sau nữa. Muốn sửa lén, kẻ gian phải tính lại toàn bộ chuỗi phía sau và thuyết phục cả mạng lưới chấp nhận, điều gần như bất khả thi trên một mạng lớn.'],
+ ['quote','Hash không giấu dữ liệu. Hash chứng minh dữ liệu chưa bị đổi.'],
+ ['p','Lưu ý: hash không phải mã hóa. Mã hóa dùng để giấu nội dung và có thể giải mã bằng khóa. Hash là một chiều, dùng để kiểm tra tính toàn vẹn.'],
+ ['take',['Hash biến dữ liệu bất kỳ thành chuỗi độ dài cố định (SHA-256: 64 ký tự hex).','Đổi một ký tự, kết quả đổi gần như hoàn toàn.','Mỗi khối lưu hash của khối trước, nên sửa dữ liệu cũ sẽ làm gãy cả chuỗi.','Hash kiểm tra toàn vẹn, không dùng để giấu thông tin.']],
+ ['lab','hash','Tự gõ và xem dấu vân tay thay đổi trong Máy băm SHA-256.']
+ ]},
+{id:'khoa-rieng',n:'02',icon:'key',cat:'Blockchain',title:'Khóa riêng: ai giữ chìa, người đó là chủ',sym:'Ai giữ chìa, người đó là chủ.',
+ sub:'Blockchain không hỏi bạn là ai. Nó chỉ kiểm tra chữ ký có đúng khóa hay không.',
+ b:[
+ ['p','Ở ngân hàng, bạn chứng minh mình là chủ tài khoản bằng căn cước, mật khẩu, mã OTP. Trên blockchain không có quầy giao dịch nào để hỏi. Thứ duy nhất chứng minh quyền sở hữu là <strong>khóa riêng</strong> (private key).'],
+ ['h2','Một cặp khóa, hai vai trò'],
+ ['p','Ví blockchain thực chất là một cặp khóa. <strong>Khóa riêng</strong> là chuỗi bí mật, dùng để ký giao dịch. <strong>Khóa công khai</strong> được tính ra từ khóa riêng, dùng để người khác kiểm tra chữ ký. Địa chỉ ví lại được tính ra từ khóa công khai. Chiều tính toán chỉ đi một hướng: từ khóa riêng ra địa chỉ thì dễ, từ địa chỉ đoán ngược khóa riêng thì không thể.'],
+ ['p','Khi bạn chuyển tiền, ví dùng khóa riêng ký lên giao dịch. Cả mạng lưới dùng khóa công khai để xác nhận chữ ký hợp lệ, mà không ai cần biết khóa riêng của bạn.'],
+ ['ex','Anh Minh để tài sản trên một sàn giao dịch. Thực tế, sàn đang giữ khóa riêng, anh chỉ có quyền yêu cầu sàn chuyển giúp. Chị Hoa tự giữ ví và cụm từ khôi phục 12 từ trong két sắt. Chị toàn quyền với tài sản, nhưng nếu làm mất cụm từ đó, không ai lấy lại được cho chị.'],
+ ['h2','Cụm từ khôi phục'],
+ ['p','Phần lớn ví hiện nay sinh khóa riêng từ một <strong>cụm từ khôi phục</strong> 12 hoặc 24 từ tiếng Anh. Ai có cụm từ này là có toàn bộ tài sản trong ví. Vì vậy, bất kỳ ai hỏi cụm từ khôi phục của bạn, dù xưng là nhân viên hỗ trợ hay "chuyên gia", gần như chắc chắn là lừa đảo.'],
+ ['quote','Mất mật khẩu ngân hàng thì ra quầy cấp lại. Mất khóa riêng thì không có quầy nào.'],
+ ['take',['Khóa riêng ký giao dịch; khóa công khai để kiểm tra chữ ký.','Để tài sản trên sàn nghĩa là sàn giữ khóa thay bạn.','Cụm từ khôi phục tương đương toàn bộ tài sản: không chụp ảnh, không gửi cho ai.','Tự giữ khóa là tự chịu trách nhiệm hoàn toàn.']]
+ ]},
+{id:'hop-dong-thong-minh',n:'03',icon:'code',cat:'Blockchain',title:'Hợp đồng thông minh: tự chạy, không cần người bấm',sym:'Tự chạy, không cần người bấm.',
+ sub:'Một đoạn mã tự thực thi khi điều kiện được đáp ứng. Nó chạy đúng như đã viết, kể cả khi viết sai.',
+ b:[
+ ['p','Khái niệm <strong>hợp đồng thông minh</strong> (smart contract) được nhà khoa học máy tính Nick Szabo đưa ra từ những năm 1990. Ví dụ ông hay dùng là chiếc máy bán nước tự động: bỏ đủ tiền, chọn món, máy trả lon nước. Không cần người bán, không cần tin nhau.'],
+ ['h2','Chạy trên blockchain thì khác gì?'],
+ ['p','Ethereum, ra mắt năm 2015, biến ý tưởng này thành hiện thực ở quy mô lớn. Hợp đồng thông minh là chương trình được triển khai lên blockchain. Một khi đã triển khai, mã nguồn và trạng thái của nó công khai, mọi người cùng kiểm chứng được, và không một bên nào tự ý sửa được kết quả.'],
+ ['ex','Năm người bạn góp quỹ du lịch, mỗi người 5 triệu đồng quy ra stablecoin. Họ dùng một hợp đồng thông minh quy định: muốn chi tiền phải có ít nhất 3 trong 5 người ký đồng ý. Không ai giữ quỹ một mình, cũng không ai rút lén được.'],
+ ['h2','Mặt trái: code sai vẫn chạy đúng như code'],
+ ['p','Vì không ai sửa được, một lỗi trong mã cũng trở thành "luật". Năm 2016, dự án The DAO trên Ethereum bị khai thác lỗ hổng và mất một lượng lớn ETH. Cộng đồng sau đó phải tách chuỗi (hard fork) để xử lý, một quyết định gây tranh cãi đến nay. Bài học: hợp đồng thông minh cần được kiểm toán mã kỹ lưỡng trước khi giữ tiền thật.'],
+ ['p','Một giới hạn khác: hợp đồng thông minh không tự biết chuyện ngoài đời, như giá vàng hôm nay hay hàng đã giao chưa. Nó cần nguồn dữ liệu bên ngoài gọi là <strong>oracle</strong>, và oracle sai thì hợp đồng cũng chạy sai.'],
+ ['quote','Hợp đồng thông minh thay người trung gian bằng mã. Vì vậy chất lượng mã quyết định tất cả.'],
+ ['take',['Hợp đồng thông minh là chương trình tự thực thi trên blockchain.','Minh bạch và không ai tự ý sửa được, kể cả khi có lỗi.','Cần kiểm toán mã trước khi đưa tiền thật vào.','Dữ liệu ngoài đời phải đi qua oracle, và oracle là một điểm rủi ro.']]
+ ]},
+{id:'stablecoin',n:'04',icon:'coin',cat:'Tài sản số',title:'Stablecoin: không phải tiền gửi ngân hàng',sym:'Biến động gần như bằng 0. Gần như.',
+ sub:'Giá ổn định không có nghĩa là không có rủi ro. Rủi ro chỉ chuyển sang chỗ khác.',
+ b:[
+ ['p','<strong>Stablecoin</strong> là token được thiết kế để giữ giá ổn định, phổ biến nhất là neo theo đô la Mỹ: 1 token xấp xỉ 1 USD. Hai cái tên quen thuộc là USDT (do Tether phát hành) và USDC (do Circle phát hành).'],
+ ['h2','Ba cách giữ giá'],
+ ['p','<strong>Bảo chứng bằng tài sản truyền thống:</strong> bên phát hành giữ tiền mặt, trái phiếu chính phủ ngắn hạn tương ứng với lượng token lưu hành. USDT, USDC thuộc nhóm này. <strong>Bảo chứng bằng tài sản mã hóa:</strong> người dùng thế chấp tài sản mã hóa nhiều hơn giá trị token được tạo ra, như DAI. <strong>Thuật toán:</strong> giữ giá bằng cơ chế cung cầu tự động. Nhóm này từng đổ vỡ lớn khi TerraUSD (UST) mất neo vào tháng 5/2022.'],
+ ['ex','Chị Hoa giữ 10.000 USDT và nghĩ mình đang có "10.000 đô trong tài khoản". Thực tế, giá trị đó phụ thuộc vào việc Tether giữ đủ tài sản bảo chứng và cho phép quy đổi, vào sàn chị đang dùng có hoạt động bình thường không, và vào việc địa chỉ ví của chị không bị bên phát hành phong tỏa.'],
+ ['h2','Khác tiền gửi ngân hàng ở đâu?'],
+ ['p','Tiền gửi ngân hàng nằm trong hệ thống được giám sát và thường có cơ chế bảo hiểm tiền gửi theo quy định của từng quốc gia. Stablecoin là nghĩa vụ của một công ty phát hành; độ an toàn nằm ở chất lượng tài sản bảo chứng, mức độ minh bạch báo cáo và khung pháp lý nơi công ty đó hoạt động. Bên phát hành các stablecoin lớn cũng có khả năng đóng băng token tại những địa chỉ bị nghi liên quan đến vi phạm.'],
+ ['quote','Stablecoin ổn định về giá. Câu hỏi thật là: ổn định nhờ ai, và người đó có đáng tin không?'],
+ ['take',['Stablecoin neo giá theo tài sản khác, phổ biến nhất là USD.','Rủi ro chính: tài sản bảo chứng, bên phát hành, sàn lưu ký và mất neo.','Stablecoin thuật toán từng sụp đổ (UST, 2022).','Không đồng nhất stablecoin với tiền gửi ngân hàng.']]
+ ]},
+{id:'dinh-danh',n:'05',icon:'id',cat:'Blockchain',title:'Định danh phi tập trung: ai cấp, ai giữ, ai kiểm?',sym:'Một lần xác minh, dùng lại nhiều nơi.',
+ sub:'Ba vai trong một tấm chứng thực số, kể qua một hồ sơ xin việc.',
+ b:[
+ ['p','Mỗi lần mở tài khoản, xin việc hay đăng ký dịch vụ, bạn lại nộp bản sao giấy tờ, và bên nhận lại phải tự kiểm tra. <strong>Định danh phi tập trung</strong> đặt ra câu hỏi: nếu giấy tờ có chữ ký số không thể làm giả, và chính bạn giữ nó, thì có cần kiểm tra lại từ đầu mỗi lần không?'],
+ ['h2','Ba vai trò'],
+ ['p','Mô hình này có ba bên. <strong>Bên cấp</strong> (issuer), như trường đại học, ký số lên một chứng thực, ví dụ bằng tốt nghiệp. <strong>Người giữ</strong> (holder) lưu chứng thực trong ví định danh của mình. <strong>Bên kiểm tra</strong> (verifier), như nhà tuyển dụng, xác minh chữ ký của bên cấp mà không phải gọi điện hỏi lại trường. Tổ chức tiêu chuẩn web W3C đã ban hành chuẩn cho mã định danh phi tập trung (DID) và chứng thực có thể kiểm chứng (Verifiable Credentials).'],
+ ['ex','Minh tốt nghiệp và nhận bằng số do trường ký. Khi nộp hồ sơ vào một công ty fintech, Minh gửi bằng từ ví của mình. Phần mềm của công ty kiểm tra chữ ký số khớp với khóa công khai của trường, xác nhận bằng chưa bị sửa và chưa bị thu hồi. Toàn bộ mất vài giây.'],
+ ['h2','Chỉ tiết lộ điều cần thiết'],
+ ['p','Một lợi ích quan trọng là <strong>tiết lộ có chọn lọc</strong>: chứng minh mình đủ 18 tuổi mà không phải đưa ra ngày sinh, hay chứng minh đã qua xác minh danh tính mà không gửi ảnh giấy tờ. Dữ liệu cá nhân ít bị sao chép đi khắp nơi hơn.'],
+ ['quote','Định danh tốt không phải là thu thập thêm dữ liệu, mà là cần ít dữ liệu hơn để tin nhau.'],
+ ['take',['Ba vai: bên cấp ký, người giữ lưu, bên kiểm tra xác minh.','Kiểm tra bằng chữ ký số thay vì hỏi lại bên cấp.','Có thể chứng minh một thuộc tính mà không lộ toàn bộ thông tin.','Giá trị của chứng thực phụ thuộc vào uy tín bên cấp.']]
+ ]},
+{id:'rwa',n:'06',icon:'home',cat:'Tài sản số',title:'Tài sản thực mã hóa (RWA): căn nhà nằm trên chuỗi?',sym:'Căn nhà nằm trên chuỗi?',
+ sub:'Token hóa giúp chia nhỏ và chuyển nhượng tài sản dễ hơn. Nhưng token chỉ đáng giá khi quyền ngoài đời được bảo đảm.',
+ b:[
+ ['p','<strong>RWA</strong> (Real World Assets) là cách gọi các tài sản ngoài đời thực, như bất động sản, trái phiếu, hàng hóa hay khoản phải thu, được biểu diễn bằng token trên blockchain. Quá trình này gọi là <strong>token hóa</strong>.'],
+ ['h2','Vì sao người ta token hóa?'],
+ ['p','Token hóa cho phép chia nhỏ một tài sản lớn thành nhiều phần, giao dịch gần như tức thời, theo dõi quyền sở hữu minh bạch và tự động hóa việc chia lợi nhuận bằng hợp đồng thông minh. Đây không còn là thử nghiệm nhỏ: năm 2024, quỹ quản lý tài sản BlackRock ra mắt quỹ BUIDL dưới dạng token trên Ethereum, đầu tư vào tín phiếu Kho bạc Mỹ.'],
+ ['ex','Một căn nhà trị giá 6 tỷ đồng được chia thành 6.000 token, mỗi token 1 triệu đồng. Anh Tuấn mua 50 token và nhận phần tiền cho thuê tương ứng mỗi tháng. Nghe đơn giản, nhưng câu hỏi thật là: nếu chủ nhà bán căn nhà cho người khác, 50 token của anh Tuấn còn được pháp luật công nhận không?'],
+ ['h2','Phần quan trọng nằm ngoài chuỗi'],
+ ['p','Blockchain ghi nhận ai giữ token, nhưng không tự bảo đảm quyền đối với tài sản thật. Một dự án RWA nghiêm túc cần cấu trúc pháp lý rõ ràng, thường thông qua một pháp nhân đứng tên tài sản; đơn vị lưu ký độc lập; kiểm toán định kỳ; và cơ chế xử lý khi có tranh chấp. Thiếu những điều đó, token chỉ là một dòng dữ liệu.'],
+ ['quote','Token là tờ giấy chứng nhận số. Giá trị nằm ở việc tòa án có công nhận tờ giấy đó hay không.'],
+ ['take',['RWA là tài sản thực được biểu diễn bằng token.','Lợi ích: chia nhỏ, thanh khoản, minh bạch, tự động hóa.','Rủi ro chính nằm ở pháp lý, lưu ký và định giá ngoài chuỗi.','Đọc kỹ cấu trúc pháp lý trước khi đọc tokenomics.']]
+ ]},
+{id:'ai-agent',n:'07',icon:'bot',cat:'AI',title:'AI Agent: không chỉ trả lời, mà tự làm',sym:'Không chỉ trả lời, mà tự làm.',
+ sub:'Giao việc gì cho máy, giữ việc gì cho người: cách nghĩ về AI Agent trong doanh nghiệp.',
+ b:[
+ ['p','Chatbot trả lời câu hỏi. <strong>AI Agent</strong> nhận một mục tiêu, tự chia thành các bước, gọi công cụ như email, bảng tính, phần mềm kế toán, kiểm tra kết quả và làm tiếp cho tới khi xong. Khác biệt nằm ở chữ "làm".'],
+ ['h2','Bên trong một AI Agent'],
+ ['p','Một agent thường gồm bốn phần: <strong>mô hình ngôn ngữ</strong> để hiểu và suy luận; <strong>công cụ</strong> để hành động, như đọc file hay gọi phần mềm khác; <strong>bộ nhớ</strong> để giữ bối cảnh công việc; và <strong>vòng lặp kế hoạch</strong>: làm một bước, xem kết quả, quyết định bước tiếp theo.'],
+ ['ex','Kế toán viên Ngọc mỗi tháng nhận khoảng 300 hóa đơn qua email. Một agent đọc email, trích số liệu hóa đơn, đối chiếu với đơn đặt hàng, đề xuất bút toán và đánh dấu những hóa đơn lệch số tiền. Ngọc chỉ xem và duyệt những dòng bị đánh dấu, thay vì nhập tay toàn bộ.'],
+ ['h2','Ba nguyên tắc khi giao việc'],
+ ['p','<strong>Người duyệt ở điểm rủi ro:</strong> chuyển tiền, gửi văn bản ra ngoài, xóa dữ liệu phải có người bấm xác nhận. <strong>Quyền tối thiểu:</strong> agent chỉ được truy cập đúng hệ thống cần cho việc của nó. <strong>Ghi lại mọi bước:</strong> có nhật ký để biết agent đã làm gì, vì sao, và quay lui khi sai.'],
+ ['p','Agent cũng có điểm yếu riêng: nó có thể hiểu sai yêu cầu, có thể "ảo giác", và có thể bị lừa bởi nội dung độc hại cài trong tài liệu nó đọc (tấn công prompt injection).'],
+ ['quote','Giao cho AI việc lặp lại. Giữ cho người việc chịu trách nhiệm.'],
+ ['take',['AI Agent tự lập kế hoạch, gọi công cụ và thực hiện chuỗi bước.','Hiệu quả nhất với việc lặp lại, có quy tắc rõ.','Luôn có người duyệt ở các điểm rủi ro, cấp quyền tối thiểu, lưu nhật ký.','Cẩn trọng với ảo giác và prompt injection.']]
+ ]},
+{id:'ao-giac-ai',n:'08',icon:'eye',cat:'AI',title:'Ảo giác AI: vì sao máy nói sai mà vẫn tự tin',sym:'Nói rất trôi chảy, nhưng sai.',
+ sub:'Cách mô hình ngôn ngữ tạo câu trả lời, và ba thói quen giúp bạn không bị dắt mũi.',
+ b:[
+ ['p','Bạn hỏi AI một số hiệu văn bản pháp luật, nó trả lời ngay, đúng định dạng, rất tự tin. Bạn tra lại: văn bản đó không tồn tại. Hiện tượng này gọi là <strong>ảo giác</strong> (hallucination).'],
+ ['h2','Vì sao lại xảy ra?'],
+ ['p','Mô hình ngôn ngữ được huấn luyện để đoán từ tiếp theo hợp lý nhất dựa trên rất nhiều văn bản đã học. Nó giỏi tạo ra câu nghe đúng, nhưng tự thân nó không có bước tra cứu để kiểm tra sự thật. Khi thiếu thông tin, thay vì nói "không biết", mô hình có thể ghép ra một câu trả lời có hình thức thuyết phục.'],
+ ['ex','Anh Bình nhờ AI viết báo cáo thị trường và nhận được con số "thị trường tăng 37% năm 2025" kèm tên một tổ chức nghiên cứu. Báo cáo gửi lên sếp, sếp hỏi nguồn, anh Bình tìm mãi không thấy. Con số đó do mô hình tự tạo ra.'],
+ ['h2','Ba thói quen phòng ngừa'],
+ ['p','<strong>Đưa nguồn vào trước:</strong> cung cấp tài liệu gốc và yêu cầu AI chỉ trả lời dựa trên đó. <strong>Đòi trích dẫn và tự mở ra kiểm tra:</strong> số liệu, điều luật, tên người phải có đường dẫn hoặc vị trí trong tài liệu. <strong>Dùng AI làm bản nháp, không làm bản cuối</strong> cho việc quan trọng: người chịu trách nhiệm vẫn là bạn.'],
+ ['p','Một mẹo nhỏ: hãy cho phép AI nói "không có dữ liệu". Khi câu lệnh nói rõ rằng thiếu thông tin thì phải báo thiếu, mô hình ít bịa hơn.'],
+ ['quote','AI trôi chảy không có nghĩa là AI đúng. Kiểm chứng là việc của người dùng.'],
+ ['take',['Ảo giác: câu trả lời nghe hợp lý nhưng sai sự thật.','Nguyên nhân: mô hình đoán từ hợp lý, không tự tra cứu.','Đưa nguồn, đòi trích dẫn, tự kiểm tra số liệu.','Cho phép AI trả lời "không có dữ liệu".']],
+ ['lab','quiz','Thử sức với bài kiểm tra kiến thức blockchain và AI.']
+ ]},{id:'he-thong-da-agent',n:'09',icon:'term',cat:'Thực chiến',feature:true,title:'Hệ thống đa agent: chạy một dự án với Claude Code',sym:'Một người ra lệnh, một đội AI làm.',
+ sub:'Cách tôi dựng một "công ty thu nhỏ" gồm 16 agent trên Claude Code: bạn nói tiếng Việt, AI làm việc, bạn chỉ duyệt kết quả.',
+ b:[
+ ['p','Chat với AI thì ai cũng làm được. Cái khó là biến những lượt chat rời rạc thành một dự án chạy được: có kế hoạch, có thiết kế, có code, có kiểm thử, và không bị "quên" khi đóng cửa sổ. Bài này kể lại cách tôi dựng một hệ thống như vậy trên <strong>Claude Code</strong>, phiên bản thứ ba sau nhiều lần làm lại.'],
+ ['h2','Bạn là Product Owner, không phải lập trình viên'],
+ ['p','Trong hệ thống này, người dùng đóng vai <strong>PO (Product Owner)</strong>: người quyết định sản phẩm. Một phiên Claude Code đóng vai <strong>Giám đốc dự án (Orchestrator)</strong>, nhận lệnh bằng tiếng Việt rồi giao việc cho <strong>16 agent chuyên môn</strong>. Người dùng không cần biết viết code; việc của họ là trả lời câu hỏi và bấm thử sản phẩm.'],
+ ['p','Mọi kết quả đi ra theo ba đường cố định: code lên một repo GitHub <strong>riêng tư</strong> của từng dự án, tài liệu lên Google Drive, còn sản phẩm chạy trên máy (localhost) để bấm thử trước. Chỉ khi PO đồng ý, sản phẩm mới được đưa lên tên miền thật.'],
+ ['steps',[['Bạn','ra lệnh tiếng Việt'],['Orchestrator','chia việc, điều phối'],['16 agent','làm từng phần'],['File dự án','trạng thái một nguồn'],['GitHub · Drive · máy','ba đường ra']]],
+ ['h2','Ba điều làm nó khác với việc "chat với AI"'],
+ ['p','<strong>Có cổng duyệt.</strong> Kế hoạch, thiết kế và hợp đồng API phải được PO duyệt thì máy mới làm tiếp. <strong>Có trí nhớ ngoài.</strong> Trạng thái dự án nằm trong vài file ngắn như <code>STATE.md</code>, <code>INDEX.md</code>, <code>CRITICAL_FACTS.md</code>; phiên mới chỉ đọc các file này thay vì đọc lại cả dự án, nên tốn ít token hơn. <strong>Báo cáo bằng ngôn ngữ kinh doanh.</strong> Máy chỉ dùng hai tín hiệu: 🔴 cho việc chờ bạn chốt, 🟢 cho việc đã xong kèm link bấm thử.'],
+ ['h2','Đội 16 agent'],
+ ['table',[['Nhóm','Agent','Việc chính'],['Kế hoạch','plan, bizcase, finance, research','Lộ trình, tờ trình 2 trang, lãi lỗ 3 kịch bản, thị trường có nguồn'],['Thiết kế','uiux, design-critic, media','Mockup bấm thử được, phản biện bằng ảnh chụp thật, bộ nhận diện'],['Kỹ thuật','backend, frontend, mobile, api, integration','API, giao diện web, app, chuỗi API dự phòng, ghép và chuẩn bị deploy'],['Chất lượng','qa','Viết case kiểm thử từ ngày đầu, chặn phát hành nếu chưa đạt'],['Thị trường','content, crm','Bài đăng, lịch truyền thông, kịch bản chăm sóc khách'],['Báo cáo','reporter','Trả lời câu hỏi "tình hình sao rồi"']]],
+ ['p','Mỗi agent chỉ được ghi vào thư mục của mình nhưng đọc được mọi nơi. Nguyên tắc này tránh việc agent này ghi đè lên kết quả của agent khác.'],
+ ['h2','Vòng đời một dự án: 7 ngày, 4 cổng'],
+ ['steps',[['/du-an-moi','tạo khung + repo riêng'],['Duyệt KẾ HOẠCH','cổng 1'],['Duyệt THIẾT KẾ','cổng 2, một trang'],['Duyệt HỢP ĐỒNG','cổng 3, API + mockup'],['Dựng & nghiệm thu','từng tính năng'],['Duyệt PHÁT HÀNH','cổng 4, chỉ PO']]],
+ ['p','Dự án mới mặc định chạy <strong>chế độ 7 ngày</strong>: bản đầu tiên chỉ gồm một luồng nghiệp vụ, tối đa 7 màn hình web và 4 màn hình mobile. Hết ngày thứ 7 thì chốt, phần chưa xong chuyển sang bản 2. Thiết kế được duyệt trên một trang trước khi máy dựng hàng chục màn hình, và tính năng nào xong thì PO bấm thử tính năng đó. Máy không được nghiệm thu thay người.'],
+ ['ex','Chị Mai làm chủ một chuỗi tiệm bánh và muốn có trang đặt hàng trước. Sáng thứ Hai, chị gõ <code>/du-an-moi dat-banh</code> rồi <code>/khoi-dong</code>; máy hỏi gom một lần 7 câu về sản phẩm, khách hàng, cách thanh toán. Thứ Ba chị duyệt kế hoạch, thứ Tư duyệt thiết kế trên một trang. Từ thứ Năm, mỗi tối chị nhận vài dòng 🟢 kèm link để bấm thử từng tính năng. Chủ Nhật, chị duyệt phát hành. Suốt tuần, chị không viết dòng code nào.'],
+ ['h2','Ba mức quyết định'],
+ ['table',[['Mức','Cách xử lý','Ví dụ'],['Mức 1','Máy tự quyết','Việc kỹ thuật nội bộ'],['Mức 2','Máy làm rồi báo lại','Thay đổi có ghi chép'],['Mức 3','Máy dừng lại và hỏi','Tiền thật, deploy, pháp lý, dữ liệu khách hàng']]],
+ ['p','Khi máy hỏi một việc vụn vặt, PO chỉ cần nói "việc này là Mức 1, tự quyết đi"; máy ghi lại để lần sau không hỏi loại việc đó nữa. Ngược lại, mọi việc chạm đến tiền, pháp lý hay dữ liệu khách hàng luôn phải dừng lại chờ người.'],
+ ['quote','Việc chắc chắn giao cho script, việc phán đoán giao cho AI, việc chịu trách nhiệm giữ lại cho người.'],
+ ['h2','Bốn nguyên tắc kiến trúc'],
+ ['take',['<strong>Một nguồn trạng thái:</strong> agent nào cũng đọc STATE, INDEX, CRITICAL_FACTS trước, không quét cả dự án.','<strong>Phân vùng sở hữu:</strong> mỗi agent chỉ ghi vào thư mục của mình.','<strong>Script cho việc chắc chắn:</strong> báo cáo trạng thái, đếm ngày, kiểm tra sức khỏe chạy bằng script trong Terminal, không tốn token.','<strong>Khóa AI cấp một lần:</strong> mọi dự án dùng chung một kho khóa nằm trên máy; nhà cung cấp này hết lượt thì tự chuyển sang nhà kế tiếp.']],
+ ['h2','Một ngày làm việc'],
+ ['p','Buổi sáng, mở dự án bằng một dòng lệnh. Nếu hôm trước có lưu phiên, máy tự nhắc và chỉ cần gõ <code>/tiep-tuc</code> để làm tiếp đúng chỗ đã dừng.'],
+ ['code','cd "$GOC/du-an/dat-banh" && bin/ngay.sh && claude\n\n/tiep-tuc      # làm tiếp từ bàn giao hôm qua\n/tinh-hinh     # tình hình sao rồi?\n/chay-thu      # chạy sản phẩm để bấm thử\n/nghiem-thu    # nghiệm thu một tính năng\n/chot-ngay     # chốt việc cuối ngày\n/handoff       # lưu phiên trước khi tắt máy'],
+ ['p','Trong ngày, PO chỉ nhìn hai loại dòng: 🔴 thì trả lời A hoặc B, 🟢 thì bấm link thử. Khi máy viết dài khó hiểu, gõ <code>/noi-gon</code> để nó viết lại không quá một nửa.'],
+ ['h2','Cài đặt mất bao lâu?'],
+ ['p','Lần đầu mất khoảng 45 đến 60 phút trên máy Mac, gồm 12 bước copy và dán: cài công cụ nền (Homebrew, Node.js, GitHub CLI), cài và đăng nhập Claude Code, lấy bộ khung, cài bàn giao phiên, tạo kho khóa AI, rồi chạy lệnh kiểm tra cho tới khi thấy dòng <code>✓ Hệ thống sẵn sàng</code>. Cần một tài khoản Claude trả phí (Pro hoặc Max; hệ thống chạy nhiều agent nên gói Max đỡ hết lượt hơn), một tài khoản GitHub và một tài khoản Google. Nguyên tắc duy nhất: bước nào báo lỗi thì dừng ở bước đó, sửa xong mới đi tiếp.'],
+ ['h2','Bảy điều không được làm'],
+ ['take',['Không dán khóa AI vào khung chat; chỉ dán qua lệnh của kho khóa.','Không đưa file .env lên GitHub hay Drive.','Không chuyển repo sang công khai khi chưa cân nhắc kỹ.','Không gắn thẻ tín dụng chỉ để lấy khóa "miễn phí".','Không đưa dữ liệu nhạy cảm qua nhà cung cấp dự phòng không cần khóa.','Không để máy tự deploy.','Không chia sẻ thư mục nhật ký bàn giao phiên của dự án.']],
+ ['p','Hệ thống không thay thế người làm sản phẩm. Nó thay phần việc lặp lại để người làm sản phẩm dành thời gian cho đúng ba việc: quyết định, duyệt và chịu trách nhiệm. Bộ khung hiện để ở repo riêng tư; nếu bạn muốn thử, hãy liên hệ người viết.']
+ ]}
+,{id:'tu-0-den-phan-mem',n:'10',icon:'rocket',cat:'Thực chiến',feature:true,title:'Từ con số 0 đến phần mềm đầu tiên với Claude Code',sym:'Không biết code vẫn làm ra phần mềm.',
+ sub:'Sáu bước thực tế: dựng bàn làm việc với Ghostty và Obsidian, cài Claude Code, bảo nó xây hệ thống trước, rồi dùng hệ thống đó chạy dự án.',
+ b:[
+ ['note','<strong>Đừng sợ cái tên Claude Code.</strong> Bạn không phải viết code. Claude Code là một nền tảng để bạn mô tả phần mềm mình muốn bằng tiếng Việt thông thường, còn AI viết code, chạy thử và sửa lỗi. Việc của bạn là nói rõ mình cần gì, rồi duyệt kết quả. Màn hình đen của Terminal chỉ là nơi gõ chữ, không phải nơi lập trình.'],
+ ['p','Bài trước tôi kể về một hệ thống đa agent chạy dự án. Bài này đi vào phần "làm thế nào": từ một chiếc máy Mac trống đến lúc bấm thử được phần mềm đầu tiên. Toàn bộ quy trình gồm sáu bước.'],
+ ['steps',[['Bàn làm việc','Ghostty + Obsidian'],['Claude Code','cài và đăng nhập'],['Học cách nói','plan mode, CLAUDE.md'],['Xây hệ thống','agent, lệnh, trạng thái'],['Chạy dự án','qua các cổng duyệt'],['herdr','nhiều dự án song song']]],
+ ['h2','Bước 1: Dựng bàn làm việc'],
+ ['p','Bạn cần hai công cụ. <strong>Ghostty</strong> là một ứng dụng Terminal hiện đại, nhanh và dễ nhìn hơn Terminal mặc định của Mac; đây là nơi bạn nói chuyện với Claude Code. <strong>Obsidian</strong> là ứng dụng đọc và ghi chú file Markdown (.md); mọi kế hoạch, trạng thái và tài liệu của dự án đều là file .md, nên Obsidian giúp bạn đọc chúng như đọc sổ tay thay vì mở từng file.'],
+ ['p','Cách nhanh nhất là cài qua Homebrew, trình cài phần mềm cho Mac. Mở Terminal (nhấn ⌘ + Space, gõ Terminal), dán lần lượt từng khối:'],
+ ['code','# Cài Homebrew (làm một lần). Cài xong, chạy đúng các dòng "Next steps" nó in ra\n/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\n\n# Cài Ghostty và Obsidian\nbrew install --cask ghostty obsidian\n\n# Cài các công cụ nền mà Claude Code hay dùng\nbrew install node gh jq'],
+ ['p','Từ đây trở đi, bạn mở <strong>Ghostty</strong> thay cho Terminal. Trong Obsidian, chọn "Open folder as vault" và trỏ vào thư mục chứa các dự án. Mỗi khi AI viết hay cập nhật một file kế hoạch, bạn thấy ngay trong Obsidian.'],
+ ['h2','Bước 2: Cài và đăng nhập Claude Code'],
+ ['p','Bạn cần một tài khoản Claude trả phí (Pro hoặc Max). Trong Ghostty, dán lệnh cài:'],
+ ['code','curl -fsSL https://claude.ai/install.sh | bash\n\n# Nếu sau đó báo không tìm thấy lệnh claude:\necho \'export PATH="$HOME/.local/bin:$PATH"\' >> ~/.zshrc && source ~/.zshrc\n\n# Mở Claude Code và đăng nhập lần đầu\nclaude\n\n# Kiểm tra phiên bản\nclaude --version'],
+ ['p','Lần đầu gõ <code>claude</code>, chọn đăng nhập bằng tài khoản Claude; trình duyệt mở ra để bạn xác nhận. Khi thấy giao diện Claude Code trong Ghostty là xong. Gõ <code>/exit</code> để thoát.'],
+ ['h2','Bước 3: Học cách nói chuyện với Claude Code'],
+ ['p','Claude Code làm việc trong <strong>thư mục bạn đang đứng</strong>. Bạn tạo một thư mục, đi vào đó, gõ <code>claude</code>, rồi nói bằng tiếng Việt như nói với một nhân viên giỏi. Ba thói quen giúp kết quả tốt hơn hẳn:'],
+ ['take',['<strong>Bảo nó lập kế hoạch trước.</strong> Nhấn Shift + Tab để chuyển sang chế độ lập kế hoạch: Claude đọc, suy nghĩ và trình kế hoạch, chưa sửa file nào cho tới khi bạn đồng ý.','<strong>Đọc trước khi bấm đồng ý.</strong> Claude Code luôn xin phép trước khi chạy lệnh hay sửa file. Đọc câu nó hỏi; không hiểu thì hỏi lại "lệnh này làm gì?".','<strong>Viết luật vào CLAUDE.md.</strong> File CLAUDE.md trong thư mục dự án được Claude Code đọc mỗi khi mở phiên. Những gì bạn muốn nó luôn nhớ (ngôn ngữ, phong cách, điều cấm) hãy ghi vào đây thay vì nhắc lại mỗi lần.']],
+ ['h2','Bước 4: Bảo Claude Code xây hệ thống trước'],
+ ['p','Sai lầm phổ biến nhất là mở Claude Code rồi gõ ngay "làm cho tôi một app bán hàng". Kết quả thường chạy được hôm nay nhưng rối vào tuần sau. Cách bền hơn là <strong>xây hệ thống làm việc trước, rồi mới làm sản phẩm</strong>. Hệ thống gồm: các agent chuyên môn, các lệnh tiếng Việt, các file trạng thái và các cổng duyệt.'],
+ ['p','Bạn có thể bắt đầu bằng một yêu cầu như sau:'],
+ ['code','Tôi không biết lập trình. Tôi muốn một hệ thống để làm phần mềm bằng AI,\ntrong đó tôi là Product Owner, chỉ ra lệnh bằng tiếng Việt và duyệt kết quả.\n\nHãy thiết kế thư mục he-thong-agent gồm:\n- CLAUDE.md: vai trò Giám đốc dự án (Orchestrator), luật báo cáo\n  🔴 việc chờ tôi chốt, 🟢 việc đã xong kèm link bấm thử\n- agents/: plan, uiux, backend, frontend, qa, reporter\n- commands/: /du-an-moi, /khoi-dong, /duyet, /tinh-hinh, /chay-thu, /handoff\n- STATE.md và INDEX.md: trạng thái dự án, phiên mới đọc thay vì đọc lại cả dự án\n- 4 cổng duyệt: kế hoạch, thiết kế, hợp đồng API, phát hành\n- việc liên quan tiền thật, deploy, pháp lý: luôn dừng lại hỏi tôi\n\nTrước khi làm, hỏi tôi tối đa 7 câu. Trình kế hoạch, chờ tôi duyệt rồi mới tạo file.'],
+ ['p','Claude Code sẽ hỏi lại, trình kế hoạch, rồi tạo các file. Mở Obsidian để đọc những gì vừa được tạo. Thấy chỗ nào chưa đúng ý, nói thẳng: "agent qa phải viết case kiểm thử ngay từ ngày đầu", "báo cáo ngắn lại một nửa". Hệ thống sẽ được chỉnh dần qua từng dự án.'],
+ ['ex','Anh Hùng làm nhân sự, chưa từng lập trình. Buổi tối đầu tiên anh chỉ cài công cụ. Buổi thứ hai anh dành hai tiếng nói chuyện với Claude Code để dựng hệ thống: 6 agent, 8 lệnh, một file luật. Từ dự án thứ hai trở đi, anh không phải giải thích lại cách làm việc nữa, chỉ cần gõ <code>/du-an-moi</code>.'],
+ ['h2','Bước 5: Dựa vào hệ thống để chạy dự án'],
+ ['p','Khi đã có hệ thống, mỗi phần mềm mới chỉ còn là một chuỗi lệnh. Ví dụ với một trang đặt lịch cho phòng khám nha:'],
+ ['code','claude\n/du-an-moi dat-lich-nha-khoa      # tạo thư mục + repo GitHub riêng tư\n/exit\n\ncd "du-an/dat-lich-nha-khoa" && claude\n/khoi-dong     # máy hỏi gom 7 câu, đề xuất agent chạy trước\n/duyet         # duyệt kế hoạch, rồi thiết kế, rồi hợp đồng API\n/chay-thu      # chạy trên máy để bạn bấm thử\n/nghiem-thu    # nghiệm thu từng tính năng\n/handoff       # lưu phiên trước khi tắt máy'],
+ ['p','Nhịp làm việc rất đơn giản: máy hỏi thì trả lời A hoặc B, máy báo 🟢 thì bấm link thử. Không hiểu gì thì hỏi "cái này nằm ở đâu trên sản phẩm?". Nếu máy không chỉ ra được, đó là việc kỹ thuật nội bộ và máy tự quyết.'],
+ ['quote','Phần mềm không ra đời từ một câu lệnh thần kỳ. Nó ra đời từ một chuỗi quyết định nhỏ, mỗi quyết định đều có người duyệt.'],
+ ['h2','Bước 6: herdr cho nhiều dự án cùng lúc'],
+ ['p','Khi chạy hai, ba dự án song song, cửa sổ Terminal sẽ rối. <strong>herdr</strong> giúp quản lý nhiều phiên AI trong một cửa sổ, mỗi dự án một khung, có thanh bên cho biết khung nào đang chạy, khung nào đang chờ bạn. Mã nguồn và hướng dẫn cài nằm ở repo <a href="https://github.com/herdrdev/herdr" target="_blank" rel="noopener">herdrdev/herdr</a> (hoặc nhờ Claude Code đọc repo và cài giúp, xem phần dưới). Sau khi cài, đặt tên cho từng khung bằng <code>Ctrl + B</code> rồi <code>Shift + P</code>. Để thanh bên hiện tên dự án, thêm vào file <code>~/.config/herdr/config.toml</code>:'],
+ ['code','[ui.sidebar.agents]\nrows = [["state_icon","pane"],["terminal_title_stripped"]]\n\n# rồi nạp lại cấu hình\nherdr server reload-config'],
+ ['h2','Bộ repo nền tảng'],
+ ['p','Hệ thống không tự nghĩ ra mọi thứ. Nó đứng trên vai một loạt dự án mã nguồn mở trên GitHub. Đây là danh sách repo đang dùng và vai trò của từng cái:'],
+ ['table',[['Repo','Dùng trong hệ thống để'],['<a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">anthropics/claude-code ↗</a>','Bộ não chạy Giám đốc dự án và 16 agent'],['<a href="https://github.com/anthropics/skills" target="_blank" rel="noopener">anthropics/skills ↗</a>','Chuẩn viết skill, áp dụng cho bộ lưu phiên (<code>/handoff</code>) và làm tiếp (<code>/tiep-tuc</code>)'],['<a href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener">anthropics/claude-plugins-official ↗</a>','Kho tiện ích chính thức của Claude Code'],['<a href="https://github.com/public-apis/public-apis" target="_blank" rel="noopener">public-apis/public-apis ↗</a>','Danh mục khoảng 1.700 API miễn phí để agent tìm nhà cung cấp'],['<a href="https://github.com/herdrdev/herdr" target="_blank" rel="noopener">herdrdev/herdr ↗</a>','Quản lý nhiều phiên AI, đặt tên riêng cho từng dự án'],['<a href="https://github.com/eugeniughelbur/obsidian-second-brain" target="_blank" rel="noopener">eugeniughelbur/obsidian-second-brain ↗</a>','Nối trí nhớ phiên làm việc vào Obsidian'],['<a href="https://github.com/21st-dev/cli" target="_blank" rel="noopener">21st-dev/cli ↗</a>','Lấy mẫu giao diện đẹp từ 21st.dev'],['<a href="https://github.com/cli/cli" target="_blank" rel="noopener">cli/cli ↗</a>','GitHub CLI: tự tạo repo GitHub riêng tư cho mỗi dự án mới'],['<a href="https://github.com/cloudflare/cloudflared" target="_blank" rel="noopener">cloudflare/cloudflared ↗</a>','Mở sản phẩm trên điện thoại khi ra khỏi wifi'],['<a href="https://github.com/vercel/vercel" target="_blank" rel="noopener">vercel/vercel ↗</a>','Đưa sản phẩm lên domain thật khi bạn duyệt']]],
+ ['p','Bạn không cần đọc hiểu code trong các repo này. Chỉ cần biết chúng tồn tại và đưa đường link cho Claude Code; phần đọc, hiểu và tích hợp là việc của nó.'],
+ ['h2','Nâng cấp hệ thống chỉ bằng chat'],
+ ['p','Đây là phần nhiều người không ngờ tới: muốn thêm tính năng cho hệ thống, bạn không phải cài tay từng bước. Mở Claude Code trong thư mục <code>he-thong-agent</code>, dán link repo và nói bằng tiếng Việt mình muốn gì. Ví dụ:'],
+ ['code','Đọc repo https://github.com/eugeniughelbur/obsidian-second-brain.\nGiải thích ngắn gọn nó làm gì, rồi đề xuất cách nối vào he-thong-agent\nđể mỗi lần tôi gõ /handoff, bản tóm tắt phiên được lưu thành ghi chú trong Obsidian.\nTrình kế hoạch trước, chưa sửa file nào khi tôi chưa duyệt.'],
+ ['code','Đọc repo https://github.com/public-apis/public-apis.\nCập nhật api-agent để khi dự án cần dữ liệu ngoài (thời tiết, tỷ giá, bản đồ),\nagent tìm trong danh mục này trước, ưu tiên API miễn phí, không cần thẻ,\nvà luôn có ít nhất một nhà dự phòng.'],
+ ['code','Đọc repo https://github.com/herdrdev/herdr và hướng dẫn tôi cài trên máy Mac.\nSau đó cấu hình để mỗi dự án trong thư mục du-an mở thành một khung có tên riêng.'],
+ ['p','Công thức chung chỉ có ba phần: <strong>đưa link</strong>, <strong>nói rõ kết quả mong muốn</strong> bằng ngôn ngữ đời thường, và <strong>yêu cầu trình kế hoạch trước khi sửa</strong>. Claude Code sẽ đọc tài liệu của repo, so với hệ thống hiện tại và đề xuất thay đổi cụ thể để bạn duyệt.'],
+ ['ex','Chị Thu muốn các sản phẩm của mình có giao diện đẹp hơn. Chị dán link <code>github.com/21st-dev/cli</code> và gõ: "Thêm cho hệ thống một lệnh /chon-component: khi tôi cần một thành phần giao diện, hiện 3 mẫu từ 21st.dev để tôi chọn". Mười lăm phút sau, hệ thống có thêm lệnh mới; chị chưa từng mở một file code nào.'],
+ ['p','Một lưu ý quan trọng: repo trên GitHub là mã do người khác viết. Trước khi cài, hãy hỏi Claude Code "repo này cần những quyền gì trên máy tôi, có gửi dữ liệu ra ngoài không?". Ưu tiên repo của tổ chức chính thức hoặc có nhiều người dùng, và luôn đọc kế hoạch trước khi bấm đồng ý.'],
+ ['h2','Ba điều cần nhớ'],
+ ['take',['Không dán khóa API hay mật khẩu vào khung chat với AI.','Repo GitHub của dự án để chế độ riêng tư.','Mọi việc chạm đến tiền thật, deploy, pháp lý hay dữ liệu khách hàng: bạn chốt, không để máy tự làm.']],
+ ['p','Bắt đầu nhỏ: một buổi tối cài công cụ, một buổi dựng hệ thống, một tuần cho phần mềm đầu tiên. Sau dự án đầu tiên, bạn sẽ thấy rào cản lớn nhất chưa bao giờ là code, mà là nói cho rõ mình muốn gì.']
+ ]}
+
+];
+
+const PATH=[['Nền tảng','Hash, chữ ký, sổ cái','hash'],['Ví & khóa','Tự giữ tài sản an toàn','khoa-rieng'],['Hợp đồng thông minh','Logic tự thực thi','hop-dong-thong-minh'],['Định danh','Ai cấp, ai giữ, ai kiểm','dinh-danh'],['Tài sản số','Stablecoin, rủi ro','stablecoin'],['Token hóa','Tài sản thực trên chuỗi','rwa'],['AI × Chain','AI Agent trong vận hành','ai-agent']];
+
+const APPS=[
+ {id:'chain',icon:'chain',title:'Chain Simulator',desc:'Tự tạo các khối, nối chúng bằng mã băm và thử sửa dữ liệu để thấy chuỗi gãy.',vis:'flow',ver:'v1.0'},
+ {id:'hash',icon:'hash',title:'Máy băm SHA-256',desc:'So sánh dấu vân tay của hai đoạn văn gần giống nhau, đếm số ký tự thay đổi.',vis:'grid',ver:'v1.0'},
+ {id:'quiz',icon:'quiz',title:'Khám sức khỏe kiến thức',desc:'Sáu câu hỏi trắc nghiệm về blockchain và AI, có giải thích sau mỗi câu.',vis:'cert',ver:'v1.0'},
+ {id:'wheel',icon:'wheel',title:'Bốc thuốc hôm nay',desc:'Vòng quay chọn ngẫu nhiên một chủ đề và dẫn thẳng tới bài viết.',vis:'id',ver:'v1.0'},
+ {id:'next',icon:'plus',title:'Sản phẩm tiếp theo',desc:'Khe phát hành dành cho sản phẩm công nghệ mới. Cập nhật khi ra mắt.',vis:'trace',soon:true}
+];
+
+/* PRESS — chỉ các bài đã kiểm chứng trong tư liệu báo chí (bỏ thông cáo trả phí openPR) */
+const QUOTES=[
+ ['Chúng tôi mong muốn Basal Pay trở thành hình mẫu về cách doanh nghiệp Việt Nam có thể làm chủ công nghệ và tuân thủ chuẩn mực quốc tế ngay từ giai đoạn thử nghiệm.','Báo Điện tử Chính phủ','29/08/2025','https://baochinhphu.vn/blockchain-chia-khoa-de-viet-nam-hoi-nhap-sau-rong-vao-nen-kinh-te-so-quoc-te-102250829132710211.htm'],
+ ['Đổi mới sáng tạo chỉ thật sự bền vững khi được đặt trong khuôn khổ pháp lý rõ ràng.','Startup Đà Nẵng','30/10/2025','https://startupdanang.vn/basal-pay-trong-khuon-kho-sandbox-trai-nghiem-tai-chinh-so-an-toan-va-minh-bach'],
+ ['Trang bị kiến thức nền tảng về blockchain, tài sản số, mô hình vận hành và quản trị rủi ro sẽ giúp nhà đầu tư hạn chế các quyết định mang tính cảm xúc, đồng thời nâng cao khả năng nhận diện cơ hội thực sự của thị trường.','Bnews (TTXVN)','04/06/2026','https://bnews.vn/nang-cao-nang-luc-quan-tri-rui-ro-thi-truong-tai-san-so/423823.html']
+];
+const EVENTS=[
+ {t:'press',d:'04/06/2026',sort:20260604,title:'Tọa đàm "Xu hướng, cơ hội và quản trị rủi ro tài sản số"',place:'Vinhomes Times City, Hà Nội · VBA phối hợp 1Matrix, Tether, Viện ABAII tổ chức',
+  q:'Trang bị kiến thức nền tảng về blockchain, tài sản số, mô hình vận hành và quản trị rủi ro sẽ giúp nhà đầu tư hạn chế các quyết định mang tính cảm xúc…',
+  links:[['Bnews (TTXVN)','Nâng cao năng lực quản trị rủi ro thị trường tài sản số','https://bnews.vn/nang-cao-nang-luc-quan-tri-rui-ro-thi-truong-tai-san-so/423823.html'],
+   ['VietNamNet','Một thứ nhà đầu tư tài sản số phải từ bỏ ngay nếu muốn thành công','https://vietnamnet.vn/mot-thu-nha-dau-tu-tai-san-so-phai-tu-bo-ngay-neu-muon-thanh-cong-2522770.html'],
+   ['Thị trường Tài chính Tiền tệ','Nền tảng kiến thức và quản trị rủi ro…','https://thitruongtaichinhtiente.vn/nen-tang-kien-thuc-va-quan-tri-rui-ro-chia-khoa-giup-nha-dau-tu-tinh-tao-tren-thi-truong-tai-san-so-83394.html'],
+   ['Văn hóa và Phát triển','Toạ đàm "Xu hướng, cơ hội và quản trị rủi ro tài sản số"','https://vanhoavaphattrien.vn/quan-tri-rui-ro-va-nen-tang-kien-thuc-dan-dat-tuong-lai-tai-san-so-a33519.html'],
+   ['Người Quan Sát','Quản trị rủi ro và nền tảng kiến thức…','https://nguoiquansat.vn/quan-tri-rui-ro-va-nen-tang-kien-thuc-dan-dat-tuong-lai-tai-san-so-295933.html'],
+   ['Vietstock','Đăng lại bài VietNamNet','https://vietstock.vn/2026/06/mot-thu-nha-dau-tu-tai-san-so-phai-tu-bo-ngay-neu-muon-thanh-cong-16312-1450952.htm'],
+   ['Nhịp sống kinh doanh','Đăng lại','https://nhipsongkinhdoanh.vn/nen-tang-kien-thuc-va-quan-tri-rui-ro--chia-khoa-giup-nha-dau-tu-tinh-tao-tren-thi-truong-tai-san-so-29381.htm']]},
+ {t:'press',d:'29–30/10/2025',sort:20251029,title:'Hội thảo "Fintech Sandbox – Trải nghiệm Basal Pay, Hiểu đúng tài sản số"',place:'Trung tâm Hỗ trợ khởi nghiệp đổi mới sáng tạo Đà Nẵng',img:'08_01',
+  q:'Đổi mới sáng tạo chỉ thật sự bền vững khi được đặt trong khuôn khổ pháp lý rõ ràng.',
+  links:[['Startup Đà Nẵng','Basal Pay trong khuôn khổ Sandbox…','https://startupdanang.vn/basal-pay-trong-khuon-kho-sandbox-trai-nghiem-tai-chinh-so-an-toan-va-minh-bach'],
+   ['Tuổi Trẻ Online','Dự án chuyển đổi tài sản mã hóa thử nghiệm ở Đà Nẵng là bước đi táo bạo','https://tuoitre.vn/du-an-chuyen-doi-tai-san-ma-hoa-thu-nghiem-o-da-nang-la-buoc-di-tao-bao-20251030152631437.htm'],
+   ['Markettimes','Đà Nẵng thúc đẩy đổi mới tài chính số qua mô hình sandbox fintech','https://markettimes.vn/da-nang-thuc-day-doi-moi-tai-chinh-so-qua-mo-hinh-sandbox-fintech-95959.html'],
+   ['Stockbiz','Đăng lại Markettimes','https://stockbiz.vn/tin-tuc/da-nang-thuc-day-doi-moi-tai-chinh-so-qua-mo-hinh-sandbox-fintech/36448437']]},
+ {t:'press',d:'05/09/2025',sort:20250905,title:'Phỏng vấn "Sập bẫy đầu tư tiền số: Vì đâu nên nỗi?"',place:'Chuyên đề VietnamFinance',
+  q:'Cùng với sự bùng nổ của thị trường tài sản mã hóa, làn sóng đầu tư vào tài sản số của người Việt cũng tăng theo.',
+  links:[['VietnamFinance','Sập bẫy đầu tư tiền số: Vì đâu nên nỗi?','https://vietnamfinance.vn/sap-bay-dau-tu-tien-so-vi-dau-nen-noi-d130880.html']]},
+ {t:'press',d:'29/08/2025',sort:20250829,title:'Ngày hội Blockchain Việt Nam 2025',place:'Đà Nẵng',
+  q:'Chúng tôi mong muốn Basal Pay trở thành hình mẫu về cách doanh nghiệp Việt Nam có thể làm chủ công nghệ và tuân thủ chuẩn mực quốc tế ngay từ giai đoạn thử nghiệm.',
+  links:[['Báo Điện tử Chính phủ','Blockchain: Chìa khóa để Việt Nam hội nhập sâu rộng vào nền kinh tế số quốc tế','https://baochinhphu.vn/blockchain-chia-khoa-de-viet-nam-hoi-nhap-sau-rong-vao-nen-kinh-te-so-quoc-te-102250829132710211.htm']]},
+ {t:'press',d:'26/08/2025',sort:20250826,title:'Basal Pay được Đà Nẵng cấp phép thử nghiệm có kiểm soát',place:'Dự án chuyển đổi tài sản mã hóa đầu tiên tại Việt Nam được cấp phép thử nghiệm',
+  links:[['VOV (English)','Vietnam approves first sandbox trial for crypto-asset conversion project','https://kynguyenvuonminh.vov.vn/en/economy/vietnam-approves-first-sandbox-trial-for-crypto-asset-conversion-project-post1225746.vov'],
+   ['Thị trường Tài chính Tiền tệ','Đà Nẵng cho phép thử nghiệm Basal Pay…','https://thitruongtaichinhtiente.vn/da-nang-cho-phep-thu-nghiem-basal-pay-du-an-chuyen-doi-tai-san-ma-hoa-dau-tien-tai-viet-nam-duoc-cap-phep-thu-nghiem-69942.html'],
+   ['Báo Công Lý','Basal Pay: Dự án chuyển đổi tài sản mã hóa đầu tiên…','https://congly.vn/basal-pay-du-an-chuyen-doi-tai-san-ma-hoa-dau-tien-tai-viet-nam-duoc-cap-phep-thu-nghiem-490229.html'],
+   ['CafeF','Đà Nẵng cho phép thử nghiệm Basal Pay…','https://cafef.vn/da-nang-cho-phep-thu-nghiem-basal-pay-du-an-chuyen-doi-tai-san-ma-hoa-dau-tien-tuan-thu-chuan-quoc-te-188250826191416986.chn'],
+   ['CafeBiz','Đà Nẵng cho phép thử nghiệm Basal Pay…','https://cafebiz.vn/da-nang-cho-phep-thu-nghiem-basal-pay-du-an-chuyen-doi-tai-san-ma-hoa-dau-tien-tuan-thu-chuan-quoc-te-176250826202841492.chn'],
+   ['Sài Gòn Giải Phóng','Đà Nẵng thử nghiệm có kiểm soát phần mềm Basal Pay','https://www.sggp.org.vn/da-nang-thu-nghiem-co-kiem-soat-phan-mem-basal-pay-post810283.html'],
+   ['Doanh nhân Pháp luật VN','Dự án chuyển đổi tài sản mã hóa đầu tiên…','https://doanhnhan.baophapluat.vn/du-an-chuyen-doi-tai-san-ma-hoa-dau-tien-tai-viet-nam-duoc-cap-phep-thu-nghiem.html']]},
+ {t:'press',d:'26/03/2025',sort:20250326,title:'Giao lưu doanh nhân "Khám phá cơ hội nghề nghiệp Blockchain"',place:'Trường ĐH Công nghệ TP.HCM (HUTECH) · bài có video',
+  links:[['HUTECH','Định hướng Blockchain từ sớm…','https://www.hutech.edu.vn/homepage/hoat-dong-sinh-vien/14624478-dinh-huong-blockchain-tu-som-sinh-vien-khoa-tai-chinh-thuong-mai-san-sang-nam-bat-co-hoi-nghe-nghiep']]},
+ {t:'press',d:'09–12/2024',sort:20240918,title:'Chuỗi ABAII Unitour và hội thảo đại học',place:'ĐH Văn Lang · ĐH Quốc tế (ĐHQG TP.HCM) · UEF · ĐH Gia Định',
+  q:'AI không dừng lại ở mức cơ hội, mà đang trở thành yêu cầu bắt buộc với phần lớn lao động trẻ.',
+  links:[['Markettimes','Blockchain và AI mở cánh cửa mới cho thị trường việc làm tương lai','https://markettimes.vn/blockchain-va-ai-mo-canh-cua-moi-cho-thi-truong-viec-lam-tuong-lai-63867.html'],
+   ['Markettimes','Giải mã mức lương "khủng" ngành blockchain và AI','https://markettimes.vn/giai-ma-muc-luong-khung-nganh-blockchain-va-ai-66927.html'],
+   ['Sài Gòn Giải Phóng','Thiếu hụt nhân sự blockchain và AI trong ngành tài chính ngân hàng','https://www.sggp.org.vn/thieu-hut-nhan-su-blockchain-va-ai-trong-nganh-tai-chinh-ngan-hang-post770814.html'],
+   ['DN & Kinh tế xanh','ABAII Unitour 18 cùng sinh viên bắt sóng công nghệ tương lai','https://doanhnghiepkinhtexanh.vn/abaii-unitour-18-cung-sinh-vien-bat-song-cong-nghe-tuong-lai-a28193.html'],
+   ['Sai Gon Economy','ABAII Unitour 18…','https://saigoneconomy.net/abaii-unitour-18-mo-ra-co-hoi-phat-trien-va-co-hoi-nghe-nghiep-thuc-te-cho-sinh-vien-a198517.html']]},
+ /* hoạt động — từ bản tin nội bộ VBA/ABAII */
+ {t:'internal',d:'20/08/2026',sort:20260820,title:'Khóa học "Tài sản mã hóa trong ngành Tài chính – Ngân hàng: Từ ứng dụng đến quản trị rủi ro"',place:'Viện ABAII · Hà Nội · Giảng viên',img:'14_02'},
+ {t:'internal',d:'10/06/2026',sort:20260610,title:'Khóa học "Ứng dụng Blockchain và tài sản mã hóa trong ngành Tài chính – Chứng khoán"',place:'ABAII phối hợp Trung tâm NCKH & Đào tạo Chứng khoán (UBCKNN) · Giảng viên',img:'12_03'},
+ {t:'internal',d:'07/11/2025',sort:20251107,title:'Vietnam Innovation Summit 2025: diễn đàn "Thúc đẩy Trung tâm tài chính quốc tế TP.HCM"',place:'TP.HCM · Panelist',img:'11_01'},
+ {t:'internal',d:'04/11/2025',sort:20251104,title:'ABAII Unitour 2025 tại Trường ĐH Đà Lạt',place:'Đà Lạt · Chuyên gia',img:'10_01'},
+ {t:'internal',d:'31/10/2025',sort:20251031,title:'ABAII Unitour 2025 tại UEF: "Tài sản mã hoá & AI – Kiến tạo hành trang hội nhập cho sinh viên"',place:'TP.HCM · Chuyên gia',img:'09_01'},
+ {t:'internal',d:'17/10/2025',sort:20251017,title:'Khai mạc ABAII Unitour 2025 tại Trường ĐH Kinh tế – Luật (UEL)',place:'TP.HCM · hơn 600 sinh viên · Giảng viên Viện ABAII',img:'07_01'},
+ {t:'internal',d:'16/08/2025',sort:20250816,title:'Khóa học "Khung pháp lý & Nhận diện lừa đảo tài sản mã hóa"',place:'Viện ABAII · TP.HCM · Giảng viên',img:'06_02'},
+ {t:'internal',d:'30/07/2025',sort:20250730,title:'SURF 2025: tọa đàm "Blockchain trong chính quyền số, quản lý đô thị"',place:'Đà Nẵng · Panelist',img:'05_03'},
+ {t:'internal',d:'05/07/2025',sort:20250705,title:'Khóa học "Khung pháp lý & Nhận diện lừa đảo tài sản mã hóa"',place:'Viện ABAII · TP.HCM · 15 học viên · Giảng viên',img:'04_02'},
+ {t:'internal',d:'28/06/2025',sort:20250628,title:'Khóa học "Khung pháp lý & Nhận diện lừa đảo tài sản mã hóa"',place:'Viện ABAII · Hà Nội · Giảng viên',img:'03_01'},
+ {t:'internal',d:'29/05/2025',sort:20250529,title:'Workshop trực tuyến "Nhận diện lừa đảo tài sản mã hoá và cách phòng tránh"',place:'ABAII × MasterTeck · Diễn giả chính',img:'02_01'},
+ {t:'internal',d:'15/11/2024',sort:20241115,title:'Chương trình Chuyển đổi số tỉnh Bình Định: "Ứng dụng Blockchain trong cải cách hành chính"',place:'ICISE, Quy Nhơn · Báo cáo viên',img:'01_01'}
+];
+const VIR={d:'17/08/2026',title:'A new game beckons for the digital asset market',outlet:'Vietnam Investment Review (Báo Tài chính – Đầu tư) · bản in, trang 18',img:'13_01',
+ quotes:['The greatest value of the legal framework is in clearly defining responsibility when errors occur.','Competition will shift from the speed of product expansion to the quality of governance and customer protection.']};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/SVGLoader.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const root=document.documentElement;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const logoMini='<svg viewBox="0 0 1242 942" aria-hidden="true"><use href="#logo"/></svg>';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function isDark(){const t=root.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const t0=store.get('bsc-theme',null);if(t0)root.setAttribute('data-theme',t0);
+const themeHooks=[];const onTheme=()=>themeHooks.forEach(f=>f());
+$('#themeBtn').addEventListener('click',()=>{root.setAttribute('data-theme',isDark()?'light':'dark');store.set('bsc-theme',root.getAttribute('data-theme'));onTheme()});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',onTheme);
+function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,2200)}
+const glow=$('#glow');
+if(!reduce&&matchMedia('(pointer:fine)').matches)addEventListener('pointermove',e=>{glow.style.opacity=1;glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+const readMin=a=>Math.max(3,Math.round(a.b.reduce((n,[t,c])=>n+(Array.isArray(c)?c.join(' '):String(c)).split(/\s+/).length,0)/200));
+
+/* ---------- HOME ---------- */
+const words=['hợp đồng thông minh','stablecoin','AI agent','định danh số','tài sản thực mã hóa','ảo giác AI','khóa riêng'];
+const rot=$('#rot');let wi=0;
+if(!reduce)(async()=>{while(true){await wait(2300);const w=words[wi];for(let i=w.length;i>=0;i--){rot.textContent=w.slice(0,i);await wait(26)}
+  wi=(wi+1)%words.length;const n=words[wi];for(let i=1;i<=n.length;i++){rot.textContent=n.slice(0,i);await wait(55)}}})();
+const tick=['hash → chữ ký → bằng chứng','ai cấp · ai giữ · ai kiểm','code sai vẫn chạy đúng như code','AI cũng cần người duyệt','token chỉ có giá trị khi quyền pháp lý rõ','mất khóa riêng là mất tài sản','hỏi nguồn trước khi tin số liệu'];
+$('#ticker').innerHTML=[...tick,...tick].map(t=>`<span>${t}</span>`).join('');
+const FEATS=ARTICLES.filter(a=>a.feature).reverse();
+$('#featured').innerHTML=FEATS.map((F,k)=>`<a class="feat" href="#bai-${F.id}"><span class="ico big">${svg(F.icon)}</span><div style="min-width:0"><span class="eyebrow pop">${k===0?'Bài mới · ':''}${F.cat}</span><h3>${F.title}</h3><p>${F.sub}</p><span class="go">${readMin(F)} phút đọc · <b>Đọc bài →</b></span></div></a>`).join('');
+$('#topics').innerHTML=ARTICLES.filter(a=>!a.feature).map(a=>`<a class="topic" href="#bai-${a.id}">
+  <div class="row1"><span class="ico">${svg(a.icon)}</span><span class="k">${a.n} / 08</span></div>
+  <div><h3>${a.title.split(':')[0]}</h3><p class="sym" style="margin-top:6px">Triệu chứng: ${a.sym}</p></div>
+  <div class="go"><span>${a.cat} · ${readMin(a)} phút</span><b>Đọc bài →</b></div></a>`).join('');
+$('#track').insertAdjacentHTML('beforeend',PATH.map(([t,s,id],i)=>`<a class="stop-pt" href="#bai-${id}"><i>${i+1}</i><div><b>${t}</b><span>${s}</span></div></a>`).join(''));
+const qHTML=([q,o,d,u])=>`<figure class="qcard" style="margin:0"><q>${q}</q><figcaption class="src">${d} · <a href="${u}" target="_blank" rel="noopener">${o} ↗</a></figcaption></figure>`;
+$('#homeQuotes').innerHTML=QUOTES.map(qHTML).join('');
+$('#pressQuotes').innerHTML=QUOTES.map(qHTML).join('');
+
+/* app cards (home + lab) */
+const appCard=a=>a.soon?`<div class="app soon"><div class="top"><span class="ico">${svg(a.icon)}</span><span class="state soon"><i></i>Sắp phát hành</span></div><h3>${a.title}</h3><p>${a.desc}</p><div class="vis"><canvas data-vis="${a.vis}"></canvas></div></div>`
+ :`<a class="app" href="#lab-${a.id}"><div class="top"><span class="ico">${svg(a.icon)}</span><span class="state"><i></i>Đang chạy · ${a.ver}</span></div><h3>${a.title}</h3><p>${a.desc}</p><div class="vis"><canvas data-vis="${a.vis}"></canvas></div><span class="open">Mở sản phẩm →</span></a>`;
+$('#homeApps').innerHTML=APPS.filter(a=>!a.soon).slice(0,3).map(appCard).join('');
+$('#labApps').innerHTML=APPS.map(appCard).join('');
+if(!reduce)$$('.app').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+  el.style.transform=`perspective(900px) rotateX(${-y*9}deg) rotateY(${x*11}deg) translateY(-4px)`});el.addEventListener('pointerleave',()=>el.style.transform='')});
+
+/* mini visuals */
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+let vis=[];
+function collectVis(){vis=$$('canvas[data-vis]').filter(c=>c.offsetParent).map(cv=>{const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio,2);cv.width=r.width*d;cv.height=r.height*d;const ctx=cv.getContext('2d');ctx.setTransform(d,0,0,d,0,0);return{ctx,w:r.width,h:r.height,kind:cv.dataset.vis}})}
+addEventListener('resize',collectVis);
+function drawVis(t){const A=css('--accent'),S=css('--spark'),M=css('--muted');
+  vis.forEach(({ctx,w,h,kind})=>{if(!w)return;ctx.clearRect(0,0,w,h);ctx.lineWidth=2;
+    if(kind==='flow'){for(let r=0;r<3;r++){const y=h*(.28+r*.22);ctx.strokeStyle=M;ctx.globalAlpha=.3;ctx.beginPath();ctx.moveTo(14,y);ctx.lineTo(w-14,y);ctx.stroke();ctx.globalAlpha=1;
+        for(let k=0;k<3;k++){const x=14+((t*.06*(1+r*.3)+k*w/3)%(w-28));ctx.fillStyle=r===1?S:A;rr(ctx,x-8,y-4,16,8,4);ctx.fill()}}}
+    else if(kind==='id'){const pts=[[w*.18,h*.45],[w*.5,h*.3],[w*.82,h*.45]];ctx.strokeStyle=M;ctx.globalAlpha=.35;ctx.beginPath();ctx.moveTo(...pts[0]);ctx.lineTo(...pts[1]);ctx.lineTo(...pts[2]);ctx.stroke();ctx.globalAlpha=1;
+      pts.forEach((p,i)=>{ctx.fillStyle=i===1?S:A;ctx.beginPath();ctx.arc(p[0],p[1],7,0,7);ctx.fill()});const ph=(t*.0006)%2,seg=ph<1?[pts[0],pts[1]]:[pts[1],pts[2]],f=ph%1;ctx.fillStyle=A;ctx.beginPath();ctx.arc(seg[0][0]+(seg[1][0]-seg[0][0])*f,seg[0][1]+(seg[1][1]-seg[0][1])*f,4,0,7);ctx.fill()}
+    else if(kind==='cert'){const s=(Math.sin(t*.003)+1)/2;ctx.strokeStyle=A;ctx.beginPath();ctx.arc(w/2,h/2,18+s*8,0,7);ctx.stroke();ctx.globalAlpha=.4;ctx.beginPath();ctx.arc(w/2,h/2,32+s*5,0,7);ctx.stroke();ctx.globalAlpha=1;
+      ctx.strokeStyle=S;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(w/2-7,h/2);ctx.lineTo(w/2-2,h/2+6);ctx.lineTo(w/2+8,h/2-6);ctx.stroke()}
+    else if(kind==='grid'){const n=16,bw=(w-30)/n;ctx.font='600 13px JetBrains Mono, monospace';ctx.textAlign='center';for(let i=0;i<n;i++){const ch='0123456789abcdef'[Math.floor((Math.sin(t*.002+i*1.7)+1)*7.99)];ctx.fillStyle=i%5===0?S:A;ctx.fillText(ch,15+bw*i+bw/2,h/2+5)}}
+    else{const pt=f=>{const u=1-f;return[u*u*u*16+3*u*u*f*w*.3+3*u*f*f*w*.6+f*f*f*(w-16),u*u*u*h*.7+3*u*u*f*h*.1+3*u*f*f*h*.95+f*f*f*h*.3]};
+      ctx.strokeStyle=M;ctx.globalAlpha=.35;ctx.setLineDash([5,6]);ctx.beginPath();ctx.moveTo(16,h*.7);ctx.bezierCurveTo(w*.3,h*.1,w*.6,h*.95,w-16,h*.3);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+      const p=pt((t*.00025)%1);ctx.fillStyle=S;ctx.beginPath();ctx.arc(p[0],p[1],6,0,7);ctx.fill()}})}
+
+/* ---------- FEED ---------- */
+const cats=['Tất cả',...new Set(ARTICLES.map(a=>a.cat))];let curCat='Tất cả';
+function renderFeed(){
+  $('#feedChips').innerHTML=cats.map(c=>`<button class="btn" aria-pressed="${c===curCat}" data-c="${c}">${c}</button>`).join('');
+  $('#feedList').innerHTML=ARTICLES.filter(a=>curCat==='Tất cả'||a.cat===curCat).map(a=>`<a class="fitem" href="#bai-${a.id}">
+    <div style="min-width:0"><div class="by"><span class="av">${logoMini}</span>Bác sĩ Chain</div><h3>${a.title}</h3><p>${a.sub}</p>
+    <div class="meta"><b>${a.cat}</b><span>${readMin(a)} phút đọc</span></div></div><span class="thumb">${svg(a.icon)}</span></a>`).join('');
+  $('#feedPath').innerHTML=PATH.map(([t,s,id])=>`<li><a href="#bai-${id}">${t}</a></li>`).join('')}
+$('#feedChips').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;curCat=b.dataset.c;renderFeed()});
+renderFeed();
+
+/* ---------- READER ---------- */
+let coverAnim=null;
+function renderArticle(id){
+  const i=ARTICLES.findIndex(a=>a.id===id);if(i<0)return false;const a=ARTICLES[i];
+  const claps=store.get('clap-'+a.id,0);
+  const blocks=a.b.map(([t,c,x])=>{
+    if(t==='p')return`<p>${c}</p>`;if(t==='h2')return`<h2>${c}</h2>`;if(t==='quote')return`<blockquote>${c}</blockquote>`;
+    if(t==='ex')return`<div class="box"><span class="lbl">VÍ DỤ ĐỜI THƯỜNG</span>${c}</div>`;
+    if(t==='take')return`<div class="box take"><span class="lbl">ĐƠN THUỐC MANG VỀ</span><ul>${c.map(l=>`<li>${l}</li>`).join('')}</ul></div>`;
+    if(t==='note')return`<div class="box note"><span class="lbl">ĐỌC TRƯỚC KHI BẮT ĐẦU</span>${c}</div>`;
+    if(t==='code')return`<pre class="codeb"><code>${esc(c)}</code></pre>`;
+    if(t==='table')return`<div class="tblw"><table><thead><tr>${c[0].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${c.slice(1).map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    if(t==='steps')return`<ol class="flowb">${c.map(([a,b])=>`<li><b>${a}</b><span>${b}</span></li>`).join('')}</ol>`;
+    if(t==='lab')return`<div class="box labcta"><div><span class="lbl">THỬ TRONG LAB</span>${x}</div><a class="btn primary sm" href="#lab-${c}"><span class="dot"></span>Mở sản phẩm</a></div>`;return''}).join('');
+  const prev=ARTICLES[(i-1+ARTICLES.length)%ARTICLES.length],next=ARTICLES[(i+1)%ARTICLES.length];
+  const clapBtn=`<button class="ibtn ${claps?'clapped':''}" data-clap><svg viewBox="0 0 24 24"><path d="M7 11.5V6.8a1.4 1.4 0 0 1 2.8 0v3.4M9.8 10V5.4a1.4 1.4 0 0 1 2.8 0V10M12.6 10V6.6a1.4 1.4 0 0 1 2.8 0v5.2M15.4 9.6a1.4 1.4 0 0 1 2.8 0v3.9c0 4-2.6 6.5-6.2 6.5-2.4 0-3.8-1-5.1-2.8L4.6 13.4a1.4 1.4 0 0 1 2.3-1.6L7 11.5"/></svg><span data-cc>${claps}</span></button>`;
+  const shareBtn=`<button class="ibtn" data-share><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Sao chép liên kết</button>`;
+  $('#v-article').innerHTML=`
+   <a class="back" href="#bai-viet">← Tất cả bài viết</a>
+   <div class="tagline"><b>${a.cat}</b><span class="mono" style="font-size:12px;color:var(--muted)">Bài ${a.n} / ${String(ARTICLES.length).padStart(2,'0')}</span></div>
+   <h1 class="ink-raise">${a.title}</h1>
+   <p class="sub">${a.sub}</p>
+   <div class="byline"><span class="av">${logoMini}</span><div><b>Bác sĩ Chain</b><span>${readMin(a)} phút đọc · Tháng 10/2026</span></div></div>
+   <div class="actbar"><div class="grp">${clapBtn}</div><div class="grp">${shareBtn}</div></div>
+   <figure class="cover" style="margin-inline:0"><canvas></canvas><span class="big">${svg(a.icon)}</span><figcaption>// ${a.title.split(':')[0].toUpperCase()}</figcaption></figure>
+   <div class="body">${blocks}</div>
+   <p class="disc">Bài viết mang tính phổ biến kiến thức, không phải tư vấn đầu tư hay tư vấn pháp lý.</p>
+   <div class="endbar"><div class="grp" style="display:flex;gap:6px">${clapBtn}${shareBtn}</div><a class="btn sm" href="#bai-viet">Đọc bài khác</a></div>
+   <div class="next"><a href="#bai-${prev.id}"><span>← Bài trước</span><b>${prev.title}</b></a><a href="#bai-${next.id}" style="text-align:right"><span>Bài tiếp →</span><b>${next.title}</b></a></div>`;
+  $$('#v-article [data-clap]').forEach(b=>b.addEventListener('click',()=>{const n=store.get('clap-'+a.id,0)+1;store.set('clap-'+a.id,n);
+    $$('#v-article [data-clap]').forEach(x=>{x.classList.add('clapped');x.querySelector('[data-cc]').textContent=n})}));
+  $$('#v-article [data-share]').forEach(b=>b.addEventListener('click',()=>{const u=location.href.split('#')[0]+'#bai-'+a.id;
+    const ok=()=>toast('Đã sao chép liên kết');
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(u).then(ok,()=>toast(u));else toast(u)}));
+  // cover animation: drifting hash characters
+  const cv=$('#v-article .cover canvas');const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio,2);cv.width=r.width*d;cv.height=r.height*d;const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);
+  const cols=Math.floor(r.width/22),drops=Array.from({length:cols},()=>Math.random()*r.height);
+  coverAnim=t=>{c.clearRect(0,0,r.width,r.height);c.font='600 13px JetBrains Mono, monospace';const A=css('--accent'),M=css('--muted');
+    for(let k=0;k<cols;k++){const y=(drops[k]+t*.03*(1+(k%3)*.4))%(r.height+40)-20;c.globalAlpha=.18+(k%4)*.06;c.fillStyle=k%7===0?css('--spark'):(k%2?A:M);c.fillText('0123456789abcdef'[(k*7+Math.floor(t/400))%16],k*22+8,y)}c.globalAlpha=1};
+  return true}
+addEventListener('scroll',()=>{const p=$('#progress');if($('#v-article').hidden){p.style.width=0;return}
+  const h=document.documentElement;p.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+
+/* ---------- PRESS ---------- */
+let pf='all';
+const pressCount=EVENTS.filter(e=>e.t==='press').reduce((n,e)=>n+e.links.length,0);
+$('#pstats').innerHTML=`<div class="pstat"><b>${pressCount}</b><span>bài báo có nhắc tên, đã kiểm chứng</span></div><div class="pstat"><b>${EVENTS.filter(e=>e.t==='press').length}</b><span>sự kiện, cụm sự kiện được báo chí ghi nhận</span></div><div class="pstat"><b>${EVENTS.filter(e=>e.t==='internal').length}</b><span>hoạt động đào tạo, diễn đàn khác</span></div>`;
+$('#vir').innerHTML=`<img src="img/${VIR.img}.jpg" alt="Trang 18 báo Vietnam Investment Review in bài phỏng vấn" loading="lazy"><div><span class="eyebrow pop">Phỏng vấn · ${VIR.d}</span><h3>${VIR.title}</h3><p style="color:var(--muted);font-size:14px">${VIR.outlet}</p>${VIR.quotes.map(q=>`<q>${q}</q>`).join('')}</div>`;
+function renderPress(){
+  const list=EVENTS.filter(e=>pf==='all'||e.t===pf).sort((a,b)=>b.sort-a.sort);
+  $('#timeline').innerHTML=list.map(e=>`<article class="ev ${e.img?'':'noimg'} ${e.t}">
+    <div style="min-width:0"><span class="date pop">${e.d} · ${e.t==='press'?'Báo chí':'Hoạt động'}</span><h3>${esc(e.title)}</h3><p class="place">${esc(e.place)}</p>
+    ${e.q?`<q>${esc(e.q)}</q>`:''}
+    ${e.links?`<ul class="links">${e.links.map(([o,t,u])=>`<li><a href="${u}" target="_blank" rel="noopener"><b>${esc(o)} ↗</b><span>${esc(t)}</span></a></li>`).join('')}</ul>`:''}
+    ${e.t==='internal'?'<p class="note">Nguồn: bản tin nội bộ Ban Truyền thông VBA/ABAII.</p>':''}</div>
+    ${e.img?`<figure><img src="img/${e.img}.jpg" alt="Ảnh sự kiện: ${esc(e.title)}" loading="lazy"></figure>`:''}</article>`).join('');
+  $('#vir').hidden=pf==='press'}
+$$('[data-pf]').forEach(b=>b.addEventListener('click',()=>{pf=b.dataset.pf;$$('[data-pf]').forEach(x=>x.setAttribute('aria-pressed',x===b));renderPress()}));
+renderPress();
+
+/* ---------- ROUTER ---------- */
+const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press'};
+function route(){
+  let h=location.hash.slice(1)||'trang-chu',view='home',tab='home';
+  if(h==='bai-viet'){view='feed';tab='feed'}
+  else if(h.startsWith('bai-')){view=renderArticle(h.slice(4))?'article':'feed';tab='feed'}
+  else if(h==='lab'){view='lab';tab='lab'}
+  else if(h.startsWith('lab-')){const id=h.slice(4),app=APPS.find(a=>a.id===id&&!a.soon);if(app){view='app';tab='lab';openApp(app)}else{view='lab';tab='lab'}}
+  else if(h==='bao-chi'){view='press';tab='press'}
+  Object.entries(views).forEach(([k,s])=>{const el=$(s);const show=k===view;if(el.hidden===show){el.hidden=!show;if(show){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}}else if(show&&k==='article'){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}});
+  $$('[data-tabs] a').forEach(a=>a.classList.toggle('on',a.dataset.tab===tab));
+  if(view!=='article')coverAnim=null;
+  window.scrollTo({top:0,behavior:'auto'});
+  requestAnimationFrame(collectVis);
+  if(view==='home'&&three)three.resize();
+}
+addEventListener('hashchange',route);
+
+/* ---------- APPS ---------- */
+function openApp(app){$('#appTitle').textContent=app.title;$$('[data-app]').forEach(p=>p.hidden=p.dataset.app!==app.id);
+  if(app.id==='wheel')drawWheel();if(app.id==='hash')updHash()}
+
+// chain
+const enc=new TextEncoder();
+async function sha(s){if(window.crypto&&crypto.subtle){const b=await crypto.subtle.digest('SHA-256',enc.encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+  return null}
+const chain=[];
+async function makeBlock(name,msg,prev){const idx=chain.length,ts=new Date().toISOString();return{idx,ts,name,msg,prev,orig:msg,hash:await sha(idx+prev+name+msg+ts)}}
+async function validate(){const bad=new Set();for(let i=0;i<chain.length;i++){const b=chain[i];const h=await sha(b.idx+b.prev+b.name+b.msg+b.ts);
+  if(h!==b.hash||(i>0&&b.prev!==chain[i-1].hash)||bad.size)bad.add(i)}return bad}
+async function renderChain(){if(!window.crypto||!crypto.subtle){$('#chainStatus').textContent='Trình duyệt này chưa hỗ trợ SHA-256 (Web Crypto).';return}
+  const bad=await validate();
+  $('#chain').innerHTML=chain.map((b,i)=>`<div class="block ${bad.has(i)?'bad':''}"><div class="bh"><b>#${b.idx}</b><span>${b.ts.slice(11,19)}</span></div><div class="msg"></div><div class="who2"></div><div class="hx">prev <em>${b.prev.slice(0,16)}…</em></div><div class="hx">hash <em>${b.hash.slice(0,16)}…</em></div></div>`).join('');
+  $$('#chain .block').forEach((el,i)=>{el.querySelector('.msg').textContent=chain[i].msg;el.querySelector('.who2').textContent='bởi '+chain[i].name});
+  const st=$('#chainStatus');st.className='status '+(bad.size?'bad':'ok');
+  st.textContent=bad.size?`Chuỗi gãy từ khối #${Math.min(...bad)} · dấu vân tay không còn khớp`:`Chuỗi hợp lệ · ${chain.length} khối`;const c=$('#chain');c.scrollLeft=c.scrollWidth}
+(async()=>{if(window.crypto&&crypto.subtle){chain.push(await makeBlock('Bác sĩ Chain','Khối khởi nguyên','0'.repeat(64)))}renderChain()})();
+$('#chainForm').addEventListener('submit',async e=>{e.preventDefault();const n=$('#cName').value.trim(),m=$('#cMsg').value.trim();if(!n||!m||!chain.length)return;
+  chain.push(await makeBlock(n,m,chain[chain.length-1].hash));$('#cMsg').value='';renderChain()});
+$('#tamper').addEventListener('click',()=>{if(chain.length<2){const s=$('#chainStatus');s.className='status bad';s.textContent='Cần ít nhất 2 khối. Khắc thêm một nội dung trước đã.';return}
+  const o=chain[1].orig;chain[1].msg=/\d/.test(o)?o.replace(/\d+/,m=>String(+m*10)):o+' (đã bị sửa)';renderChain()});
+$('#repair').addEventListener('click',()=>{chain.forEach(b=>b.msg=b.orig);renderChain()});
+
+// hash lab
+async function updHash(){const a=await sha($('#hA').value),b=await sha($('#hB').value);
+  if(!a){$('#hoA').textContent='Trình duyệt này chưa hỗ trợ SHA-256.';return}
+  let diff=0,ha='',hb='';for(let i=0;i<64;i++){const d=a[i]!==b[i];if(d)diff++;ha+=a[i];hb+=d?`<span class="d">${b[i]}</span>`:b[i]}
+  $('#hoA').textContent=ha;$('#hoB').innerHTML=hb;$('#hmeter').style.width=(diff/64*100)+'%';$('#hpct').textContent=diff+'/64'}
+$('#hA').addEventListener('input',updHash);$('#hB').addEventListener('input',updHash);
+
+// quiz
+const Q=[
+ ['Sách trắng Bitcoin của Satoshi Nakamoto được công bố năm nào?',['2005','2008','2011','2014'],1,'Sách trắng "Bitcoin: A Peer-to-Peer Electronic Cash System" được công bố ngày 31/10/2008.'],
+ ['Kết quả của hàm băm SHA-256 dài bao nhiêu bit?',['128 bit','160 bit','256 bit','512 bit'],2,'Luôn là 256 bit, thường viết thành 64 ký tự hex, dù dữ liệu đầu vào dài hay ngắn.'],
+ ['Trong giao dịch blockchain, thứ gì dùng để ký giao dịch?',['Địa chỉ ví','Khóa công khai','Khóa riêng','Mã băm khối'],2,'Khóa riêng tạo chữ ký; người khác dùng khóa công khai để xác minh chữ ký đó.'],
+ ['Mạng chính Ethereum ra mắt năm nào?',['2013','2015','2017','2020'],1,'Ethereum ra mắt mạng chính (Frontier) ngày 30/7/2015.'],
+ ['"Ảo giác AI" (hallucination) là gì?',['AI bị virus','AI tạo thông tin nghe hợp lý nhưng sai','AI chạy chậm do quá tải','AI hiển thị hình ảnh 3D'],1,'Mô hình sinh văn bản trôi chảy nhưng không có cơ sở. Vì vậy cần kiểm chứng nguồn.'],
+ ['USDT và USDC là stablecoin thường neo giá theo tài sản nào?',['Vàng','Bitcoin','Đô la Mỹ','Euro'],2,'Cả hai được thiết kế để giữ giá xấp xỉ 1 USD.']];
+let qi=0,qs=0;
+function renderQ(){const box=$('#qbox');
+  if(qi>=Q.length){const msg=qs>=5?'Kiến thức khỏe mạnh. Rủ bạn bè vào khám thử xem sao.':qs>=3?'Ổn, nhưng nên đọc thêm vài bài trong mục Bài viết.':'Cần điều trị thêm. Bắt đầu từ phác đồ học ở trang chủ nhé.';
+    box.innerHTML=`<div class="qprog"><i style="width:100%"></i></div><span class="eyebrow pop">Kết quả khám</span><div class="score-big pop-big">${qs}/${Q.length}</div><p class="qtext">${msg}</p>`;return}
+  const [q,o,a,ex]=Q[qi];
+  box.innerHTML=`<div class="qprog"><i style="width:${qi/Q.length*100}%"></i></div><span class="eyebrow pop">Câu ${qi+1} / ${Q.length}</span><p class="qtext">${q}</p>
+   <div class="opts">${o.map((x,i)=>`<button class="opt" data-i="${i}">${x}</button>`).join('')}</div><p class="qexp" id="qexp" hidden></p>
+   <div class="qfoot"><span id="qh">Điểm: ${qs}</span><button class="btn" id="qnext" hidden>Câu tiếp →</button></div>`;
+  box.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;box.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.i===a)x.classList.add('right')});
+    if(i===a)qs++;else b.classList.add('wrong');$('#qh').textContent='Điểm: '+qs;const e=$('#qexp');e.textContent=ex;e.hidden=false;const n=$('#qnext');n.hidden=false;n.focus();n.onclick=()=>{qi++;renderQ()}}))}
+$('#qRestart').addEventListener('click',()=>{qi=0;qs=0;renderQ()});renderQ();
+
+// wheel
+const wc=$('#wheel'),wx=wc.getContext('2d');let wrot=0,spinning=false;
+function drawWheel(){const R=380,n=ARTICLES.length,a=2*Math.PI/n,bg=css('--bg'),L=css('--light'),Sh=css('--shade'),A=css('--accent'),ink=css('--ink');
+  wx.clearRect(0,0,800,800);wx.save();wx.translate(400,400);
+  for(let i=0;i<n;i++){wx.beginPath();wx.moveTo(0,0);wx.arc(0,0,R,i*a-Math.PI/2,(i+1)*a-Math.PI/2);wx.closePath();wx.fillStyle=i%2?bg:L;wx.fill();wx.strokeStyle=Sh;wx.lineWidth=2;wx.stroke();
+    wx.save();wx.rotate(i*a+a/2-Math.PI/2);wx.textAlign='right';wx.fillStyle=ink;wx.font='700 25px Montserrat, sans-serif';
+    const ws=ARTICLES[i].title.split(':')[0].split(' '),lines=[];let cur='';ws.forEach(w=>{const tt=cur?cur+' '+w:w;if(wx.measureText(tt).width>215){lines.push(cur);cur=w}else cur=tt});lines.push(cur);
+    lines.forEach((l,j)=>wx.fillText(l,R-34,-(lines.length-1)*15+9+j*30));wx.restore()}
+  wx.beginPath();wx.arc(0,0,R,0,7);wx.lineWidth=10;wx.strokeStyle=A;wx.globalAlpha=.7;wx.stroke();wx.restore()}
+themeHooks.push(drawWheel);
+$('#spin').addEventListener('click',()=>{if(spinning)return;spinning=true;const n=ARTICLES.length,k=Math.floor(Math.random()*n);
+  wrot=wrot-(wrot%360)+360*(5+Math.floor(Math.random()*3))+(360-(k*360/n+180/n));wc.style.transform=`rotate(${wrot}deg)`;
+  $('#result').innerHTML='<small>Đang bốc thuốc…</small><span class="big">…</span>';
+  setTimeout(()=>{spinning=false;const t=ARTICLES[k];
+    $('#result').innerHTML=`<small>Đơn thuốc hôm nay</small><span class="big pop"></span><small></small><a class="btn primary sm" href="#bai-${t.id}"><span class="dot"></span>Đọc bài ngay</a>`;
+    $('#result .big').textContent=t.title.split(':')[0];$$('#result small')[1].textContent='Triệu chứng: '+t.sym},reduce?50:5100)});
+
+/* ---------- 3D LOGO ---------- */
+let three=null;
+if(window.THREE&&THREE.SVGLoader){try{three=initScene()}catch(e){console.warn(e)}}
+function initScene(){
+  const cv=$('#scene'),stage=$('#stage');
+  const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(36,1,.1,100);cam.position.set(0,0,10);
+  const hemi=new THREE.HemisphereLight(0xffffff,0x88a0b0,.8);scene.add(hemi);
+  const key=new THREE.DirectionalLight(0xffffff,.9);key.position.set(-4,5,7);scene.add(key);
+  const rim=new THREE.PointLight(0xff7a33,.8,22);rim.position.set(5,-3,4);scene.add(rim);
+  const group=new THREE.Group();scene.add(group);
+  const d=$('#logo-path').getAttribute('d');
+  const data=new THREE.SVGLoader().parse(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1242 942"><path fill="#000" fill-rule="evenodd" d="${d}"/></svg>`);
+  const shapes=[];data.paths.forEach(p=>THREE.SVGLoader.createShapes(p).forEach(s=>shapes.push(s)));
+  const geo=new THREE.ExtrudeGeometry(shapes,{depth:70,bevelEnabled:true,bevelThickness:10,bevelSize:6,bevelSegments:3,curveSegments:10});geo.center();geo.computeVertexNormals();
+  const face=new THREE.MeshStandardMaterial({roughness:.35,metalness:.25}),side=new THREE.MeshStandardMaterial({roughness:.5,metalness:.2});
+  const logo=new THREE.Mesh(geo,[face,side]);logo.scale.set(.0052,-.0052,.0052);group.add(logo);
+  const discMat=new THREE.MeshStandardMaterial({roughness:.95});
+  const disc=new THREE.Mesh(new THREE.CylinderGeometry(3.7,3.7,.25,96),discMat);disc.rotation.x=Math.PI/2;disc.position.z=-.55;group.add(disc);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(3.75,.07,16,140),side);ring.position.z=-.4;group.add(ring);
+  const N=18,nodes=[],ng=new THREE.SphereGeometry(.085,16,16),nm=new THREE.MeshStandardMaterial({roughness:.4}),hm=new THREE.MeshStandardMaterial({roughness:.4,emissiveIntensity:.5});
+  for(let i=0;i<N;i++){const m=new THREE.Mesh(ng,i%6===0?hm:nm);m.userData={r:4.4+Math.random()*.6,a:i/N*Math.PI*2,y:(Math.random()-.5)*1.2,sp:.12+Math.random()*.12};scene.add(m);nodes.push(m)}
+  const lg=new THREE.BufferGeometry(),pos=new Float32Array(N*6);lg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const lm=new THREE.LineBasicMaterial({transparent:true,opacity:.4});scene.add(new THREE.LineSegments(lg,lm));
+  function colors(){const c=n=>new THREE.Color(css(n));face.color=c('--accent');side.color=c('--accent').lerp(new THREE.Color(isDark()?0x0b3b37:0x00463f),.55);
+    discMat.color=c('--bg').multiplyScalar(isDark()?1.15:.8);nm.color=c('--accent');hm.color=c('--spark');hm.emissive=c('--spark');lm.color=c('--accent');
+    hemi.groundColor=c('--shade');hemi.intensity=isDark()?.55:.85;key.intensity=isDark()?.7:.9}
+  colors();themeHooks.push(colors);$('#fallback').hidden=true;
+  function size(){const r=stage.getBoundingClientRect();if(!r.width)return;renderer.setSize(r.width,r.height,false);cam.aspect=r.width/r.height;cam.position.z=r.width/r.height<1.1?13:10.5;cam.updateProjectionMatrix()}
+  size();new ResizeObserver(size).observe(stage);
+  let tx=0,ty=0,drag=false,lx=0,spin=0,vy=0;
+  cv.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;cv.setPointerCapture(e.pointerId)});cv.addEventListener('pointerup',()=>drag=false);
+  cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();tx=(e.clientX-r.left)/r.width-.5;ty=(e.clientY-r.top)/r.height-.5;if(drag){vy+=(e.clientX-lx)*.004;lx=e.clientX}});
+  cv.addEventListener('pointerleave',()=>{tx=0;ty=0});
+  let visible=true;new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(stage);
+  return{resize:size,frame(t){if(!visible||$('#v-home').hidden)return;const s=t*.001;spin+=vy;vy*=.94;spin*=.985;
+    const idle=reduce?0:Math.sin(s*.6)*.32;group.rotation.y+=((idle+tx*.6+spin)-group.rotation.y)*.06;
+    group.rotation.x+=((ty*.4+(reduce?0:Math.sin(s*.8)*.05))-group.rotation.x)*.06;group.position.y=reduce?0:Math.sin(s*1.1)*.08;
+    nodes.forEach(m=>{const u=m.userData,a=u.a+(reduce?0:s*u.sp);m.position.set(Math.cos(a)*u.r,u.y+Math.sin(a*2)*.3,Math.sin(a)*u.r*.45-.6)});
+    for(let i=0;i<N;i++){const a=nodes[i].position,b=nodes[(i+1)%N].position;pos.set([a.x,a.y,a.z,b.x,b.y,b.z],i*6)}lg.attributes.position.needsUpdate=true;
+    renderer.render(scene,cam)}}}
+
+route();
+function loop(t){if(three)three.frame(t);drawVis(reduce?0:t);if(coverAnim)coverAnim(reduce?0:t);requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+})();
+</script>
+
+</body></html>
