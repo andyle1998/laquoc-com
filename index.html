@@ -390,6 +390,79 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .vir q::after{content:"”";color:var(--accent);font-weight:900}
 @media (max-width:760px){.vir{grid-template-columns:1fr}.vir img{max-width:320px}}
 
+
+/* app-in-app runner */
+.rbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-block:26px 18px}
+.rtitle{min-width:0}
+.rtitle .back{margin-bottom:12px}
+.rname{display:flex;align-items:center;gap:14px;min-width:0}
+.rname h1{font-size:clamp(24px,3.4vw,36px);font-weight:900;letter-spacing:-.03em}
+.rmeta{display:block;font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:4px}
+.rmeta b{color:var(--accent-ink);font-weight:600}
+.rtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.btn.off{opacity:.55;pointer-events:none;box-shadow:var(--in-s);background:var(--bg);color:var(--muted);text-shadow:none}
+.btn.off .dot{background:var(--muted)}
+.seg{display:flex;gap:4px;padding:5px;border-radius:var(--r-pill);box-shadow:var(--in-s)}
+.seg button{width:38px;height:34px;border:0;border-radius:var(--r-pill);background:none;cursor:pointer;display:grid;place-items:center;color:var(--muted)}
+.seg button svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.seg button[aria-pressed="true"]{background:var(--bg);box-shadow:var(--out-s);color:var(--accent-ink)}
+.runner{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;align-items:start}
+.runner.noguide{grid-template-columns:minmax(0,1fr)}
+.runner.noguide .guide{display:none}
+.shell{border-radius:var(--r-l);box-shadow:var(--out);overflow:hidden;background:var(--bg);display:flex;flex-direction:column;min-width:0}
+.chrome{display:flex;align-items:center;gap:12px;padding:12px 16px;box-shadow:inset 0 -1px 0 color-mix(in srgb,var(--shade) 60%,transparent)}
+.dots{display:flex;gap:6px;flex:none}
+.dots i{width:11px;height:11px;border-radius:50%;box-shadow:var(--in-s)}
+.dots i:first-child{background:var(--spark)}
+.url{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:var(--r-pill);box-shadow:var(--in-s);font-family:var(--f-mono);font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden}
+.url span{overflow:hidden;text-overflow:ellipsis}
+.url svg{width:14px;height:14px;flex:none;stroke:var(--accent-ink);fill:none;stroke-width:2}
+.viewport{padding:22px;min-height:560px;background:color-mix(in srgb,var(--shade) 16%,var(--bg));overflow:auto}
+.vp-inner{max-width:100%;margin:0 auto;container-type:inline-size;transition:max-width .45s cubic-bezier(.2,.8,.2,1)}
+.vp-inner.tab{max-width:820px}
+.vp-inner.mob{max-width:400px}
+.vp-inner.tab,.vp-inner.mob{border-radius:var(--r-l);box-shadow:var(--out)}
+.viewport .panel{box-shadow:none;background:var(--bg);border-radius:var(--r-l)}
+@container (max-width:720px){.viewport .panel-grid{grid-template-columns:1fr}.viewport .panel{padding:18px}}
+.shell.max{position:fixed;inset:0;z-index:95;border-radius:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.shell.max .viewport,.shell:fullscreen .viewport{flex:1;min-height:0}
+.shell:fullscreen{border-radius:0}
+body.appmax header,body.appmax .mtabs,body.appmax #glow{display:none}
+body.appmax main{z-index:auto}
+.extwrap{min-height:520px;display:grid;place-items:center;text-align:center}
+.extwrap iframe{width:100%;height:72vh;min-height:520px;border:0;border-radius:var(--r-m);display:block;background:#fff}
+.extph{max-width:440px;display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 10px}
+.extph .ring{width:110px;height:110px;border-radius:50%;box-shadow:var(--in);display:grid;place-items:center;position:relative}
+.extph .ring::after{content:"";position:absolute;inset:10px;border-radius:50%;border:3px solid transparent;border-top-color:var(--accent);border-right-color:var(--accent);animation:spin 1.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.extph .ring svg{width:40px;height:40px;stroke:var(--accent);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.extph h3{font-size:22px;font-weight:900}
+.extph p{color:var(--muted);font-size:15px}
+.guide{position:sticky;top:104px;max-height:calc(100vh - 124px);overflow:auto;border-radius:var(--r-l);box-shadow:var(--out);padding:22px;display:flex;flex-direction:column;gap:20px}
+.guide h2{font-size:18px;font-weight:900;letter-spacing:-.01em}
+.guide .gsec{display:flex;flex-direction:column;gap:10px}
+.guide .gsec>b{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;color:var(--accent-ink);text-transform:uppercase}
+.guide p{font-size:14.5px;color:var(--muted)}
+.gsteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:g}
+.gsteps li{counter-increment:g;display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:14px;line-height:1.5}
+.gsteps li::before{content:counter(g);width:28px;height:28px;border-radius:50%;box-shadow:var(--out-s);display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--accent-ink)}
+.gsteps li b{display:block;font-size:14.5px}
+.gsteps li span{color:var(--muted)}
+.gtips{margin:0;padding-left:1.1em;font-size:14px;line-height:1.55;color:var(--ink)}
+.gtips li+li{margin-top:6px}
+.guide details{border-radius:var(--r-s);box-shadow:var(--in-s);padding:10px 14px}
+.guide summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none}
+.guide summary::-webkit-details-marker{display:none}
+.guide summary::after{content:"+";float:right;color:var(--accent-ink);font-family:var(--f-mono)}
+.guide details[open] summary::after{content:"–"}
+.guide details p{margin-top:8px;font-size:13.5px}
+.ginfo{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px}
+.ginfo dt{font-family:var(--f-mono);color:var(--muted);font-size:12px}
+.ginfo dd{margin:0;font-weight:600;word-break:break-word}
+.ginfo a{color:var(--accent-ink)}
+@media (max-width:1040px){.runner,.runner.noguide{grid-template-columns:1fr}.guide{position:static;max-height:none}.viewport{min-height:0;padding:12px}}
+@media (max-width:560px){.seg{display:none}.rtools .btn{flex:1 1 auto;justify-content:center}}
 footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:12px 20px;border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--out-s);font-weight:700;font-size:14px;z-index:80;color:var(--accent-ink)}
 @media (max-width:860px){#toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
@@ -521,7 +594,26 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
 
   <!-- APP RUNNER -->
   <div class="view" id="v-app" hidden>
-    <div class="apphead"><div><a class="back" href="#lab">← Lab</a><h1 class="ink-raise" id="appTitle"></h1></div><span class="state"><i></i>Đang chạy</span></div>
+    <div class="rbar">
+      <div class="rtitle"><a class="back" href="#lab">← Lab</a>
+        <div class="rname"><span class="ico" id="appIco"></span><div style="min-width:0"><h1 class="ink-raise" id="appTitle"></h1><span class="rmeta" id="appMeta"></span></div></div></div>
+      <div class="rtools">
+        <div class="seg" role="group" aria-label="Kích thước khung">
+          <button data-dev="full" aria-pressed="true" aria-label="Màn hình rộng"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M8 20h8M12 16.5V20"/></svg></button>
+          <button data-dev="tab" aria-pressed="false" aria-label="Máy tính bảng"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M11 18h2"/></svg></button>
+          <button data-dev="mob" aria-pressed="false" aria-label="Điện thoại"><svg viewBox="0 0 24 24"><rect x="7.5" y="3" width="9" height="18" rx="2.5"/><path d="M11 18h2"/></svg></button>
+        </div>
+        <button class="btn sm" id="tglGuide" aria-pressed="true" aria-controls="guide">Hướng dẫn</button>
+        <button class="btn sm" id="fsBtn"><svg class="i" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Toàn màn hình</button>
+        <a class="btn sm primary" id="domBtn" target="_blank" rel="noopener"><span class="dot"></span><span id="domTxt">Mở ở domain riêng ↗</span></a>
+      </div>
+    </div>
+    <div class="runner" id="runner">
+      <div class="shell" id="shell">
+        <div class="chrome"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span id="appUrl"></span></span>
+          <button class="ibtn" id="reloadBtn" aria-label="Tải lại ứng dụng"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></button>
+          <button class="btn sm" id="exitMax" hidden>Thoát toàn màn hình</button></div>
+        <div class="viewport"><div class="vp-inner" id="vpInner">
 
     <div class="panel" data-app="chain" hidden>
       <div class="panel-grid">
@@ -589,6 +681,11 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
           <div class="result" id="result" aria-live="polite"><small>Đơn thuốc</small><span class="big">Bấm BỐC THUỐC để bắt đầu</span></div>
         </div>
       </div>
+    </div>
+          <div class="panel ext" data-app="__ext" hidden><div class="extwrap" id="extWrap"></div></div>
+        </div></div>
+      </div>
+      <aside class="guide" id="guide" aria-label="Hướng dẫn sử dụng"></aside>
     </div>
   </div>
 
@@ -824,12 +921,40 @@ const ARTICLES=[
 
 const PATH=[['Nền tảng','Hash, chữ ký, sổ cái','hash'],['Ví & khóa','Tự giữ tài sản an toàn','khoa-rieng'],['Hợp đồng thông minh','Logic tự thực thi','hop-dong-thong-minh'],['Định danh','Ai cấp, ai giữ, ai kiểm','dinh-danh'],['Tài sản số','Stablecoin, rủi ro','stablecoin'],['Token hóa','Tài sản thực trên chuỗi','rwa'],['AI × Chain','AI Agent trong vận hành','ai-agent']];
 
+/* LAB_DOMAIN: tên miền gốc cho các bản web. Đổi một chỗ này khi có domain thật. */
+const LAB_DOMAIN='laquoc.com/lab';
+/* mode 'inline' = chạy ngay trong trang; mode 'web' = bản web của sản phẩm khác, nhúng qua url (iframe).
+   url: địa chỉ bản web đã deploy (để trống = chưa triển khai). repo: kho GitHub nguồn. */
 const APPS=[
- {id:'chain',icon:'chain',title:'Chain Simulator',desc:'Tự tạo các khối, nối chúng bằng mã băm và thử sửa dữ liệu để thấy chuỗi gãy.',vis:'flow',ver:'v1.0'},
- {id:'hash',icon:'hash',title:'Máy băm SHA-256',desc:'So sánh dấu vân tay của hai đoạn văn gần giống nhau, đếm số ký tự thay đổi.',vis:'grid',ver:'v1.0'},
- {id:'quiz',icon:'quiz',title:'Khám sức khỏe kiến thức',desc:'Sáu câu hỏi trắc nghiệm về blockchain và AI, có giải thích sau mỗi câu.',vis:'cert',ver:'v1.0'},
- {id:'wheel',icon:'wheel',title:'Bốc thuốc hôm nay',desc:'Vòng quay chọn ngẫu nhiên một chủ đề và dẫn thẳng tới bài viết.',vis:'id',ver:'v1.0'},
- {id:'next',icon:'plus',title:'Sản phẩm tiếp theo',desc:'Khe phát hành dành cho sản phẩm công nghệ mới. Cập nhật khi ra mắt.',vis:'trace',soon:true}
+ {id:'chain',mode:'inline',icon:'chain',title:'Chain Simulator',desc:'Tự tạo các khối, nối chúng bằng mã băm và thử sửa dữ liệu để thấy chuỗi gãy.',vis:'flow',ver:'v1.0',updated:'10/2026',
+  guide:{intro:'Mô phỏng cách một blockchain liên kết các khối bằng mã băm, và vì sao sửa dữ liệu cũ là bị phát hiện ngay.',
+   steps:[['Nhập người tạo và nội dung','Ví dụ: "Minh chuyển cho Lan 5 triệu".'],['Bấm "Khắc lên chuỗi"','Khối mới xuất hiện, mang mã băm của chính nó và của khối trước.'],['Tạo thêm 2–3 khối','Quan sát dòng prev của mỗi khối trùng với hash của khối liền trước.'],['Bấm "Thử sửa khối #1"','Chuỗi chuyển màu cam từ khối bị sửa trở về sau: dấu vân tay không còn khớp.'],['Bấm "Khôi phục"','Dữ liệu trở lại như cũ, chuỗi hợp lệ trở lại.']],
+   tips:['Nội dung có con số sẽ bị sửa thành con số gấp 10 lần để dễ thấy.','Mọi dữ liệu chỉ nằm trong trình duyệt của bạn.'],
+   faq:[['Mã băm được tính thế nào?','Bằng SHA-256 trên số thứ tự, mã băm khối trước, người tạo, nội dung và thời điểm tạo khối.'],['Blockchain thật có giống vậy không?','Nguyên lý liên kết giống. Blockchain thật còn có mạng lưới nhiều máy cùng xác nhận và cơ chế đồng thuận.']],
+   read:'hash'}},
+ {id:'hash',mode:'inline',icon:'hash',title:'Máy băm SHA-256',desc:'So sánh dấu vân tay của hai đoạn văn gần giống nhau, đếm số ký tự thay đổi.',vis:'grid',ver:'v1.0',updated:'10/2026',
+  guide:{intro:'Xem trực tiếp hiệu ứng "đổi một chữ, đổi cả dấu vân tay" của hàm băm SHA-256.',
+   steps:[['Đọc hai đoạn mẫu','Hai bản hợp đồng chỉ khác nhau một con số: 500 và 800 triệu.'],['Nhìn hai dấu vân tay','Ký tự khác nhau được tô màu cam.'],['Xem thanh "Khác nhau"','Thường hơn 55/64 ký tự thay đổi chỉ vì một chữ số.'],['Tự gõ thử','Sửa bất kỳ ký tự nào, kết quả cập nhật ngay khi gõ.']],
+   tips:['Thử thêm hoặc bớt một dấu cách: dấu vân tay vẫn đổi gần như hoàn toàn.','Hai đoạn giống hệt nhau luôn cho cùng một kết quả.'],
+   faq:[['Có suy ngược ra nội dung từ dấu vân tay được không?','Không. Hàm băm là một chiều.'],['Đây có phải mã hóa không?','Không. Hash dùng để kiểm tra toàn vẹn, không dùng để giấu nội dung.']],
+   read:'hash'}},
+ {id:'quiz',mode:'inline',icon:'quiz',title:'Khám sức khỏe kiến thức',desc:'Sáu câu hỏi trắc nghiệm về blockchain và AI, có giải thích sau mỗi câu.',vis:'cert',ver:'v1.0',updated:'10/2026',
+  guide:{intro:'Sáu câu hỏi nhanh để tự kiểm tra kiến thức nền về blockchain và AI.',
+   steps:[['Chọn một đáp án','Mỗi câu chỉ được chọn một lần.'],['Đọc giải thích','Đáp án đúng hiện dấu ✓, kèm một dòng giải thích.'],['Bấm "Câu tiếp"','Đi hết 6 câu để xem kết quả khám.'],['Làm lại','Bấm "Làm lại từ đầu" để thử lần nữa hoặc rủ bạn bè cùng chơi.']],
+   tips:['Đúng từ 5/6 câu: kiến thức khỏe mạnh.','Sai câu nào, đọc bài viết tương ứng trong mục Bài viết.'],
+   faq:[['Kết quả có được lưu không?','Không. Trang không lưu điểm hay thông tin của bạn.']],
+   read:'ao-giac-ai'}},
+ {id:'wheel',mode:'inline',icon:'wheel',title:'Bốc thuốc hôm nay',desc:'Vòng quay chọn ngẫu nhiên một chủ đề và dẫn thẳng tới bài viết.',vis:'id',ver:'v1.0',updated:'10/2026',
+  guide:{intro:'Không biết hôm nay học gì? Để vòng quay chọn giúp một chủ đề.',
+   steps:[['Bấm "Bốc thuốc"','Vòng quay chạy khoảng 5 giây.'],['Xem đơn thuốc','Tên chủ đề và triệu chứng hiện ở ô kết quả.'],['Bấm "Đọc bài ngay"','Mở bài viết tương ứng.']],
+   tips:['Mỗi ngày quay một lần, đọc một bài: sau hai tuần bạn đi hết phác đồ.'],
+   faq:[['Kết quả có ngẫu nhiên thật không?','Có, dùng bộ sinh số ngẫu nhiên của trình duyệt.']]}},
+ {id:'hst-finance',mode:'web',icon:'coin',title:'HST Finance',desc:'Dashboard điều hành tài chính cho các công ty trong hệ sinh thái: dòng tiền, tài sản, ngân sách, số MISA. AI gợi ý phân loại giao dịch.',vis:'trace',ver:'beta',updated:'10/2026',
+  url:'https://financial-dashboard-chi-wine.vercel.app',repo:'',
+  guide:{intro:'Số liệu tự về mỗi ngày từ sao kê ngân hàng và MISA. Người dùng chỉ cần <strong>xem</strong>, <strong>phân loại</strong> và <strong>duyệt</strong>.',
+   steps:[['Đăng nhập','Bấm "Đăng nhập với Google" bằng email đã được cấp quyền, hoặc mở link mời quản trị gửi.'],['Chọn công ty','Chip công ty ở đầu mỗi tab lọc toàn bộ số liệu; chọn HST để xem hợp nhất.'],['Xem Dashboard','Dòng tiền thu, chi, ròng của tháng hoặc cả năm; tài sản hiện có; chi phí so ngân sách.'],['Phân loại dòng tiền','Tab Dòng tiền → lọc "Chờ duyệt" → chọn nhóm hoặc bấm "Nhờ AI gợi ý". Một giao dịch nhiều mục đích thì bấm "Phân bổ ›".'],['Cập nhật số','Bấm ↻ để lấy số mới ngay. Không bấm thì hệ thống tự cập nhật lúc 17h30 hằng ngày.']],
+   tips:['Nút ⓘ cạnh tiêu đề bảng giải thích cách tính; mũi tên ▾ gấp hoặc mở bảng.','Ô viền vàng ở Balance Sheet là ô đang chờ bạn điền.','Tiền chuyển giữa các công ty trong HST được cấn trừ khi xem hợp nhất.','Số trông lạ: bấm ↻ rồi tải lại khung. Báo "Phiên đã hết hạn": đăng nhập lại.'],
+   faq:[['Ai được xem gì?','Bốn vai trò: Chỉ xem Dashboard · Xem tất cả · Nhập liệu (phân loại, ngân sách, sổ) · Quản trị (cấp quyền, nhật ký, AI).'],['Dòng tiền khác doanh thu thế nào?','Dòng tiền lấy từ sao kê ngân hàng: tiền thật vào, ra tài khoản. Doanh thu, chi phí kế toán xem ở tab MISA.'],['Vì sao số MISA thiếu?','MISA chỉ trả về chứng từ chi phí đã gắn khoản mục chi phí. Kế toán gắn đủ thì số mới đủ.'],['Lỡ thao tác sai?','Quản trị vào Nhật ký hoạt động để hoàn tác.']]}}
 ];
 
 /* PRESS — chỉ các bài đã kiểm chứng trong tư liệu báo chí (bỏ thông cáo trả phí openPR) */
@@ -935,9 +1060,9 @@ $('#homeQuotes').innerHTML=QUOTES.map(qHTML).join('');
 $('#pressQuotes').innerHTML=QUOTES.map(qHTML).join('');
 
 /* app cards (home + lab) */
-const appCard=a=>a.soon?`<div class="app soon"><div class="top"><span class="ico">${svg(a.icon)}</span><span class="state soon"><i></i>Sắp phát hành</span></div><h3>${a.title}</h3><p>${a.desc}</p><div class="vis"><canvas data-vis="${a.vis}"></canvas></div></div>`
- :`<a class="app" href="#lab-${a.id}"><div class="top"><span class="ico">${svg(a.icon)}</span><span class="state"><i></i>Đang chạy · ${a.ver}</span></div><h3>${a.title}</h3><p>${a.desc}</p><div class="vis"><canvas data-vis="${a.vis}"></canvas></div><span class="open">Mở sản phẩm →</span></a>`;
-$('#homeApps').innerHTML=APPS.filter(a=>!a.soon).slice(0,3).map(appCard).join('');
+const appCard=a=>{const web=a.mode==='web',ready=!web||a.url;
+  return `<a class="app" href="#lab-${a.id}"><div class="top"><span class="ico">${svg(a.icon)}</span><span class="state ${ready?'':'soon'}"><i></i>${web?(ready?'Bản web · ':'Sắp triển khai · ')+a.ver:'Đang chạy · '+a.ver}</span></div><h3>${a.title}</h3><p>${a.desc}</p><div class="vis"><canvas data-vis="${a.vis}"></canvas></div><span class="open">${web?'Mở bản web →':'Mở sản phẩm →'}</span></a>`};
+$('#homeApps').innerHTML=APPS.filter(a=>a.mode==='inline').slice(0,3).map(appCard).join('');
 $('#labApps').innerHTML=APPS.map(appCard).join('');
 if(!reduce)$$('.app').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
   el.style.transform=`perspective(900px) rotateX(${-y*9}deg) rotateY(${x*11}deg) translateY(-4px)`});el.addEventListener('pointerleave',()=>el.style.transform='')});
@@ -1038,11 +1163,12 @@ function route(){
   if(h==='bai-viet'){view='feed';tab='feed'}
   else if(h.startsWith('bai-')){view=renderArticle(h.slice(4))?'article':'feed';tab='feed'}
   else if(h==='lab'){view='lab';tab='lab'}
-  else if(h.startsWith('lab-')){const id=h.slice(4),app=APPS.find(a=>a.id===id&&!a.soon);if(app){view='app';tab='lab';openApp(app)}else{view='lab';tab='lab'}}
+  else if(h.startsWith('lab-')){const id=h.slice(4),app=APPS.find(a=>a.id===id);if(app){view='app';tab='lab';openApp(app)}else{view='lab';tab='lab'}}
   else if(h==='bao-chi'){view='press';tab='press'}
   Object.entries(views).forEach(([k,s])=>{const el=$(s);const show=k===view;if(el.hidden===show){el.hidden=!show;if(show){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}}else if(show&&k==='article'){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}});
   $$('[data-tabs] a').forEach(a=>a.classList.toggle('on',a.dataset.tab===tab));
   if(view!=='article')coverAnim=null;
+  if(view!=='app'){exitMax();if(document.fullscreenElement)document.exitFullscreen()}
   window.scrollTo({top:0,behavior:'auto'});
   requestAnimationFrame(collectVis);
   if(view==='home'&&three)three.resize();
@@ -1050,8 +1176,46 @@ function route(){
 addEventListener('hashchange',route);
 
 /* ---------- APPS ---------- */
-function openApp(app){$('#appTitle').textContent=app.title;$$('[data-app]').forEach(p=>p.hidden=p.dataset.app!==app.id);
+let curApp=null;
+function openApp(app){curApp=app;const web=app.mode==='web';
+  $('#appTitle').textContent=app.title;$('#appIco').innerHTML=svg(app.icon);
+  $('#appMeta').innerHTML=`<b>${web?(app.url?'Bản web':'Sắp triển khai'):'Đang chạy'}</b> · ${esc(app.ver)} · cập nhật ${esc(app.updated)}`;
+  const host=app.url?app.url.replace(/^https?:\/\//,''):LAB_DOMAIN+'/'+app.id;$('#appUrl').textContent=host;
+  const db=$('#domBtn');if(app.url){db.href=app.url;db.classList.remove('off');db.removeAttribute('aria-disabled');$('#domTxt').textContent='Mở ở domain riêng ↗'}
+  else{db.removeAttribute('href');db.classList.add('off');db.setAttribute('aria-disabled','true');$('#domTxt').textContent=web?'Domain riêng: sắp có':'Đang chạy tại đây'}
+  $$('[data-app]').forEach(p=>p.hidden=p.dataset.app!==(web?'__ext':app.id));
+  $$('[data-dev]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.dev==='full'));$('#vpInner').classList.remove('tab','mob');
+  if(web)renderExt(app);
+  renderGuide(app);
   if(app.id==='wheel')drawWheel();if(app.id==='hash')updHash()}
+function renderExt(app){const w=$('#extWrap');
+  if(app.url){w.innerHTML=`<iframe src="${esc(app.url)}" title="${esc(app.title)}" loading="lazy" allow="clipboard-write; fullscreen"></iframe>`}
+  else w.innerHTML=`<div class="extph"><span class="ring">${svg(app.icon)}</span><h3>Bản web đang được triển khai</h3><p>Khi sẵn sàng, ứng dụng sẽ chạy ngay trong khung này. Bạn cũng có thể mở nó ở domain riêng để dùng toàn màn hình.</p>${app.repo?`<a class="btn sm" href="${esc(app.repo)}" target="_blank" rel="noopener">Xem mã nguồn ↗</a>`:''}</div>`}
+function renderGuide(app){const g=app.guide||{};const rd=g.read&&ARTICLES.find(a=>a.id===g.read);
+  $('#guide').innerHTML=`<h2>Hướng dẫn sử dụng</h2>
+   ${g.intro?`<p>${g.intro}</p>`:''}
+   ${g.steps?`<div class="gsec"><b>Bắt đầu nhanh</b><ol class="gsteps">${g.steps.map(([t,d])=>`<li><div><b>${t}</b><span>${d}</span></div></li>`).join('')}</ol></div>`:''}
+   ${g.tips?`<div class="gsec"><b>Mẹo</b><ul class="gtips">${g.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
+   ${g.faq?`<div class="gsec"><b>Câu hỏi thường gặp</b>${g.faq.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>`:''}
+   <div class="gsec"><b>Thông tin</b><dl class="ginfo"><dt>Phiên bản</dt><dd>${esc(app.ver)}</dd><dt>Cập nhật</dt><dd>${esc(app.updated)}</dd><dt>Chạy tại</dt><dd>${app.url?`<a href="${esc(app.url)}" target="_blank" rel="noopener">${esc(app.url.replace(/^https?:\/\//,''))} ↗</a>`:(app.mode==='web'?'Chưa gắn domain':'Ngay trong trang này')}</dd>${app.repo?`<dt>Mã nguồn</dt><dd><a href="${esc(app.repo)}" target="_blank" rel="noopener">GitHub ↗</a></dd>`:''}</dl></div>
+   ${rd?`<a class="btn sm" href="#bai-${rd.id}">Đọc bài liên quan: ${rd.title.split(':')[0]} →</a>`:''}
+   <p class="mono" style="font-size:12px">Phím tắt: <b>F</b> toàn màn hình · <b>G</b> ẩn/hiện hướng dẫn · <b>Esc</b> thoát</p>`}
+// runner controls
+const shell=$('#shell'),runner=$('#runner');
+function setGuide(on){runner.classList.toggle('noguide',!on);$('#tglGuide').setAttribute('aria-pressed',on);store.set('bsc-guide',on)}
+setGuide(store.get('bsc-guide',true));
+$('#tglGuide').addEventListener('click',()=>setGuide(runner.classList.contains('noguide')));
+$$('[data-dev]').forEach(b=>b.addEventListener('click',()=>{$$('[data-dev]').forEach(x=>x.setAttribute('aria-pressed',x===b));const v=$('#vpInner');v.classList.remove('tab','mob');if(b.dataset.dev!=='full')v.classList.add(b.dataset.dev);requestAnimationFrame(collectVis)}));
+function enterMax(){shell.classList.add('max');document.body.classList.add('appmax');$('#exitMax').hidden=false;document.body.style.overflow='hidden'}
+function exitMax(){shell.classList.remove('max');document.body.classList.remove('appmax');$('#exitMax').hidden=true;document.body.style.overflow=''}
+function toggleFs(){if(document.fullscreenElement){document.exitFullscreen();return}if(shell.classList.contains('max')){exitMax();return}
+  const r=shell.requestFullscreen?shell.requestFullscreen():null;if(r&&r.catch)r.catch(enterMax);else if(!r)enterMax()}
+$('#fsBtn').addEventListener('click',toggleFs);$('#exitMax').addEventListener('click',exitMax);
+document.addEventListener('fullscreenchange',()=>{$('#exitMax').hidden=!document.fullscreenElement&&!shell.classList.contains('max')});
+addEventListener('keydown',e=>{if($('#v-app').hidden||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
+  if(e.key==='Escape'&&shell.classList.contains('max'))exitMax();if(e.key==='f'||e.key==='F')toggleFs();if(e.key==='g'||e.key==='G')setGuide(runner.classList.contains('noguide'))});
+$('#reloadBtn').addEventListener('click',()=>{if(!curApp)return;if(curApp.mode==='web'){renderExt(curApp);return}
+  if(curApp.id==='quiz'){qi=0;qs=0;renderQ()}else if(curApp.id==='chain'){chain.splice(1);renderChain()}else if(curApp.id==='hash')updHash();toast('Đã tải lại ứng dụng')});
 
 // chain
 const enc=new TextEncoder();
