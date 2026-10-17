@@ -257,6 +257,47 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .flowb li b{font-size:15px;line-height:1.3}
 .flowb li span{font-size:13px;color:var(--muted);line-height:1.4}
 .box.note{box-shadow:var(--out);background:color-mix(in srgb,var(--accent) 9%,var(--bg));font-size:18px}
+.dash{margin:1.8em 0;border-radius:var(--r-l);box-shadow:var(--out);overflow:hidden;font-size:13px;line-height:1.4;--c-in:#00A896;--c-out:#FF7A33}
+:root[data-theme="dark"] .dash{--c-in:#1AA897;--c-out:#D9702E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dash{--c-in:#1AA897;--c-out:#D9702E}}
+.dash .dtop{display:flex;align-items:center;gap:10px;padding:10px 14px;box-shadow:inset 0 -1px 0 color-mix(in srgb,var(--shade) 60%,transparent)}
+.dash .dtop b{font-size:13px}
+.dash .dtag{margin-left:auto;font-family:var(--f-mono);font-size:11px;color:var(--spark-ink);padding:3px 9px;border-radius:var(--r-pill);box-shadow:var(--in-s)}
+.dash .dfil{display:flex;flex-wrap:wrap;gap:6px;padding:12px 14px 0;align-items:center}
+.dash .dfil span{font-size:12px;padding:5px 10px;border-radius:var(--r-pill);box-shadow:var(--in-s);color:var(--muted)}
+.dash .dfil span.on{box-shadow:var(--out-s);color:var(--accent-ink);font-weight:700}
+.dash .dfil .dsep{width:1px;height:18px;padding:0;box-shadow:none;background:var(--shade)}
+.dash .dfil .drole{margin-left:auto;box-shadow:none;font-family:var(--f-mono);font-size:11px}
+.dash .dkpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:12px 14px}
+.dash .dkpi>div{border-radius:var(--r-s);box-shadow:var(--out-s);padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.dash .dkpi small{font-size:11.5px;color:var(--muted)}
+.dash .dkpi b{font-size:19px;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.dash .dkpi em{font-style:normal;font-family:var(--f-mono);font-size:10px;color:var(--muted)}
+.dash .dpanel{margin:0 14px 12px;border-radius:var(--r-s);box-shadow:var(--in-s);padding:10px 12px;min-width:0}
+.dash .dhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+.dash .dhead b{font-size:12.5px}
+.dash .dleg{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.dash .dleg i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-left:6px}
+.dash .dleg .lin{background:var(--c-in)}.dash .dleg .lout{background:var(--c-out)}
+.dash .dunit{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;color:var(--muted)}
+.dash .dchart{width:100%;height:auto;display:block}
+.dash .dchart .din{fill:var(--c-in)}.dash .dchart .dout{fill:var(--c-out)}
+.dash .dchart path:hover{opacity:.8}
+.dash .dchart .dg{stroke:var(--shade);stroke-width:1;opacity:.6}
+.dash .dchart .dt{fill:var(--muted);font-family:var(--f-mono);font-size:11px}
+.dash .dchart .dv{fill:var(--ink);font-family:var(--f-mono);font-size:11px;font-weight:600}
+.dash .dduo{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dash .dduo .dpanel{margin-right:7px}.dash .dduo .dpanel+.dpanel{margin-left:7px;margin-right:14px}
+.dash .dtab{width:100%;border-collapse:collapse;font-size:12px}
+.dash .dtab td{padding:3px 0}.dash .dtab td+td{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.dash .dtab tr.sum td{font-weight:700;border-top:1px solid color-mix(in srgb,var(--shade) 70%,transparent)}
+.dash .dok{margin-top:6px;font-size:11.5px;color:var(--accent-ink);font-weight:700}
+.dash .dalert{list-style:none;margin:0;padding:0!important;display:flex;flex-direction:column;gap:7px;font-size:12px}
+.dash .dalert li{display:flex;gap:8px;align-items:flex-start;margin:0!important}
+.dash .dalert li span{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:900;box-shadow:var(--out-s)}
+.dash .dalert .w{color:var(--spark-ink)}.dash .dalert .g{color:var(--accent-ink)}
+.dash figcaption{padding:0 14px 14px;font-family:var(--f-mono);font-size:11px;color:var(--muted);line-height:1.5}
+@media (max-width:620px){.dash .dkpi{grid-template-columns:repeat(2,minmax(0,1fr))}.dash .dduo{grid-template-columns:1fr}.dash .dduo .dpanel,.dash .dduo .dpanel+.dpanel{margin:0 14px 12px}.dash .dfil .drole{margin-left:0}}
 .latest{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .ncard{display:flex;flex-direction:column;gap:14px;border-radius:var(--r-l);padding:24px;box-shadow:var(--out);text-decoration:none;min-width:0;transition:transform .25s}
 .ncard:hover{transform:translateY(-4px)}
@@ -743,6 +784,7 @@ const ICONS={
  wheel:'<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>',
  plus:'<path d="M12 5v14M5 12h14"/>',
  ledger:'<path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M5 16.5a3 3 0 0 1 3-3h11M9 8h6M9 11h4"/>',
+ chart:'<path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/>',
  rocket:'<path d="M14 4c3.5 0 6 2.5 6 6-1.5 3.5-4.5 6.5-8 8l-6-6c1.5-3.5 4.5-6.5 8-8z"/><circle cx="14.5" cy="9.5" r="1.6"/><path d="M6 12l-2.5 1 1 3M12 18l-1 2.5-3-1M5 19l2-2"/>',
  term:'<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/>'
 };
@@ -995,6 +1037,56 @@ const ARTICLES=[
  ['quote','AI làm phần đọc và chép. Kế toán giữ phần hiểu và chịu trách nhiệm.'],
  ['lab','hst-finance','Xem một dashboard tài chính có AI gợi ý phân loại giao dịch ngân hàng: HST Finance trong Lab.']
  ]}
+,{id:'ai-quan-tri-tai-chinh',n:'12',icon:'chart',cat:'Thực chiến',feature:true,title:'AI kế toán P2: dashboard quản trị tài chính doanh nghiệp',sym:'Một màn hình, ba báo cáo, đúng người đúng quyền.',
+ sub:'Dashboard tài chính lấy số từ đâu, đối chiếu với gì, ai được xem gì. Và vì sao bản tôi đang chạy chỉ là giải pháp tạm thời trên đường tới sổ nhật ký chung chuẩn.',
+ b:[
+ ['note','<strong>Bài nối tiếp</strong> <a href="#bai-ai-ke-toan">AI kế toán: từ bộ hồ sơ đến sổ nhật ký chung</a>. Bạn không cần biết code, cũng không cần biết kế toán. Đọc xong, bạn sẽ biết một dashboard tài chính cần những gì, AI đứng ở đâu, và tự dựng bản đầu tiên bằng Claude Code.'],
+ ['p','Bài trước đã nói về bộ ba báo cáo tài chính: <strong>Bảng cân đối kế toán</strong> là bức ảnh chụp tài sản công ty có gì và tiền đó từ đâu ra; <strong>Báo cáo kết quả kinh doanh</strong> cho biết kỳ vừa qua lời hay lỗ; <strong>Báo cáo lưu chuyển tiền tệ</strong> cho biết tiền thật chạy vào, chạy ra đi đâu về đâu. Bài này trả lời câu hỏi tiếp theo: làm sao để người điều hành nhìn thấy ba bức tranh đó <strong>mỗi ngày</strong>, không phải chờ cuối quý.'],
+ ['h2','Dashboard là cửa sổ nhìn vào sổ'],
+ ['p','Tư duy quan trọng nhất: dashboard <strong>không tự sinh ra số</strong>. Nó chỉ là cửa sổ nhìn vào sổ nhật ký chung. Sổ đúng thì cửa sổ đúng; sổ thiếu thì dashboard đẹp mấy cũng sai.'],
+ ['steps',[['Bộ hồ sơ','hóa đơn, hợp đồng'],['Sổ nhật ký chung','mọi giao dịch, đủ trường'],['Sổ cái','số dư từng tài khoản'],['Ba báo cáo','BS · P&amp;L · dòng tiền'],['Dashboard','đúng người, đúng quyền']]],
+ ['h2','Mỗi báo cáo lấy từ đâu, đối chiếu với gì'],
+ ['p','Mỗi báo cáo có một <strong>nguồn chính</strong> là sổ sách, và một <strong>nguồn đối chiếu</strong> là dữ liệu thực tế bên ngoài mà kế toán không sửa được. Hai nguồn khớp nhau thì tin được; lệch nhau thì dashboard phải báo.'],
+ ['table',[['Báo cáo','Nguồn chính (sổ sách)','Nguồn đối chiếu (thực tế)'],['Bảng cân đối','Số dư từng mã tài khoản trong sổ cái: tài sản, phải thu, phải trả, vốn','Số dư tài khoản ngân hàng, số dư ví crypto trên blockchain, sổ tiết kiệm'],['Kết quả kinh doanh','Tài khoản đầu 5 đến 8 kết chuyển về 911','Hóa đơn đầu ra, đầu vào đã phát hành'],['Lưu chuyển tiền tệ','Các dòng tiền mặt, tiền gửi trong sổ nhật ký chung','Giao dịch thật trên sao kê ngân hàng đã phân loại; biến động tài sản']]],
+ ['p','Số dư ngân hàng và số dư ví crypto là loại nguồn đối chiếu tốt nhất: chúng do bên thứ ba ghi nhận, cập nhật gần như tức thời, và không ai trong công ty sửa được. Dashboard nên tự so sổ với các nguồn này mỗi ngày.'],
+ ['h2','Một dashboard chuẩn trông như thế nào'],
+ ['html',"<figure class=\"dash\"><div class=\"dtop\"><span class=\"dots\" aria-hidden=\"true\"><i></i><i></i><i></i></span><b>Dashboard quản trị tài chính</b><span class=\"dtag\">Số liệu minh họa</span></div><div class=\"dfil\"><span class=\"on\">Hợp nhất</span><span>Công ty A</span><span>Công ty B</span><span class=\"dsep\"></span><span class=\"on\">Tháng 9/2026</span><span>Cả năm</span><span class=\"drole\">Vai: Xem tất cả</span></div><div class=\"dkpi\"><div><small>Tiền và tương đương tiền</small><b>12,40 tỷ</b><em>Sổ cái 111 + 112 · khớp ngân hàng ✓</em></div><div><small>Doanh thu tháng</small><b>7,60 tỷ</b><em>Sổ cái đầu 5 · P&amp;L</em></div><div><small>Lợi nhuận trước thuế</small><b>1,15 tỷ</b><em>Kết chuyển 911</em></div><div><small>Dòng tiền ròng tháng</small><b>+0,85 tỷ</b><em>Sổ nhật ký chung · sao kê ✓</em></div></div><div class=\"dpanel\"><div class=\"dhead\"><b>Dòng tiền thu và chi theo tháng</b><span class=\"dleg\"><i class=\"lin\"></i>Thu<i class=\"lout\"></i>Chi</span><span class=\"dunit\">tỷ đồng</span></div><svg class=\"dchart\" viewBox=\"0 0 600 214\" role=\"img\" aria-label=\"Biểu đồ cột dòng tiền thu và chi 6 tháng, số minh họa\"><line class=\"dg\" x1=\"44\" x2=\"592\" y1=\"186.0\" y2=\"186.0\"/><text class=\"dt\" x=\"36\" y=\"190.0\" text-anchor=\"end\">0</text><line class=\"dg\" x1=\"44\" x2=\"592\" y1=\"129.3\" y2=\"129.3\"/><text class=\"dt\" x=\"36\" y=\"133.3\" text-anchor=\"end\">3</text><line class=\"dg\" x1=\"44\" x2=\"592\" y1=\"72.7\" y2=\"72.7\"/><text class=\"dt\" x=\"36\" y=\"76.7\" text-anchor=\"end\">6</text><line class=\"dg\" x1=\"44\" x2=\"592\" y1=\"16.0\" y2=\"16.0\"/><text class=\"dt\" x=\"36\" y=\"20.0\" text-anchor=\"end\">9</text><path class=\"din\" d=\"M64.7,186V74.8Q64.7,70.8 68.7,70.8H84.7Q88.7,70.8 88.7,74.8V186Z\"><title>T4 · Thu 6,1 tỷ</title></path><path class=\"dout\" d=\"M90.7,186V88.0Q90.7,84.0 94.7,84.0H110.7Q114.7,84.0 114.7,88.0V186Z\"><title>T4 · Chi 5,4 tỷ</title></path><text class=\"dt\" x=\"89.7\" y=\"206\" text-anchor=\"middle\">T4</text><path class=\"din\" d=\"M156.0,186V61.6Q156.0,57.6 160.0,57.6H176.0Q180.0,57.6 180.0,61.6V186Z\"><title>T5 · Thu 6,8 tỷ</title></path><path class=\"dout\" d=\"M182.0,186V78.6Q182.0,74.6 186.0,74.6H202.0Q206.0,74.6 206.0,78.6V186Z\"><title>T5 · Chi 5,9 tỷ</title></path><text class=\"dt\" x=\"181.0\" y=\"206\" text-anchor=\"middle\">T5</text><path class=\"din\" d=\"M247.3,186V54.0Q247.3,50.0 251.3,50.0H267.3Q271.3,50.0 271.3,54.0V186Z\"><title>T6 · Thu 7,2 tỷ</title></path><path class=\"dout\" d=\"M273.3,186V65.3Q273.3,61.3 277.3,61.3H293.3Q297.3,61.3 297.3,65.3V186Z\"><title>T6 · Chi 6,6 tỷ</title></path><text class=\"dt\" x=\"272.3\" y=\"206\" text-anchor=\"middle\">T6</text><path class=\"din\" d=\"M338.7,186V67.2Q338.7,63.2 342.7,63.2H358.7Q362.7,63.2 362.7,67.2V186Z\"><title>T7 · Thu 6,5 tỷ</title></path><path class=\"dout\" d=\"M364.7,186V59.7Q364.7,55.7 368.7,55.7H384.7Q388.7,55.7 388.7,59.7V186Z\"><title>T7 · Chi 6,9 tỷ</title></path><text class=\"dt\" x=\"363.7\" y=\"206\" text-anchor=\"middle\">T7</text><path class=\"din\" d=\"M430.0,186V40.8Q430.0,36.8 434.0,36.8H450.0Q454.0,36.8 454.0,40.8V186Z\"><title>T8 · Thu 7,9 tỷ</title></path><path class=\"dout\" d=\"M456.0,186V61.6Q456.0,57.6 460.0,57.6H476.0Q480.0,57.6 480.0,61.6V186Z\"><title>T8 · Chi 6,8 tỷ</title></path><text class=\"dt\" x=\"455.0\" y=\"206\" text-anchor=\"middle\">T8</text><path class=\"din\" d=\"M521.3,186V35.1Q521.3,31.1 525.3,31.1H541.3Q545.3,31.1 545.3,35.1V186Z\"><title>T9 · Thu 8,2 tỷ</title></path><path class=\"dout\" d=\"M547.3,186V51.2Q547.3,47.2 551.3,47.2H567.3Q571.3,47.2 571.3,51.2V186Z\"><title>T9 · Chi 7,35 tỷ</title></path><text class=\"dt\" x=\"546.3\" y=\"206\" text-anchor=\"middle\">T9</text><text class=\"dv\" x=\"533.3\" y=\"25.1\" text-anchor=\"middle\">8,2</text><text class=\"dv\" x=\"559.3\" y=\"41.2\" text-anchor=\"middle\">7,35</text></svg></div><div class=\"dduo\"><div class=\"dpanel\"><div class=\"dhead\"><b>Bảng cân đối thu gọn · 30/9</b></div><table class=\"dtab\"><tr><td>Tài sản ngắn hạn</td><td>31,60</td></tr><tr><td>Tài sản dài hạn</td><td>18,20</td></tr><tr class=\"sum\"><td>Tổng tài sản</td><td>49,80</td></tr><tr><td>Nợ phải trả</td><td>17,30</td></tr><tr><td>Vốn chủ sở hữu</td><td>32,50</td></tr><tr class=\"sum\"><td>Tổng nguồn vốn</td><td>49,80</td></tr></table><p class=\"dok\">✓ Tài sản = Nợ + Vốn</p></div><div class=\"dpanel\"><div class=\"dhead\"><b>Cần xử lý</b></div><ul class=\"dalert\"><li><span class=\"w\">!</span>12 bút toán AI đề xuất chờ kế toán duyệt</li><li><span class=\"w\">!</span>Ví USDT lệch sổ 0,02 tỷ, cần đối chiếu</li><li><span class=\"g\">✓</span>Tiền mặt trên ngưỡng an toàn 5,00 tỷ</li><li><span class=\"g\">✓</span>Chi phí quản lý dùng 68% ngân sách năm</li></ul></div></div><figcaption>Hình minh họa một dashboard quản trị tài chính chuẩn. Mỗi con số ghi rõ lấy từ sổ nào và đã đối chiếu với nguồn thực tế hay chưa. Số liệu giả định, không phải của doanh nghiệp nào.</figcaption></figure>"],
+ ['p','Đọc hình theo bốn vùng. <strong>Hàng lọc</strong> trên cùng: chọn công ty hoặc xem hợp nhất, chọn kỳ, và luôn hiện vai trò của người đang xem. <strong>Bốn thẻ số</strong>: mỗi thẻ ghi rõ lấy từ sổ nào và đã khớp nguồn thực tế chưa. <strong>Biểu đồ dòng tiền</strong> theo tháng. Hai ô dưới: <strong>bảng cân đối thu gọn</strong> tự kiểm tài sản bằng nợ cộng vốn, và <strong>danh sách cần xử lý</strong>, nơi AI và hệ thống đẩy lên những việc con người phải quyết.'],
+ ['h2','Phân quyền: ai được thấy gì'],
+ ['p','Số liệu tài chính là dữ liệu nhạy cảm nhất của doanh nghiệp. Dashboard phải được thiết kế quanh phân quyền ngay từ đầu, không phải thêm vào sau.'],
+ ['table',[['Vai trò','Được làm gì'],['Quản trị','Mọi việc, cấp quyền cho người khác, xem nhật ký hoạt động'],['Nhập liệu','Phân loại giao dịch, nhập ngân sách, duyệt bút toán AI đề xuất'],['Xem chi tiết','Xem mọi bảng, mọi giao dịch, không sửa'],['Xem tổng quan','Chỉ xem các thẻ số và biểu đồ chính'],['Chưa được cấp quyền','Không thấy gì, kể cả đường dẫn cũng không mở được']]],
+ ['p','Mọi thao tác ghi vào <strong>nhật ký hoạt động</strong>: ai làm gì, lúc nào, và hoàn tác được. Đây vừa là lớp bảo mật, vừa là nguồn để AI học từ những lần con người sửa.'],
+ ['h2','AI đứng ở ba chỗ'],
+ ['take',['<strong>Đầu vào: hạch toán.</strong> Đọc bộ hồ sơ, đề xuất bút toán cho sổ nhật ký chung, kế toán duyệt. Đây là nội dung bài trước.','<strong>Giữa: phân loại và đối chiếu.</strong> Gợi ý nhóm cho giao dịch ngân hàng, phát hiện chỗ sổ lệch thực tế. Không chắc thì để "chờ duyệt", không tự ghi.','<strong>Đầu ra: giải thích.</strong> Trả lời bằng tiếng Việt những câu như "vì sao chi phí tháng 9 tăng", kèm đường dẫn tới đúng các giao dịch làm nên con số.']],
+ ['h2','Thực tế: cái tôi đã xây là giải pháp tạm thời'],
+ ['p','Tôi đã dựng một dashboard như vậy cho một nhóm công ty, bạn có thể xem bản chạy thật trong Lab: <a href="#lab-hst-finance">HST Finance</a> (cần tài khoản được cấp quyền mới xem được số liệu). Nhưng cần nói thẳng: <strong>đây là giải pháp tạm thời</strong>, dựng khi hệ thống <strong>chưa có một sổ nhật ký chung chuẩn</strong>.'],
+ ['p','Vì chưa có sổ chuẩn, dashboard phải ghép bức tranh từ nhiều nguồn rời: sao kê ngân hàng tự về mỗi ngày qua một dịch vụ kết nối ngân hàng, ngân sách đọc từ Google Sheet, tài sản (sổ tiết kiệm, ví crypto, cổ phiếu, góp vốn) nhập tay hoặc tra từ nguồn công khai, chi phí và công nợ lấy từ phần mềm kế toán. AI chỉ làm được việc gợi ý phân loại giao dịch ngân hàng.'],
+ ['table',[['Phần','Bản tạm thời đang lấy từ','Bản chuẩn sẽ lấy từ'],['Dòng tiền','Sao kê ngân hàng, người dùng tự phân loại với AI gợi ý','Sổ nhật ký chung; sao kê chỉ còn để đối chiếu'],['Bảng cân đối','Số dư ngân hàng + tài sản nhập tay + công nợ từ phần mềm kế toán','Số dư sổ cái, đủ mọi tài khoản'],['Kết quả kinh doanh','Chưa có đủ: phần mềm kế toán chưa cho lấy doanh thu và số dư tài khoản','Đầu 5 đến 8 kết chuyển 911'],['Chi phí','Chỉ những chứng từ đã gắn khoản mục chi phí','Mọi bút toán có mã khoản mục']]],
+ ['p','Hệ quả quan trọng nhất: số từ sao kê là <strong>dòng tiền thu, dòng tiền chi</strong>, không phải doanh thu, chi phí. Khách trả tiền trước cho hợp đồng ba tháng là tiền vào hôm nay, nhưng doanh thu ghi dần từng tháng. Dashboard tạm thời phải gọi đúng tên để người điều hành không đọc nhầm.'],
+ ['quote','Dashboard tạm thời nhìn bằng tiền thật. Dashboard chuẩn nhìn bằng sổ chuẩn, và dùng tiền thật để kiểm tra sổ.'],
+ ['p','Giải pháp tạm thời vẫn đáng làm: người điều hành kiểm soát được tiền mỗi ngày ngay bây giờ, và mỗi lần nhân viên phân loại một giao dịch là thêm một mẩu dữ liệu đã duyệt, chính là nguyên liệu để AI kế toán học sau này.'],
+ ['h2','Lộ trình ba giai đoạn'],
+ ['steps',[['Giai đoạn 1','dashboard dòng tiền từ ngân hàng (tạm thời)'],['Giai đoạn 2','AI kế toán dựng sổ nhật ký chung chuẩn'],['Giai đoạn 3','dashboard đọc từ sổ chuẩn, ngân hàng và blockchain chỉ để đối chiếu']]],
+ ['h2','Tự dựng bằng Claude Code: mười bước'],
+ ['p','Bản của tôi dựng trong khoảng ba tuần, người làm không viết code: tôi ra đề, chọn phương án, bấm thử; Claude Code viết code, chạy thử, sửa lỗi. Mỗi bước dưới đây là một câu giao việc, làm xong bước này, bấm thử được rồi mới sang bước sau.'],
+ ['steps',[['1. Mockup','chốt hình thức trước'],['2. Web app','một kho dữ liệu chung'],['3. Ngân hàng','số dư, sao kê tự về'],['4. Ngân sách','đọc từ Google Sheet'],['5. Đăng nhập','phân quyền 4 vai'],['6. Lên web','chạy 24/7'],['7. Phân loại','AI gợi ý, nhật ký'],['8. Tài sản','tiết kiệm, crypto, cổ phiếu'],['9. Phần mềm kế toán','công nợ, chi phí'],['10. Sổ chuẩn','thay nguồn bằng NKC']]],
+ ['p','<strong>Bước 1, mockup.</strong> Dựng một trang trông giống hệt sản phẩm cuối, số liệu giả. Sửa ở bước này rẻ nhất; đừng nối dữ liệu khi chưa ưng hình thức.'],
+ ['code','Tôi cần dashboard điều hành tài chính cho một nhóm công ty.\nNgười xem: Tổng giám đốc và ban điều hành. Dựng MỘT file mockup HTML gồm:\n- Thẻ số chính: tiền vào, tiền ra, tiền ròng, tổng tài sản; biểu đồ theo tháng.\n- Panel tài sản, ngân sách năm, bảng sức khỏe từng công ty có dòng HỢP NHẤT.\n- Hàng chip lọc theo từng công ty.\nSố liệu minh họa, tên công ty giả định (CTY-A, CTY-B…).'],
+ ['p','<strong>Bước 2, web app và một kho dữ liệu chung.</strong> Biến mockup thành ứng dụng chạy trên máy, mọi người nhìn cùng một số. Ngay bước này, chốt luật tính và ghi vào tệp luật của dự án để Claude nhớ mãi:'],
+ ['code','Ghi vào CLAUDE.md các luật tính:\n- Chỗ chưa có dữ liệu hiện dấu "—". Không bịa số.\n- Tiền chuyển giữa các công ty trong nhóm: tính đủ khi xem từng công ty,\n  nhưng CẤN TRỪ khi xem hợp nhất.\n- Mở/tất toán sổ tiết kiệm không phải thu/chi kinh doanh; sổ là tài sản.\n- Số từ sao kê gọi là DÒNG TIỀN thu/chi, không gọi là doanh thu/chi phí.\n- Giao dịch mới về ở trạng thái "chờ duyệt".'],
+ ['p','<strong>Bước 3, nối ngân hàng.</strong> Đăng ký một dịch vụ kết nối ngân hàng, tự lấy khóa và dán vào tệp cấu hình trên máy; Claude không lấy khóa hộ. Yêu cầu: tự cập nhật mỗi ngày một giờ cố định, có nút cập nhật ngay, chống trùng giao dịch, lỗi phải báo to trên màn hình.'],
+ ['p','<strong>Bước 4, ngân sách.</strong> Đọc thẳng từ Google Sheet đang dùng, so ngân sách với thực chi theo tháng.'],
+ ['p','<strong>Bước 5, đăng nhập và phân quyền.</strong> Bắt buộc trước khi đưa lên web: đăng nhập Google, chỉ email được cấp quyền mới vào được, bốn vai như bảng ở trên, link mời, và chế độ "xem như" để quản trị thử góc nhìn từng vai.'],
+ ['p','<strong>Bước 6, lên web chạy 24/7.</strong> Đưa ứng dụng và kho dữ liệu lên dịch vụ đám mây để không phụ thuộc máy bạn bật hay tắt. Đặt máy chủ ứng dụng cùng vùng với kho dữ liệu, nếu không web sẽ chậm. Bản của tôi chạy trên các gói miễn phí; hạn mức miễn phí thay đổi không báo trước, hãy tự kiểm trang giá chính thức.'],
+ ['p','<strong>Bước 7, phân loại và AI gợi ý.</strong> Người nhập liệu lọc giao dịch chờ duyệt, chọn nhóm, chia một giao dịch cho nhiều mục. Nút "Nhờ AI gợi ý"; AI học từ những lần người sửa. Thêm nhật ký hoạt động và hoàn tác.'],
+ ['p','<strong>Bước 8, tài sản.</strong> Làm lần lượt từng loại: sổ tiết kiệm, sổ cho vay, ví crypto (dán địa chỉ ví công khai, số dư đọc từ blockchain), cổ phiếu, góp vốn giữa các công ty.'],
+ ['p','<strong>Bước 9, nối phần mềm kế toán.</strong> Lấy công nợ, tồn kho, chi phí. Gọi thử thật từng hàm và lập bảng hàm nào trả dữ liệu, hàm nào không; đây là lúc bạn biết bản tạm thời thiếu gì so với bản chuẩn.'],
+ ['p','<strong>Bước 10, thay nguồn bằng sổ chuẩn.</strong> Khi AI kế toán ở bài trước đã cho ra sổ nhật ký chung đủ trường, chuyển các thẻ số sang đọc từ sổ; sao kê ngân hàng, ví crypto lùi về vai trò đối chiếu.'],
+ ['ex','Chị Lan là giám đốc tài chính của ba công ty con. Trước đây mỗi sáng thứ Hai chị nhận ba tệp Excel từ ba kế toán, mất nửa buổi ghép lại. Với dashboard giai đoạn 1, 8 giờ sáng chị mở điện thoại, chọn "Hợp nhất", thấy ngay tiền còn bao nhiêu, tuần qua thu chi thế nào, và ba việc cần duyệt. Chị vẫn chưa có báo cáo lời lỗ hằng ngày; muốn có, công ty phải đi tiếp tới giai đoạn 2. (Ví dụ minh họa.)'],
+ ['h2','Những điều không được bỏ qua'],
+ ['take',['<strong>Gọi đúng tên.</strong> Sao kê ngân hàng là dòng tiền; doanh thu, chi phí là chuyện của chứng từ kế toán.','<strong>Không bịa số.</strong> Thiếu dữ liệu thì hiện "—". Số nào cũng phải truy được về nguồn.','<strong>Khóa bí mật chỉ nằm trên máy.</strong> Không đưa lên GitHub, không dán vào khung chat.','<strong>Đăng nhập trước, lên web sau.</strong> Dashboard tài chính không bao giờ được để mở.','<strong>Bản giới thiệu tách hẳn bản thật.</strong> Số giả định, kho dữ liệu riêng, không dùng chung khóa.']],
+ ['lab','hst-finance','Xem dashboard tài chính tôi đã xây (bản tạm thời) chạy thật trong Lab: HST Finance.']
+ ]}
 ];
 
 const PATH=[['Nền tảng','Hash, chữ ký, sổ cái','hash'],['Ví & khóa','Tự giữ tài sản an toàn','khoa-rieng'],['Hợp đồng thông minh','Logic tự thực thi','hop-dong-thong-minh'],['Định danh','Ai cấp, ai giữ, ai kiểm','dinh-danh'],['Tài sản số','Stablecoin, rủi ro','stablecoin'],['Token hóa','Tài sản thực trên chuỗi','rwa'],['AI × Chain','AI Agent trong vận hành','ai-agent']];
@@ -1192,6 +1284,7 @@ function renderArticle(id){
     if(t==='p')return`<p>${c}</p>`;if(t==='h2')return`<h2>${c}</h2>`;if(t==='quote')return`<blockquote>${c}</blockquote>`;
     if(t==='ex')return`<div class="box"><span class="lbl">VÍ DỤ ĐỜI THƯỜNG</span>${c}</div>`;
     if(t==='take')return`<div class="box take"><span class="lbl">ĐƠN THUỐC MANG VỀ</span><ul>${c.map(l=>`<li>${l}</li>`).join('')}</ul></div>`;
+    if(t==='html')return c;
     if(t==='note')return`<div class="box note"><span class="lbl">ĐỌC TRƯỚC KHI BẮT ĐẦU</span>${c}</div>`;
     if(t==='code')return`<pre class="codeb"><code>${esc(c)}</code></pre>`;
     if(t==='table')return`<div class="tblw"><table><thead><tr>${c[0].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${c.slice(1).map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
