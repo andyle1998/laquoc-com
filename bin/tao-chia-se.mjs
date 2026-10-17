@@ -32,7 +32,7 @@ const cat = (s, n) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') +
 const trang = [
   { ten: 'trang-chu', duong: '', bam: '', nhan: 'Blockchain · AI · Công nghệ',
     tieuDe: 'Bác sĩ Chain · Hành AI hay bị AI hành...', icon: 'chain',
-    anhTieuDe: 'Bác sĩ Chain\nHành AI hay\nbị AI hành...',
+    anhHtml: '<h1 style="margin:auto 0 0">Bác sĩ Chain</h1><p class="slg"><i></i><span>Hành AI hay<br>bị AI hành...</span></p>',
     tomTat: 'Khám, chẩn đoán và kê đơn cho những khái niệm công nghệ khó nuốt: blockchain, tài sản số, AI. Giải thích bằng ví dụ đời thường, kèm sản phẩm chạy thử trong Lab.' },
   { ten: 'bai-viet', duong: 'bai-viet/', bam: 'bai-viet', nhan: 'Bài viết', icon: 'term',
     tieuDe: 'Bệnh án công nghệ', tomTat: 'Các bài viết về blockchain, tài sản số và AI thực chiến, giải thích bằng ví dụ đời thường cho người không chuyên.' },
@@ -97,7 +97,7 @@ function mauAnh(t) {
   const hex = '0123456789abcdef';
   const cot = x => Array.from({ length: 9 }, (_, i) => `<span style="top:${i * 72 + 8}px;left:${x}px">${hex[(i * 7 + x) % 16]}${hex[(i * 3 + x * 5) % 16]}${hex[(i + x) % 16]}</span>`).join('');
   return `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=JetBrains+Mono:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,900;1,700&family=JetBrains+Mono:wght@600&display=swap">
 <style>
 *{box-sizing:border-box;margin:0}
 html,body{width:1200px;height:630px;overflow:hidden}
@@ -115,6 +115,8 @@ body::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;bac
 .nhan{margin-top:22px;font-family:"JetBrains Mono",monospace;font-size:18px;color:#007A6E;padding:7px 16px;border-radius:999px;box-shadow:inset 3px 3px 6px #B2C0CC,inset -3px -3px 6px #fff}
 h1{margin:auto 0;font-size:${tieu}px;font-weight:900;letter-spacing:-.03em;line-height:1.12;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-shadow:-2px -2px 0 #fff,4px 5px 10px #B2C0CC}
 .mien{font-family:"JetBrains Mono",monospace;font-size:19px;color:#4C6270}
+.slg{margin:14px 0 auto;display:inline-flex;align-items:center;gap:16px;padding:14px 28px 14px 22px;border-radius:999px;background:#E3E9EF;box-shadow:6px 6px 14px #B2C0CC,-6px -6px 14px #fff;font-size:36px;font-weight:700;font-style:italic;color:#007A6E;line-height:1.15;text-align:left;text-shadow:-1px -1px 0 #fff,2px 3px 6px rgba(0,90,82,.28)}
+.slg i{flex:none;width:16px;height:16px;border-radius:50%;background:#FF7A33;box-shadow:0 0 0 6px rgba(255,122,51,.22)}
 .mien b{color:#B5470C}
 </style></head><body>
 <div class="hx">${cot(24)}${cot(1118)}</div>
@@ -123,7 +125,7 @@ h1{margin:auto 0;font-size:${tieu}px;font-weight:900;letter-spacing:-.03em;line-
 <div class="giua">
  <span class="lg"><svg viewBox="0 0 1242 942"><path fill-rule="evenodd" d="${logoD}"/></svg></span>
  <span class="nhan">${esc(t.nhan)}</span>
- <h1${t.anhTieuDe ? ' style="white-space:pre-line"' : ''}>${esc(t.anhTieuDe || t.tieuDe)}</h1>
+ ${t.anhHtml || `<h1>${esc(t.tieuDe)}</h1>`}
  <span class="mien"><b>laquoc.com</b>${t.duong ? '/' + esc(t.duong.replace(/\/$/, '')) : ''}</span>
 </div>
 </body></html>`;
