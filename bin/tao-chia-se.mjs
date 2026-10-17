@@ -32,6 +32,7 @@ const cat = (s, n) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') +
 const trang = [
   { ten: 'trang-chu', duong: '', bam: '', nhan: 'Blockchain · AI · Công nghệ',
     tieuDe: 'Bác sĩ Chain · Hành AI hay bị AI hành...', icon: 'chain',
+    anhTieuDe: 'Bác sĩ Chain\nHành AI hay\nbị AI hành...',
     tomTat: 'Khám, chẩn đoán và kê đơn cho những khái niệm công nghệ khó nuốt: blockchain, tài sản số, AI. Giải thích bằng ví dụ đời thường, kèm sản phẩm chạy thử trong Lab.' },
   { ten: 'bai-viet', duong: 'bai-viet/', bam: 'bai-viet', nhan: 'Bài viết', icon: 'term',
     tieuDe: 'Bệnh án công nghệ', tomTat: 'Các bài viết về blockchain, tài sản số và AI thực chiến, giải thích bằng ví dụ đời thường cho người không chuyên.' },
@@ -122,7 +123,7 @@ h1{margin:auto 0;font-size:${tieu}px;font-weight:900;letter-spacing:-.03em;line-
 <div class="giua">
  <span class="lg"><svg viewBox="0 0 1242 942"><path fill-rule="evenodd" d="${logoD}"/></svg></span>
  <span class="nhan">${esc(t.nhan)}</span>
- <h1>${esc(t.tieuDe)}</h1>
+ <h1${t.anhTieuDe ? ' style="white-space:pre-line"' : ''}>${esc(t.anhTieuDe || t.tieuDe)}</h1>
  <span class="mien"><b>laquoc.com</b>${t.duong ? '/' + esc(t.duong.replace(/\/$/, '')) : ''}</span>
 </div>
 </body></html>`;
