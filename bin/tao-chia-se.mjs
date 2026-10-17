@@ -87,38 +87,44 @@ ${theMeta(t)}
 }
 
 /* ---------- ảnh xem trước ---------- */
+/* Bố cục: mọi thứ quan trọng nằm trong cột giữa 630px, nên khi nền tảng cắt ảnh
+   thành ô vuông ở giữa (Slack, iMessage, Zalo thu nhỏ) vẫn thấy trọn logo + tiêu đề.
+   Hai bên chỉ là trang trí. */
 function mauAnh(t) {
-  const tieu = t.tieuDe.length > 70 ? 54 : t.tieuDe.length > 44 ? 62 : 72;
+  const n = t.tieuDe.length;
+  const tieu = n > 64 ? 42 : n > 44 ? 48 : n > 26 ? 56 : 64;
+  const hex = '0123456789abcdef';
+  const cot = x => Array.from({ length: 9 }, (_, i) => `<span style="top:${i * 72 + 8}px;left:${x}px">${hex[(i * 7 + x) % 16]}${hex[(i * 3 + x * 5) % 16]}${hex[(i + x) % 16]}</span>`).join('');
   return `<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=JetBrains+Mono:wght@600&display=swap">
 <style>
 *{box-sizing:border-box;margin:0}
 html,body{width:1200px;height:630px;overflow:hidden}
-body{background:#E3E9EF;color:#122B35;font-family:Montserrat,sans-serif;padding:56px 64px;display:grid;grid-template-columns:1fr 300px;gap:48px;position:relative}
-body::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#00A896,#FF7A33)}
-.trai{display:flex;flex-direction:column;min-width:0}
-.hieu{display:flex;align-items:center;gap:14px}
-.hieu .mk{width:64px;height:64px;border-radius:18px;box-shadow:inset 4px 4px 9px #B2C0CC,inset -4px -4px 9px #fff;display:grid;place-items:center}
-.hieu svg{width:46px;fill:#00A896}
-.hieu b{font-size:28px;font-weight:900;letter-spacing:-.02em;display:block;line-height:1}
-.hieu small{font-family:"JetBrains Mono",monospace;font-size:15px;letter-spacing:.14em;color:#007A6E;display:block;margin-top:6px}
-.nhan{margin-top:44px;align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:19px;color:#007A6E;padding:8px 18px;border-radius:999px;box-shadow:inset 3px 3px 6px #B2C0CC,inset -3px -3px 6px #fff}
-h1{margin-top:22px;font-size:${tieu}px;font-weight:900;letter-spacing:-.035em;line-height:1.08;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-shadow:-2px -2px 0 #fff,4px 5px 10px #B2C0CC}
-p{margin-top:20px;font-size:24px;font-weight:500;color:#4C6270;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.mien{margin-top:auto;font-family:"JetBrains Mono",monospace;font-size:20px;color:#4C6270}
+body{background:#E3E9EF;color:#122B35;font-family:Montserrat,sans-serif;position:relative}
+body::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(90deg,#00A896,#FF7A33)}
+.hx{position:absolute;inset:0;font-family:"JetBrains Mono",monospace;font-size:26px;color:#00A896;opacity:.16}
+.hx span{position:absolute}
+.ben{position:absolute;top:50%;transform:translateY(-50%);width:190px;height:190px;border-radius:48px;background:#E3E9EF;box-shadow:12px 12px 26px #B2C0CC,-12px -12px 26px #fff;display:grid;place-items:center}
+.ben.t{left:60px}.ben.p{right:60px}
+.ben svg{width:92px;height:92px;stroke:#00A896;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ben.p b{font-family:"JetBrains Mono",monospace;font-size:20px;color:#007A6E;text-align:center;line-height:1.5}
+.giua{position:absolute;left:285px;width:630px;top:0;bottom:10px;padding:46px 40px 40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.lg{width:150px;height:150px;border-radius:50%;box-shadow:inset 6px 6px 14px #B2C0CC,inset -6px -6px 14px #fff;display:grid;place-items:center;flex:none}
+.lg svg{width:108px;fill:#00A896;filter:drop-shadow(3px 5px 5px rgba(0,90,82,.3))}
+.nhan{margin-top:22px;font-family:"JetBrains Mono",monospace;font-size:18px;color:#007A6E;padding:7px 16px;border-radius:999px;box-shadow:inset 3px 3px 6px #B2C0CC,inset -3px -3px 6px #fff}
+h1{margin:auto 0;font-size:${tieu}px;font-weight:900;letter-spacing:-.03em;line-height:1.12;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-shadow:-2px -2px 0 #fff,4px 5px 10px #B2C0CC}
+.mien{font-family:"JetBrains Mono",monospace;font-size:19px;color:#4C6270}
 .mien b{color:#B5470C}
-.phai{display:flex;align-items:center;justify-content:center}
-.o{width:300px;height:300px;border-radius:72px;background:#E3E9EF;box-shadow:16px 16px 34px #B2C0CC,-16px -16px 34px #fff;display:grid;place-items:center}
-.o svg{width:150px;height:150px;stroke:#00A896;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(4px 6px 4px rgba(0,90,82,.28))}
 </style></head><body>
-<div class="trai">
- <div class="hieu"><span class="mk"><svg viewBox="0 0 1242 942"><path fill-rule="evenodd" d="${logoD}"/></svg></span><span><b>Bác sĩ Chain</b><small>HÀNH AI</small></span></div>
+<div class="hx">${cot(24)}${cot(1118)}</div>
+<span class="ben t"><svg viewBox="0 0 24 24">${ICONS[t.icon] || ICONS.chain}</svg></span>
+<span class="ben p"><b>Bác sĩ<br>Chain<br>·<br>HÀNH AI</b></span>
+<div class="giua">
+ <span class="lg"><svg viewBox="0 0 1242 942"><path fill-rule="evenodd" d="${logoD}"/></svg></span>
  <span class="nhan">${esc(t.nhan)}</span>
  <h1>${esc(t.tieuDe)}</h1>
- <p>${esc(cat(t.tomTat, 150))}</p>
- <span class="mien"><b>laquoc.com</b>/${esc(t.duong)}</span>
+ <span class="mien"><b>laquoc.com</b>${t.duong ? '/' + esc(t.duong.replace(/\/$/, '')) : ''}</span>
 </div>
-<div class="phai"><span class="o">${t.ten === 'trang-chu' ? `<svg viewBox="0 0 1242 942" style="width:210px;height:auto;fill:#00A896;stroke:none"><path fill-rule="evenodd" d="${logoD}"/></svg>` : `<svg viewBox="0 0 24 24">${ICONS[t.icon] || ICONS.chain}</svg>`}</span></div>
 </body></html>`;
 }
 
