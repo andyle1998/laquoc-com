@@ -80,7 +80,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding-block
   .mtabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;justify-content:space-around;gap:4px;
     padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));
     background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 -6px 16px var(--shade)}
-  .mtabs a{flex:1;text-align:center;padding:9px 4px;border-radius:14px;text-decoration:none;font-weight:700;font-size:13px;color:var(--muted)}
+  .mtabs a{flex:1;text-align:center;padding:12px 2px;border-radius:14px;text-decoration:none;font-weight:700;font-size:12.5px;color:var(--muted);white-space:nowrap;min-width:0}
   .mtabs a.on{color:var(--accent-ink);box-shadow:var(--in-s)}
   footer{padding-bottom:90px!important}
 }
@@ -298,6 +298,44 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .dash .dalert .w{color:var(--spark-ink)}.dash .dalert .g{color:var(--accent-ink)}
 .dash figcaption{padding:0 14px 14px;font-family:var(--f-mono);font-size:11px;color:var(--muted);line-height:1.5}
 @media (max-width:620px){.dash .dkpi{grid-template-columns:repeat(2,minmax(0,1fr))}.dash .dduo{grid-template-columns:1fr}.dash .dduo .dpanel,.dash .dduo .dpanel+.dpanel{margin:0 14px 12px}.dash .dfil .drole{margin-left:0}}
+.ab-hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:40px 8px}
+.ab-copy{display:flex;flex-direction:column;gap:18px;min-width:0}
+.ab-hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.ab-lede{font-size:clamp(17px,1.9vw,20px);color:var(--muted);max-width:52ch;line-height:1.6}
+.ab-hero .facts{margin-top:0}
+.ab-mark{aspect-ratio:1;max-width:340px;width:100%;justify-self:center;border-radius:50%;box-shadow:var(--in);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
+.ab-mark svg{width:52%;fill:var(--accent);filter:drop-shadow(-2px -2px 1px var(--light)) drop-shadow(5px 7px 10px var(--lift))}
+.ab-mark span{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.06em}
+.ab-mark span b{color:var(--accent-ink);font-weight:600}
+@media (max-width:760px){.ab-hero{grid-template-columns:1fr}.ab-mark{max-width:220px;order:-1}}
+.chart-card{border-radius:var(--r-l);box-shadow:var(--out);padding:8px 28px 12px;max-width:880px}
+.cc-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:14px 0;font-size:12px;color:var(--accent-ink);border-bottom:2px dashed color-mix(in srgb,var(--shade) 80%,transparent)}
+.cc-row{display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px;padding:20px 0;border-bottom:1px solid color-mix(in srgb,var(--shade) 55%,transparent)}
+.cc-row:last-child{border-bottom:0}
+.cc-row b{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.cc-row p{font-size:17px;line-height:1.75}
+.cc-row.rx b{color:var(--accent-ink)}
+.cc-row.rx b::before{content:"℞ ";font-size:16px}
+@media (max-width:640px){.chart-card{padding:6px 18px 10px}.cc-row{grid-template-columns:1fr;gap:6px}.cc-row p{font-size:16px}}
+.beliefs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.belief{border-radius:var(--r-m);box-shadow:var(--out);padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.belief h3{font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+.belief p{color:var(--muted);font-size:15px}
+@media (max-width:980px){.beliefs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.beliefs{grid-template-columns:1fr}}
+.ab-why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.why{border-radius:var(--r-m);box-shadow:var(--out);padding:22px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .25s;min-width:0}
+.why:hover{transform:translateY(-4px)}
+.why .eyebrow{color:var(--accent-ink)}
+.why h3{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.why p{color:var(--muted);font-size:15px}
+.why b{margin-top:auto;font-family:var(--f-mono);font-size:12.5px;color:var(--accent-ink);font-weight:600}
+@media (max-width:900px){.ab-why{grid-template-columns:1fr}}
+.ab-flow{margin:0}
+.ab-end{border-radius:var(--r-l);box-shadow:var(--in);padding:32px;max-width:880px;display:flex;flex-direction:column;gap:16px}
+.ab-end p{font-size:clamp(18px,2vw,21px);line-height:1.65;font-weight:500}
+.ab-end .sig{font-family:var(--f-mono);font-size:13px;color:var(--accent-ink);font-weight:600}
+@media (max-width:640px){.ab-end{padding:22px}}
 .latest{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .ncard{display:flex;flex-direction:column;gap:14px;border-radius:var(--r-l);padding:24px;box-shadow:var(--out);text-decoration:none;min-width:0;transition:transform .25s}
 .ncard:hover{transform:translateY(-4px)}
@@ -539,6 +577,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
         <a href="#bai-viet" data-tab="feed">Bài viết</a>
         <a href="#lab" data-tab="lab">Lab</a>
         <a href="#bao-chi" data-tab="press">Báo chí</a>
+        <a href="#gioi-thieu" data-tab="about">Giới thiệu</a>
       </div>
       <button class="theme" id="themeBtn" aria-label="Đổi giao diện sáng / tối">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -547,7 +586,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
   </div>
 </header>
 <nav class="mtabs" data-tabs aria-label="Điều hướng">
-  <a href="#trang-chu" data-tab="home">Trang chủ</a><a href="#bai-viet" data-tab="feed">Bài viết</a><a href="#lab" data-tab="lab">Lab</a><a href="#bao-chi" data-tab="press">Báo chí</a>
+  <a href="#trang-chu" data-tab="home">Trang chủ</a><a href="#bai-viet" data-tab="feed">Bài viết</a><a href="#lab" data-tab="lab">Lab</a><a href="#bao-chi" data-tab="press">Báo chí</a><a href="#gioi-thieu" data-tab="about">Giới thiệu</a>
 </nav>
 
 <main class="wrap">
@@ -615,6 +654,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
           <h3>Từ ống nghe đến sổ cái</h3>
           <p>Lê Anh Quốc. Được đào tạo để khám bệnh, rồi dành phần lớn thời gian từ 2018 đến nay cho thị trường blockchain, tài sản số và AI: vận hành dự án, làm sản phẩm, đứng lớp. Trang này là nơi ghi lại những gì học được trên đường đi.</p>
           <div class="facts"><span>Blockchain từ 2018</span><span>AI trong vận hành</span><span>Giảng dạy</span><span>Hà Nội</span></div>
+          <a class="more" href="#gioi-thieu" style="display:inline-block;margin-top:16px">Đọc giới thiệu →</a>
         </div>
       </div>
     </section>
@@ -763,6 +803,62 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
       </div>
       <div class="vir" id="vir"></div>
       <div class="timeline" id="timeline"></div>
+    </section>
+  </div>
+  <!-- ABOUT -->
+  <div class="view" id="v-about" hidden>
+    <section class="ab-hero">
+      <div class="ab-copy">
+        <span class="eyebrow pop">Giới thiệu</span>
+        <h1 class="ink-raise">Xin chào, tôi là <span class="pop-big">Quốc.</span></h1>
+        <p class="ab-lede">Tôi học để làm bác sĩ, rồi rẽ sang thị trường blockchain từ năm 2018 và ở lại đó gần như suốt từ ấy. Trang này là nơi tôi ghi lại những gì đang học lại từ đầu, lần này cùng AI.</p>
+        <div class="facts"><span>Học Y</span><span>Blockchain từ 2018</span><span>Đang học lại cùng AI</span><span>Hà Nội</span></div>
+      </div>
+      <div class="ab-mark" aria-hidden="true"><svg viewBox="0 0 1242 942"><use href="#logo"/></svg><span>Bác sĩ Chain<br><b>tự khám cho mình</b></span></div>
+    </section>
+
+    <section>
+      <div class="sec-head"><div><span class="eyebrow pop">Bệnh án</span><h2 class="ink-raise">Tự khám cho chính mình</h2></div>
+        <p>Trang này tên là phòng khám, nên trước khi khám cho khái niệm nào, tôi khám cho mình trước.</p></div>
+      <div class="chart-card">
+        <div class="cc-head"><span class="mono">BỆNH ÁN SỐ 01</span><span class="mono">Bệnh nhân: Lê Anh Quốc</span></div>
+        <div class="cc-row"><b>Tiền sử</b><p>Phần lớn thời gian từ 2018 đến nay, tôi dành để xây năng lực triển khai và kinh doanh các dự án DeFi, đúng vào giai đoạn tiền rẻ, khi vốn dễ tìm và thị trường chạy rất nhanh. Tôi học được cách vận hành một dự án, làm việc với nhiều bên, và đứng lớp kể lại những gì mình biết.</p></div>
+        <div class="cc-row"><b>Triệu chứng</b><p>Rồi AI đến, và gần như làm thay được mọi việc tôi từng tự hào là mình làm được. Cảm giác rõ nhất là <strong>ếch ngồi đáy giếng</strong>: cái giếng mình quen hóa ra nhỏ hơn mình tưởng rất nhiều.</p></div>
+        <div class="cc-row"><b>Chẩn đoán</b><p>Không phải thiếu kinh nghiệm. Là thiếu một cách học mới, đủ nhanh để theo kịp thứ đang thay đổi nhanh hơn mình.</p></div>
+        <div class="cc-row rx"><b>Phác đồ</b><p>Dùng AI <strong>một cách đúng</strong>: không để AI nghĩ thay, mà để AI mở rộng chỗ tôi được học và được làm. Với tôi, đó là lối ra khỏi cái giếng, và là cách để tự tay làm ra những thứ mình muốn.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><div><span class="eyebrow pop">Quan điểm</span><h2 class="ink-raise">Những điều tôi tin</h2></div>
+        <p>Không phải chân lý, chỉ là những nguyên tắc tôi đang dùng mỗi ngày và sẵn sàng sửa khi thấy sai.</p></div>
+      <div class="beliefs">
+        <div class="belief"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 16h5"/></svg></span><h3>AI làm, người chịu trách nhiệm</h3><p>Giao cho máy phần lặp lại. Giữ cho người phần quyết định và phần phải đứng ra nhận khi sai.</p></div>
+        <div class="belief"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2"/></svg></span><h3>Hiểu cơ chế rồi mới tin</h3><p>Tiền đi đâu, ai giữ chìa, ai kiểm tra ai. Trả lời được ba câu đó thì mới tính đến chuyện dùng.</p></div>
+        <div class="belief"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/><path d="M4 4l16 16"/></svg></span><h3>Trôi chảy chưa chắc đã đúng</h3><p>Số liệu phải có nguồn, câu trả lời phải kiểm được. Không biết thì nói không biết.</p></div>
+        <div class="belief"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4c3.5 0 6 2.5 6 6-1.5 3.5-4.5 6.5-8 8l-6-6c1.5-3.5 4.5-6.5 8-8z"/><circle cx="14.5" cy="9.5" r="1.6"/><path d="M6 12l-2.5 1 1 3M12 18l-1 2.5-3-1M5 19l2-2"/></svg></span><h3>Làm ra cái dùng được trước</h3><p>Một sản phẩm nhỏ có người dùng thật dạy tôi nhiều hơn mười bản kế hoạch đẹp.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><div><span class="eyebrow pop">Trang này</span><h2 class="ink-raise">Một nơi để chia sẻ và để ấp ủ</h2></div></div>
+      <div class="ab-why">
+        <a class="why" href="#bai-viet"><span class="eyebrow">Bài viết</span><h3>Chia sẻ một tầm nhìn</h3><p>Ghi lại cách tôi nghĩ về AI, blockchain và chuyện làm sản phẩm, giải thích bằng ví dụ đời thường để người không chuyên cũng đọc được.</p><b>Đọc bài viết →</b></a>
+        <a class="why" href="#lab"><span class="eyebrow">Lab</span><h3>Ấp ủ vài sản phẩm</h3><p>Nơi tôi đặt những sản phẩm còn đang làm dở để chạy thật, nhờ bạn bè dùng thử và sửa dần.</p><b>Mở Lab →</b></a>
+        <a class="why" href="#bao-chi"><span class="eyebrow">Báo chí</span><h3>Giữ lại những lần chia sẻ</h3><p>Những buổi nói chuyện, lớp học và bài báo, để tôi nhớ mình đã nói gì và còn nợ người nghe điều gì.</p><b>Xem tư liệu →</b></a>
+      </div>
+      <div class="orbit">
+        <h3>Đường đi của một sản phẩm trong Lab</h3>
+        <ol class="flowb ab-flow"><li><b>Ý tưởng</b><span>một vấn đề tôi thật sự gặp</span></li><li><b>Bản chạy thử</b><span>dựng cùng AI, đặt vào Lab</span></li><li><b>Bạn bè dùng</b><span>góp ý, chỉ chỗ vướng</span></li><li><b>Đủ chất lượng</b><span>dùng được mà không cần tôi đứng cạnh</span></li><li><b>Thương mại hóa</b><span>triển khai như một doanh nghiệp</span></li></ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="ab-end">
+        <p>Tôi không viết ở đây để kể mình đã làm được gì. Tôi viết để nhớ mình đang học gì, và để những sản phẩm còn non có chỗ lớn lên. Khi một sản phẩm đủ tốt, tôi sẽ mang nó ra thị trường, đúng với điều tôi vẫn là từ trước tới giờ: <strong>một người khởi nghiệp</strong>.</p>
+        <p class="sig">Lê Anh Quốc · Bác sĩ Chain</p>
+        <div class="cta"><a class="btn primary" href="#lab"><span class="dot"></span>Dùng thử sản phẩm trong Lab</a><a class="btn" href="#bai-viet">Đọc bài viết</a></div>
+      </div>
     </section>
   </div>
 </main>
@@ -1337,7 +1433,7 @@ $$('[data-pf]').forEach(b=>b.addEventListener('click',()=>{pf=b.dataset.pf;$$('[
 renderPress();
 
 /* ---------- ROUTER ---------- */
-const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press'};
+const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press',about:'#v-about'};
 function route(){
   let h=location.hash.slice(1)||'trang-chu',view='home',tab='home';
   if(h==='bai-viet'){view='feed';tab='feed'}
@@ -1345,6 +1441,7 @@ function route(){
   else if(h==='lab'){view='lab';tab='lab'}
   else if(h.startsWith('lab-')){const id=h.slice(4),app=APPS.find(a=>a.id===id);if(app){view='app';tab='lab';openApp(app)}else{view='lab';tab='lab'}}
   else if(h==='bao-chi'){view='press';tab='press'}
+  else if(h==='gioi-thieu'){view='about';tab='about'}
   Object.entries(views).forEach(([k,s])=>{const el=$(s);const show=k===view;if(el.hidden===show){el.hidden=!show;if(show){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}}else if(show&&k==='article'){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}});
   $$('[data-tabs] a').forEach(a=>a.classList.toggle('on',a.dataset.tab===tab));
   if(view!=='article')coverAnim=null;
