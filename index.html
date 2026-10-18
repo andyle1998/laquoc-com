@@ -2080,7 +2080,7 @@ const Poker=(function(){
   async function nextStreet(){T.players.forEach(p=>{p.bet=0;p.acted=false;if(!p.folded&&!p.out&&!p.allin)p.last=''});T.curBet=0;T.minRaise=T.bbAmt;
     T.dp++;/* burn */const n=T.street===0?3:1;for(let i=0;i<n;i++)T.board.push(T.deck[T.dp++]);T.street++;
     log(`${['','Flop','Turn','River'][T.street]}: ${T.board.map(cardTxt).join(' ')}`);
-    T.toAct=nextIdx(T.button,canAct);render();await wait(T.players.filter(canAct).length<2?900:450)}
+    T.toAct=nextIdx(T.button,canAct);render();await wait(T.players.filter(canAct).length<2?1600:500)}
   async function awardFold(){const w=T.players.find(inHand);const amt=pot();w.stack+=amt;T.winners=[{id:w.id,amt,hand:''}];log(`${w.name} thắng ${amt} (mọi người bỏ bài)`);await endHand()}
   async function showdown(){T.showdown=true;const live=T.players.filter(inHand);
     live.forEach(p=>p.score=best(p.cards.concat(T.board)));
@@ -2098,9 +2098,11 @@ const Poker=(function(){
     const left=alive().length;let pl=left+T.players.filter(p=>p.out&&p.outAt===T.hand).length;T.players.filter(p=>p.out&&p.outAt===T.hand).forEach(p=>p.place=pl--);
     render();renderFair();
     const me=T.players[Math.max(0,meIdx)];
-    if(alive().length<2){await wait(1600);finish();return}
-    if(mode==='bot'&&me.out&&!fast){render();showBust();return}
-    await wait(T.showdown?2600:1300);setTimeout(startHand,0)}
+    /* nhịp sau ván: đủ thời gian xem bài lật và người thắng; ván có người bị loại/kết thúc giải thì dừng lâu hơn */
+    const loai=T.players.some(p=>p.out&&p.outAt===T.hand);
+    if(alive().length<2){render();await wait(T.showdown?7000:4000);finish();return}
+    if(mode==='bot'&&me.out&&!fast){render();await wait(T.showdown?7000:4000);if(T&&!T.over)showBust();return}
+    await wait(T.showdown?(loai?6000:4500):2000);setTimeout(startHand,0)}
   function finish(){T.over=true;const w=alive()[0];w.place=1;render();showResult(w)}
   function botDecide(p){const need=T.curBet-p.bet,P=pot(),opp=T.players.filter(q=>inHand(q)&&q!==p).length;
     const eq=equity(p.cards,T.board,Math.max(1,opp),T.street===0?90:140);
@@ -2139,7 +2141,7 @@ const Poker=(function(){
     $('#pkCall').textContent=need>0?`Theo ${Math.min(need,me0.stack).toLocaleString('vi-VN')}`:'Xem';
     const sl=$('#pkSlider');sl.min=minTo;sl.max=maxTo;sl.step=T.bbAmt||10;if(+sl.value<minTo||+sl.value>maxTo||!myTurn)sl.value=minTo;
     $('#pkRaise').textContent=(need>0?'Tố lên ':'Cược ')+(+sl.value).toLocaleString('vi-VN');$('#pkRaise').disabled=maxTo<=T.curBet;sl.disabled=maxTo<=minTo;
-    const hint=$('#pkHint'),cur=T.players[T.toAct];if(!me)hint.textContent='Bạn đang xem giải này.';else if(me.out)hint.textContent='Bạn đã bị loại, đang xem tiếp.';else if(myTurn){const sc=me.cards.length?best(me.cards.concat(T.board)):0;hint.textContent=T.board.length?`Bài của bạn: ${CAT[catOf(sc)]}`:'Đến lượt bạn';}else hint.textContent=T.showdown?'Lật bài':(mode==='online'&&cur&&cur.human&&!T.over?`Chờ ${cur.name}…`:'Đang chờ người chơi khác…');
+    const hint=$('#pkHint'),cur=T.players[T.toAct];if(!me)hint.textContent='Bạn đang xem giải này.';else if(me.out)hint.textContent=me.outAt===T.hand?'Bạn đã bị loại ở ván này. Xem lại bài lật trên bàn…':'Bạn đã bị loại, đang xem tiếp.';else if(myTurn){const sc=me.cards.length?best(me.cards.concat(T.board)):0;hint.textContent=T.board.length?`Bài của bạn: ${CAT[catOf(sc)]}`:'Đến lượt bạn';}else hint.textContent=T.showdown?'Lật bài':(mode==='online'&&cur&&cur.human&&!T.over?`Chờ ${cur.name}…`:'Đang chờ người chơi khác…');
     $('#pkLog').innerHTML=T.log.slice(0,14).map(l=>`<li>${esc(l)}</li>`).join('');tickClock();if(mode==='online')netBroadcast()}
   function renderFair(){$('#pkHist').innerHTML=T.history.map((h,i)=>`<li><div><b>Ván #${h.hand}</b><code title="Cam kết (SHA-256 của seed)">${h.commit.slice(0,16)}…</code><code title="Seed được công bố sau ván">seed ${h.seed.slice(0,12)}…</code></div><button class="btn sm" data-ver="${i}">Kiểm chứng</button></li>`).join('')||'<li>Chưa có ván nào kết thúc.</li>'}
   function showBust(){const me=T.players[0];$('#pkOverlay').innerHTML=`<div class="pkmodal"><span class="eyebrow pop">Kết thúc hành trình</span><h3>Bạn về hạng ${me.place}/${T.players.length}</h3><p>Trụ được ${me.outAt} ván. Muốn xem ai vô địch không?</p><div class="row"><button class="btn primary" id="pkFF"><span class="dot"></span>Tua nhanh đến hết giải</button><button class="btn" id="pkNew2">Đăng ký giải mới</button></div></div>`;$('#pkOverlay').hidden=false;
