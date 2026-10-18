@@ -81,7 +81,7 @@ function trangChiaSe(t) {
   const den = '/#' + t.bam;
   return `<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 ${theMeta(t)}
-<script>location.replace(${JSON.stringify(den)})</script>
+<script>try{sessionStorage.setItem('bsc-ref',document.referrer)}catch(e){}location.replace(${JSON.stringify(den)})</script>
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#E3E9EF;color:#122B35;font:16px system-ui,-apple-system,sans-serif}a{color:#007A6E}</style>
 </head><body><p>Đang mở <a href="${den}">${esc(t.tieuDe)}</a>…</p></body></html>
 `;

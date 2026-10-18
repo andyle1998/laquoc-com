@@ -355,6 +355,45 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .ab-end p{font-size:clamp(18px,2vw,21px);line-height:1.65;font-weight:500}
 .ab-end .sig{font-family:var(--f-mono);font-size:13px;color:var(--accent-ink);font-weight:600}
 @media (max-width:640px){.ab-end{padding:22px}}
+.qt-who{display:flex;align-items:center;gap:12px;font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.qt-login{max-width:440px;border-radius:var(--r-l);box-shadow:var(--out);padding:26px}
+.qt-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-bottom:20px}
+.seg-pill{display:flex;gap:4px;padding:5px;border-radius:var(--r-pill);box-shadow:var(--in-s)}
+.seg-pill button{border:0;background:none;cursor:pointer;padding:9px 14px;min-height:40px;border-radius:var(--r-pill);font-weight:700;font-size:13.5px;color:var(--muted)}
+.seg-pill button[aria-pressed="true"]{background:var(--bg);box-shadow:var(--out-s);color:var(--accent-ink)}
+.qt-chk{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;min-height:40px}
+.qt-chk input{width:18px;height:18px;accent-color:var(--accent)}
+#v-admin{--c-in:#00A896;--c-out:#FF7A33}
+:root[data-theme="dark"] #v-admin{--c-in:#1AA897;--c-out:#D9702E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #v-admin{--c-in:#1AA897;--c-out:#D9702E}}
+.qt-kpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-bottom:20px}
+.qt-kpi>div{border-radius:var(--r-m);box-shadow:var(--out);padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.qt-kpi small{font-size:13px;color:var(--muted)}
+.qt-kpi b{font-size:28px;font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.qt-kpi em{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+@media (max-width:980px){.qt-kpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.qt-card{border-radius:var(--r-l);box-shadow:var(--out);padding:20px 22px;margin-bottom:20px;min-width:0}
+.qt-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:12px}
+.qt-head b{font-size:16px;font-weight:800}
+.qt-note{font-size:12px;color:var(--muted)}
+#v-admin .dleg{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+#v-admin .dleg i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-left:8px}
+#v-admin .dleg .lin{background:var(--c-in)}#v-admin .dleg .lout{background:var(--c-out)}
+#v-admin .dchart{width:100%;height:auto;display:block}
+#v-admin .dchart .din{fill:var(--c-in)}#v-admin .dchart .dout{fill:var(--c-out)}
+#v-admin .dchart path:hover{opacity:.8}
+#v-admin .dchart .dg{stroke:var(--shade);stroke-width:1;opacity:.6}
+#v-admin .dchart .dt{fill:var(--muted);font-family:var(--f-mono);font-size:11px}
+#v-admin .tblw td:first-child{white-space:normal;min-width:220px}
+#v-admin .tblw td:not(:first-child),#v-admin .tblw th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.qt-duo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:860px){.qt-duo{grid-template-columns:1fr}}
+.qt-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:7px 0;font-size:14px}
+.qt-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qt-row i{display:block;height:10px;border-radius:6px;box-shadow:var(--in-s);position:relative;overflow:hidden}
+.qt-row i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--c-in);border-radius:6px}
+.qt-row b{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.qt-foot{font-size:12px;color:var(--muted);margin-top:4px}
 .latest{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .ncard{display:flex;flex-direction:column;gap:14px;border-radius:var(--r-l);padding:24px;box-shadow:var(--out);text-decoration:none;min-width:0;transition:transform .25s}
 .ncard:hover{transform:translateY(-4px)}
@@ -870,6 +909,50 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
         <p>Tôi không viết ở đây để kể mình đã làm được gì. Tôi viết để nhớ mình đang học gì, và để những sản phẩm còn non có chỗ lớn lên. Khi một sản phẩm đủ tốt, tôi sẽ mang nó ra thị trường, đúng với điều tôi vẫn là từ trước tới giờ: <strong>một người khởi nghiệp</strong>.</p>
         <p class="sig">Lê Anh Quốc · Bác sĩ Chain</p>
         <div class="cta"><a class="btn primary" href="#lab"><span class="dot"></span>Dùng thử sản phẩm trong Lab</a><a class="btn" href="#bai-viet">Đọc bài viết</a></div>
+      </div>
+    </section>
+  </div>
+  <!-- QUẢN TRỊ (không có trên menu, vào bằng /#quan-tri) -->
+  <div class="view" id="v-admin" hidden>
+    <section style="padding-top:36px">
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Quản trị</span><h2 class="ink-raise">Ai đang đọc gì</h2></div>
+        <div class="qt-who" id="qtWho" hidden><span id="qtEmail"></span><button class="btn sm" id="qtOut">Đăng xuất</button></div>
+      </div>
+
+      <div class="qt-login" id="qtLogin" hidden>
+        <form class="form" id="qtForm">
+          <div class="field"><label for="qtE">Email quản trị</label><input id="qtE" type="email" autocomplete="username" required></div>
+          <div class="field"><label for="qtP">Mật khẩu</label><input id="qtP" type="password" autocomplete="current-password" minlength="8" required></div>
+          <div class="row"><button class="btn primary" type="submit"><span class="dot"></span>Đăng nhập</button><button class="btn" type="button" id="qtSignup">Tạo tài khoản lần đầu</button></div>
+          <p class="status" id="qtMsg" hidden></p>
+        </form>
+      </div>
+
+      <div id="qtBoard" hidden>
+        <div class="qt-bar">
+          <div class="seg-pill" role="group" aria-label="Khoảng thời gian">
+            <button data-qn="1">Hôm nay</button><button data-qn="7" aria-pressed="true">7 ngày</button><button data-qn="30">30 ngày</button><button data-qn="90">90 ngày</button>
+          </div>
+          <label class="qt-chk"><input type="checkbox" id="qtLocal"> Dữ liệu thử trên máy</label>
+          <label class="qt-chk"><input type="checkbox" id="qtSelf"> Không đếm lượt xem của tôi trên trình duyệt này</label>
+          <button class="btn sm" id="qtReload">↻ Cập nhật</button>
+        </div>
+        <p class="status bad" id="qtErr" hidden></p>
+        <div class="qt-kpi" id="qtKpi"></div>
+        <div class="qt-card">
+          <div class="qt-head"><b>Lượt xem và người đọc theo ngày</b><span class="dleg"><i class="lin"></i>Lượt xem<i class="lout"></i>Người đọc</span></div>
+          <div id="qtChart"></div>
+        </div>
+        <div class="qt-card">
+          <div class="qt-head"><b>Bài viết và trang</b><span class="mono qt-note">Đọc hết = kéo tới ít nhất 90% trang</span></div>
+          <div class="tblw"><table id="qtPages"></table></div>
+        </div>
+        <div class="qt-duo">
+          <div class="qt-card"><div class="qt-head"><b>Đến từ đâu</b><span class="mono qt-note">số phiên</span></div><div id="qtSrc"></div></div>
+          <div class="qt-card"><div class="qt-head"><b>Thiết bị</b><span class="mono qt-note">số người đọc</span></div><div id="qtDev"></div></div>
+        </div>
+        <p class="mono qt-foot">Đếm ẩn danh: không lưu tên, email hay địa chỉ IP. Mỗi trình duyệt là một "người đọc".</p>
       </div>
     </section>
   </div>
@@ -1443,7 +1526,7 @@ $$('[data-pf]').forEach(b=>b.addEventListener('click',()=>{pf=b.dataset.pf;$$('[
 renderPress();
 
 /* ---------- ROUTER ---------- */
-const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press',about:'#v-about'};
+const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press',about:'#v-about',admin:'#v-admin'};
 function route(){
   let h=location.hash.slice(1)||'trang-chu',view='home',tab='home';
   if(h==='bai-viet'){view='feed';tab='feed'}
@@ -1452,6 +1535,7 @@ function route(){
   else if(h.startsWith('lab-')){const id=h.slice(4),app=APPS.find(a=>a.id===id);if(app){view='app';tab='lab';openApp(app)}else{view='lab';tab='lab'}}
   else if(h==='bao-chi'){view='press';tab='press'}
   else if(h==='gioi-thieu'){view='about';tab='about'}
+  else if(h==='quan-tri'){view='admin';tab=''}
   Object.entries(views).forEach(([k,s])=>{const el=$(s);const show=k===view;if(el.hidden===show){el.hidden=!show;if(show){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}}else if(show&&k==='article'){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}});
   $$('[data-tabs] a').forEach(a=>a.classList.toggle('on',a.dataset.tab===tab));
   if(view!=='article')coverAnim=null;
@@ -1459,6 +1543,8 @@ function route(){
   window.scrollTo({top:0,behavior:'auto'});
   requestAnimationFrame(collectVis);
   if(view==='home'&&three)three.resize();
+  tkMo(h);
+  if(view==='admin')openAdmin();
 }
 addEventListener('hashchange',route);
 
@@ -1610,6 +1696,93 @@ function initScene(){
     nodes.forEach(m=>{const u=m.userData,a=u.a+(reduce?0:s*u.sp);m.position.set(Math.cos(a)*u.r,u.y+Math.sin(a*2)*.3,Math.sin(a)*u.r*.45-.6)});
     for(let i=0;i<N;i++){const a=nodes[i].position,b=nodes[(i+1)%N].position;pos.set([a.x,a.y,a.z,b.x,b.y,b.z],i*6)}lg.attributes.position.needsUpdate=true;
     renderer.render(scene,cam)}}}
+
+/* ---------- ĐẾM TRUY CẬP (ẩn danh: không IP, không tên) ---------- */
+const TK={url:'https://mzqngrbbmlsuzlvrbzjl.supabase.co',key:'sb_publishable_uVqoJ35AEt_M6MihhFXSnA_Yff5387F'};
+function tkId(k,st){try{let v=st.getItem(k);if(!v){v=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36));st.setItem(k,v)}return v}catch(e){return 'tam-'+Math.random().toString(36).slice(2,14)}}
+const tkNguoi=tkId('bsc-nguoi',localStorage),tkPhien=tkId('bsc-phien',sessionStorage);
+const tkBo=()=>store.get('bsc-khong-dem',false);
+const tkThietBi=()=>{const w=Math.min(screen.width||innerWidth,innerWidth),t=matchMedia('(pointer:coarse)').matches;return t&&w<700?'dien-thoai':t&&w<1100?'may-tinh-bang':'may-tinh'};
+let tkNguon=null;
+try{tkNguon=sessionStorage.getItem('bsc-ref');sessionStorage.removeItem('bsc-ref')}catch(e){}
+if(tkNguon==null)tkNguon=document.referrer;
+try{tkNguon=tkNguon?new URL(tkNguon).hostname.replace(/^(www|m|l|lm)\./,''):null}catch(e){tkNguon=null}
+if(tkNguon===location.hostname)tkNguon=null;
+function tkGui(o){if(tkBo())return;
+  fetch(TK.url+'/rest/v1/su_kien',{method:'POST',keepalive:true,headers:{apikey:TK.key,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({may:location.hostname.slice(0,60),nguoi:tkNguoi,phien:tkPhien,...o})}).catch(()=>{})}
+let tkCur=null;
+const tkPct=()=>{const h=document.documentElement,m=h.scrollHeight-h.clientHeight;return m<=0?100:Math.min(100,Math.round(h.scrollTop/m*100))};
+function tkGom(){if(tkCur&&!document.hidden){const n=performance.now();tkCur.ms+=n-tkCur.last;tkCur.last=n}}
+function tkChot(){if(!tkCur||tkCur.sent)return;tkGom();tkCur.sent=true;
+  tkGui({loai:'roi',duong:tkCur.duong,phan_tram:tkCur.pt,giay:Math.min(21600,Math.round(tkCur.ms/1000))})}
+function tkMo(duong){tkChot();tkCur=null;if(duong==='quan-tri')return;
+  tkCur={duong:duong.slice(0,120),ms:0,last:performance.now(),pt:0,sent:false};
+  tkGui({loai:'xem',duong:tkCur.duong,thiet_bi:tkThietBi(),nguon:tkNguon?tkNguon.slice(0,120):null});tkNguon=null;
+  setTimeout(()=>{if(tkCur)tkCur.pt=Math.max(tkCur.pt,tkPct())},800)}
+addEventListener('scroll',()=>{if(tkCur)tkCur.pt=Math.max(tkCur.pt,tkPct())},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(!tkCur)return;
+  if(document.hidden)tkChot();else{tkCur.sent=false;tkCur.last=performance.now()}});
+addEventListener('pagehide',tkChot);
+
+/* ---------- QUẢN TRỊ ---------- */
+let sb=null,qtN=7;
+const fmt=n=>Number(n||0).toLocaleString('vi-VN');
+const fmtGiay=s=>{s=Math.round(s||0);if(!s)return '—';const m=Math.floor(s/60);return m?`${m} phút ${s%60?String(s%60).padStart(2,'0')+' giây':''}`.trim():`${s} giây`};
+function tenTrang(d){if(d==='trang-chu')return 'Trang chủ';if(d==='bai-viet')return 'Tab Bài viết';if(d==='lab')return 'Tab Lab';if(d==='bao-chi')return 'Tab Báo chí';if(d==='gioi-thieu')return 'Tab Giới thiệu';
+  if(d.startsWith('bai-')){const a=ARTICLES.find(x=>x.id===d.slice(4));if(a)return 'Bài '+a.n+' · '+a.title}
+  if(d.startsWith('lab-')){const a=APPS.find(x=>x.id===d.slice(4));if(a)return 'Lab · '+a.title}return d}
+function qtMsg(t,bad){const m=$('#qtMsg');m.textContent=t;m.className='status '+(bad?'bad':'ok');m.hidden=!t}
+async function qtSb(){if(sb)return sb;const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm');
+  sb=createClient(TK.url,TK.key,{auth:{persistSession:true,storageKey:'bsc-quan-tri'}});return sb}
+async function openAdmin(){
+  let coPhien=false;try{coPhien=!!localStorage.getItem('bsc-quan-tri')}catch(e){}
+  if(!coPhien){$('#qtLogin').hidden=false;$('#qtBoard').hidden=true;$('#qtWho').hidden=true}
+  try{await qtSb()}catch(e){$('#qtLogin').hidden=false;qtMsg('Không tải được công cụ đăng nhập. Kiểm tra mạng rồi tải lại trang.',true);return}
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){$('#qtLogin').hidden=false;$('#qtBoard').hidden=true;$('#qtWho').hidden=true;return}
+  $('#qtLogin').hidden=true;$('#qtWho').hidden=false;$('#qtEmail').textContent=session.user.email;
+  const {data:ok}=await sb.rpc('la_quan_tri');
+  if(!ok){$('#qtBoard').hidden=true;$('#qtLogin').hidden=false;qtMsg('Tài khoản này chưa có quyền quản trị, hoặc email chưa được xác nhận.',true);return}
+  if(store.get('bsc-khong-dem',null)===null)store.set('bsc-khong-dem',true);
+  $('#qtSelf').checked=!!store.get('bsc-khong-dem',false);
+  $('#qtBoard').hidden=false;qtLoad()}
+async function qtLoad(){const err=$('#qtErr');err.hidden=true;
+  const {data,error}=await sb.rpc('bao_cao',{p_ngay:qtN,p_may:$('#qtLocal').checked?location.hostname:'laquoc.com'});
+  if(error){err.textContent='Không lấy được số liệu: '+(error.message||'lỗi không rõ');err.hidden=false;return}
+  const t=data.tong;
+  $('#qtKpi').innerHTML=[['Lượt xem',fmt(t.luot_xem)],['Người đọc',fmt(t.nguoi)],['Đang xem',fmt(t.dang_xem),'5 phút qua'],['Thời gian đọc TB',t.giay_tb?(t.giay_tb>=60?Math.floor(t.giay_tb/60)+'p '+String(Math.round(t.giay_tb%60)).padStart(2,'0')+'s':t.giay_tb+' giây'):'—'],['Lượt xem hôm nay',fmt(t.hom_nay)]]
+    .map(([k,v,s])=>`<div><small>${k}</small><b>${v}</b>${s?`<em>${s}</em>`:''}</div>`).join('');
+  qtChart(data.theo_ngay);
+  const rows=data.trang;
+  $('#qtPages').innerHTML=`<thead><tr><th>Trang</th><th>Lượt xem</th><th>Người đọc</th><th>Đọc TB</th><th>Đọc hết</th><th>Thời gian TB</th></tr></thead><tbody>${rows.length?rows.map(r=>`<tr><td title="${esc(r.duong)}">${esc(tenTrang(r.duong))}</td><td>${fmt(r.xem)}</td><td>${fmt(r.nguoi)}</td><td>${r.luot_roi?r.phan_tram_tb+'%':'—'}</td><td>${r.luot_roi?r.doc_het+'%':'—'}</td><td>${fmtGiay(r.giay_tb)}</td></tr>`).join(''):'<tr><td colspan="6">Chưa có lượt xem trong khoảng này.</td></tr>'}</tbody>`;
+  const bars=(list,k,v)=>{const mx=Math.max(1,...list.map(x=>x[v]));return list.length?list.map(x=>`<div class="qt-row"><span>${esc(k(x))}</span><i style="--w:${Math.round(x[v]/mx*100)}%"></i><b>${fmt(x[v])}</b></div>`).join(''):'<p class="qt-note">Chưa có dữ liệu.</p>'};
+  $('#qtSrc').innerHTML=bars(data.nguon,x=>x.nguon,'phien');
+  const tb={'dien-thoai':'Điện thoại','may-tinh-bang':'Máy tính bảng','may-tinh':'Máy tính',khac:'Khác'};
+  $('#qtDev').innerHTML=bars(data.thiet_bi,x=>tb[x.thiet_bi]||x.thiet_bi,'nguoi')}
+function qtChart(days){const W=760,H=230,X0=40,X1=W-8,Y0=14,Y1=H-28,n=days.length;
+  const mx=Math.max(4,...days.map(d=>d.xem));const step=Math.pow(10,Math.floor(Math.log10(mx)));const top=Math.ceil(mx/step)*step;
+  const y=v=>Y1-v/top*(Y1-Y0),gw=(X1-X0)/n,bw=Math.max(2,Math.min(16,gw/2-2));
+  const bar=(x,v,c,tt)=>{const yt=y(v),r=Math.min(4,bw/2,Y1-yt);return v?`<path class="${c}" d="M${x},${Y1}V${yt+r}Q${x},${yt} ${x+r},${yt}H${x+bw-r}Q${x+bw},${yt} ${x+bw},${yt+r}V${Y1}Z"><title>${tt}</title></path>`:''};
+  let s=`<svg class="dchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Lượt xem và người đọc theo ngày">`;
+  [0,.5,1].forEach(f=>{const v=Math.round(top*f),yy=y(v);s+=`<line class="dg" x1="${X0}" x2="${X1}" y1="${yy}" y2="${yy}"/><text class="dt" x="${X0-6}" y="${yy+4}" text-anchor="end">${fmt(v)}</text>`});
+  const every=Math.ceil(n/10);
+  days.forEach((d,i)=>{const cx=X0+gw*i+gw/2,dd=d.ngay.slice(8,10)+'/'+d.ngay.slice(5,7);
+    s+=bar(cx-bw-1,d.xem,'din',`${dd} · ${fmt(d.xem)} lượt xem`)+bar(cx+1,d.nguoi,'dout',`${dd} · ${fmt(d.nguoi)} người đọc`);
+    if(i%every===0||i===n-1)s+=`<text class="dt" x="${cx}" y="${H-8}" text-anchor="middle">${dd}</text>`});
+  $('#qtChart').innerHTML=s+'</svg>'}
+$('#qtForm').addEventListener('submit',async e=>{e.preventDefault();qtMsg('Đang đăng nhập…');
+  const {error}=await (await qtSb()).auth.signInWithPassword({email:$('#qtE').value.trim(),password:$('#qtP').value});
+  if(error){qtMsg(/confirm/i.test(error.message)?'Email chưa được xác nhận. Mở thư xác nhận trong hộp thư rồi đăng nhập lại.':'Sai email hoặc mật khẩu.',true);return}
+  qtMsg('');openAdmin()});
+$('#qtSignup').addEventListener('click',async()=>{const e=$('#qtE').value.trim(),p=$('#qtP').value;
+  if(!e||p.length<8){qtMsg('Nhập email và mật khẩu ít nhất 8 ký tự trước.',true);return}
+  const {error}=await (await qtSb()).auth.signUp({email:e,password:p});
+  qtMsg(error?'Không tạo được tài khoản: '+error.message:'Đã gửi thư xác nhận tới '+e+'. Bấm link trong thư, rồi quay lại đây đăng nhập.',!!error)});
+$('#qtOut').addEventListener('click',async()=>{await sb.auth.signOut();$('#qtBoard').hidden=true;$('#qtWho').hidden=true;$('#qtLogin').hidden=false});
+$$('[data-qn]').forEach(b=>b.addEventListener('click',()=>{qtN=+b.dataset.qn;$$('[data-qn]').forEach(x=>x.setAttribute('aria-pressed',x===b));qtLoad()}));
+$('#qtLocal').addEventListener('change',qtLoad);$('#qtReload').addEventListener('click',qtLoad);
+$('#qtSelf').addEventListener('change',e=>store.set('bsc-khong-dem',e.target.checked));
 
 route();
 function loop(t){if(three)three.frame(t);drawVis(reduce?0:t);if(coverAnim)coverAnim(reduce?0:t);requestAnimationFrame(loop)}

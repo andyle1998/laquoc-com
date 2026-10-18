@@ -13,3 +13,8 @@ Không xóa `CNAME` (mất tên miền) hay `.nojekyll`.
 ## Xem trước khi gửi link
 - Thêm/sửa bài viết hoặc sản phẩm Lab → chạy `node bin/tao-chia-se.mjs` trước khi commit (sinh ảnh `og/`, trang `bai/<id>/`, `lab/<id>/`, thẻ meta trang chủ).
 - Link để gửi đi: `laquoc.com/bai/<id>/`, `laquoc.com/lab/<id>/` — không gửi link dạng `/#...` (Facebook/Zalo không đọc phần sau `#`).
+
+## Thống kê truy cập (tab Quản trị — /#quan-tri, không có trên menu)
+- Kho: Supabase dự án `laquoc-com` (mzqngrbbmlsuzlvrbzjl). Cấu trúc: `supabase/thong-ke.sql`.
+- Trang ghi ẩn danh vào `su_kien` bằng khóa công khai; chỉ email trong bảng `quan_tri` (đã xác nhận) mới gọi được `bao_cao`.
+- Lượt xem từ localhost ghi `may='localhost'`, báo cáo mặc định chỉ tính `laquoc.com`.
