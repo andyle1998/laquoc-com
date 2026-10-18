@@ -533,6 +533,9 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 @media (max-width:760px){.vir{grid-template-columns:1fr}.vir img{max-width:320px}}
 
 
+.gnotice{border-radius:var(--r-m);padding:14px 16px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--spark) 55%,transparent);background:color-mix(in srgb,var(--spark) 9%,var(--bg));display:flex;flex-direction:column;gap:6px}
+.gnotice b{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--spark-ink)}
+.gnotice p{font-size:13.5px;line-height:1.55;color:var(--ink)!important;margin:0}
 /* game: poker */
 .viewport .panel[data-app="poker"]{padding:16px}
 .pklobby{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
@@ -940,10 +943,11 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
     <div class="panel" data-app="poker" hidden>
       <div id="pkLobby" class="pklobby">
         <div class="pkcard">
+          <div class="gnotice" role="note"><b>Chỉ để giải trí · Nghiêm cấm đánh bạc</b><p><strong>Chỉ để giải trí.</strong> Trò chơi không có nạp tiền, không mua bán, trao đổi hay quy đổi chip ra tiền, hiện vật hoặc bất kỳ giá trị nào. <strong>Nghiêm cấm</strong> sử dụng trò chơi này dưới mọi hình thức để đánh bạc, cá cược hoặc tổ chức đánh bạc. Người sử dụng trái mục đích tự chịu hoàn toàn trách nhiệm trước pháp luật; Bác sĩ Chain không liên quan và không chịu trách nhiệm đối với các hành vi đó.</p></div>
           <span class="eyebrow pop">Giải luyện tập · Texas Hold'em</span>
           <h3>Giải Bác sĩ Chain #1</h3>
           <p class="desc">6 người, No-Limit Hold'em. Ai giữ toàn bộ chip cuối cùng là nhà vô địch. Bản này bạn đấu với 5 bot.</p>
-          <dl class="pkfacts"><dt>Buy-in</dt><dd>1.500 chip ảo · miễn phí</dd><dt>Thể thức</dt><dd>Freezeout, không mua lại</dd><dt>Lên blind</dt><dd>mỗi 6 ván</dd><dt>Chia bài</dt><dd>SHA-256, kiểm chứng được</dd></dl>
+          <dl class="pkfacts"><dt>Chip khởi điểm</dt><dd>1.500 chip ảo, không có giá trị quy đổi</dd><dt>Thể thức</dt><dd>Freezeout, không mua lại</dd><dt>Lên blind</dt><dd>mỗi 6 ván</dd><dt>Chia bài</dt><dd>SHA-256, kiểm chứng được</dd></dl>
           <form class="form" id="pkReg">
             <div class="field"><label for="pkName">Tên hiển thị</label><input id="pkName" maxlength="16" placeholder="Ví dụ: Andy"></div>
             <div class="field"><label for="pkClient">Hạt giống của bạn (tùy chọn)</label><input id="pkClient" maxlength="32" spellcheck="false"></div>
@@ -1475,8 +1479,8 @@ const APPS=[
    steps:[['Đặt khối','Bấm lên ô cỏ để xây tầng trệt, bấm lên mặt một khối để xây chồng hoặc nối dài.'],['Xoay và phóng','Kéo chuột để xoay khu đất, cuộn chuột hoặc nút +/− để phóng to.'],['Đập bỏ','Chuột phải, giữ Shift khi bấm, hoặc chuyển sang chế độ "Đập".'],['Tô màu','Chọn màu tường trước khi đặt khối; đổi màu mái áp dụng cho cả phố.'],['Ngắm phố về đêm','Bấm "Ban đêm" để cửa sổ sáng đèn.']],
    tips:['Xây dãy nhà dài theo một hướng để mái nối liền thành một nóc.','Không đặt được khối lơ lửng: luôn phải có khối bên dưới.','Phố của bạn được lưu trên trình duyệt này, lần sau mở lại vẫn còn.','Phím tắt: B xây, X đập, N ngày/đêm, Ctrl/⌘ + Z hoàn tác.'],
    faq:[['Game lấy cảm hứng từ đâu?','Từ các trò xây nhà sinh thủ tục (procedural), nơi người chơi chỉ đặt khối và hệ thống tự dựng chi tiết kiến trúc. Toàn bộ hình khối và luật dựng ở đây được viết mới.'],['Chơi trên điện thoại được không?','Được: chạm để đặt khối, kéo để xoay, dùng nút "Đập" để xóa.']]}},
- {id:'poker',mode:'inline',icon:'cards',title:"Giải Hold'em",desc:'Giải poker Texas Hold\'em dạng tournament: buy-in chip ảo, blind tăng dần, chia bài bằng SHA-256 và tự kiểm chứng được.',vis:'cards',ver:'v0.1',updated:'10/2026',
-  guide:{intro:'Giải đấu Texas Hold\'em No-Limit 6 người, thể thức freezeout: mỗi người 1.500 chip ảo, ai giữ toàn bộ chip cuối cùng là vô địch. Chip chỉ để chơi, không quy đổi ra tiền hay hiện vật.',
+ {id:'poker',mode:'inline',icon:'cards',title:"Giải Hold'em",desc:'Giải poker Texas Hold\'em giải trí, chip ảo không quy đổi, blind tăng dần, chia bài bằng SHA-256 và tự kiểm chứng được.',vis:'cards',ver:'v0.1',updated:'10/2026',
+  guide:{notice:'<strong>Chỉ để giải trí.</strong> Trò chơi không có nạp tiền, không mua bán, trao đổi hay quy đổi chip ra tiền, hiện vật hoặc bất kỳ giá trị nào. <strong>Nghiêm cấm</strong> sử dụng trò chơi này dưới mọi hình thức để đánh bạc, cá cược hoặc tổ chức đánh bạc. Người sử dụng trái mục đích tự chịu hoàn toàn trách nhiệm trước pháp luật; Bác sĩ Chain không liên quan và không chịu trách nhiệm đối với các hành vi đó.',intro:'Giải đấu Texas Hold\'em No-Limit 6 người, thể thức freezeout: mỗi người 1.500 chip ảo, ai giữ toàn bộ chip cuối cùng là vô địch. Chip chỉ để chơi, không quy đổi ra tiền hay hiện vật.',
    steps:[['Đăng ký','Nhập tên hiển thị, bấm "Đăng ký & vào bàn". Có thể nhập hạt giống riêng để tham gia vào việc xáo bài.'],['Đánh theo lượt','Khi khung tên bạn sáng, chọn Bỏ, Xem/Theo, Tố (kéo thanh trượt hoặc ½ pot, Pot) hoặc All-in.'],['Blind tăng dần','Mỗi 6 ván lên một cấp blind, buộc giải đi đến hồi kết.'],['Bị loại','Hết chip là bị loại. Bạn có thể tua nhanh để xem ai vô địch.'],['Kiểm chứng','Mở "Kiểm chứng chia bài", bấm "Kiểm chứng" ở ván bất kỳ đã kết thúc.']],
    tips:['Phím tắt khi đến lượt: F bỏ bài, C xem/theo, R tố.','Thứ tự bài từ cao xuống: Thùng phá sảnh, Tứ quý, Cù lũ, Thùng, Sảnh, Sám cô, Thú, Đôi, Mậu thầu.','Bot chơi theo xác suất thắng ước tính và có tính cách khác nhau: có bot hay tố, có bot chắc tay.'],
    faq:[['Chia bài có thật sự ngẫu nhiên không?','Seed 256 bit sinh bằng crypto.getRandomValues của trình duyệt. Bộ bài được xáo bằng thuật toán Fisher–Yates, mỗi bước lấy số từ SHA-256 và loại bỏ phần dư để không lệch xác suất.'],['Sao biết hệ thống không đổi bài giữa ván?','Cam kết SHA-256(seed) được công bố trước khi chia. Sau ván, seed được công bố; nút "Kiểm chứng" băm lại seed, so với cam kết và xáo lại để đối chiếu từng lá.'],['Hạt giống của tôi để làm gì?','Nó được trộn vào công thức xáo bài, nên bộ bài phụ thuộc cả vào bạn, không chỉ vào hệ thống.'],['Khi nào có giải chơi cùng bạn bè?','Bản chơi nhiều người cần máy chủ giữ bài kín và xác thực người chơi; sẽ mở khi hạ tầng sẵn sàng.']]}},
@@ -1738,6 +1742,7 @@ function renderExt(app){const w=$('#extWrap');
   else w.innerHTML=`<div class="extph"><span class="ring">${svg(app.icon)}</span><h3>Bản web đang được triển khai</h3><p>Khi sẵn sàng, ứng dụng sẽ chạy ngay trong khung này. Bạn cũng có thể mở nó ở domain riêng để dùng toàn màn hình.</p>${app.repo?`<a class="btn sm" href="${esc(app.repo)}" target="_blank" rel="noopener">Xem mã nguồn ↗</a>`:''}</div>`}
 function renderGuide(app){const g=app.guide||{};const rd=g.read&&ARTICLES.find(a=>a.id===g.read);
   $('#guide').innerHTML=`<h2>Hướng dẫn sử dụng</h2>
+   ${g.notice?`<div class="gnotice" role="note"><b>Lưu ý quan trọng</b><p>${g.notice}</p></div>`:''}
    ${g.intro?`<p>${g.intro}</p>`:''}
    ${g.steps?`<div class="gsec"><b>Bắt đầu nhanh</b><ol class="gsteps">${g.steps.map(([t,d])=>`<li><div><b>${t}</b><span>${d}</span></div></li>`).join('')}</ol></div>`:''}
    ${g.tips?`<div class="gsec"><b>Mẹo</b><ul class="gtips">${g.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
