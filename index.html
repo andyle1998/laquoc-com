@@ -537,6 +537,15 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .gnotice b{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--spark-ink)}
 .gnotice p{font-size:13.5px;line-height:1.55;color:var(--ink)!important;margin:0}
 /* game: poker */
+.tclk{font-style:normal;font-family:var(--f-mono);font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);min-width:40px;text-align:center}
+.tclk.bank{background:#B5470C}
+.tclk:empty{display:none}
+.plate .tbk{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);margin-top:1px}
+.tbar{display:block;height:4px;margin-top:5px;border-radius:4px;background:color-mix(in srgb,var(--shade) 60%,transparent);overflow:hidden}
+.tbar i{display:block;height:100%;width:100%;background:var(--accent);border-radius:4px;transition:width .25s linear}
+.tbar i.bank{background:var(--spark)}
+.pkclock{font-family:var(--f-mono);font-size:13px;color:var(--accent-ink);margin-left:6px}
+.pkclock.bank{color:var(--spark-ink)}
 .seg.pkmode{align-self:flex-start;flex-wrap:wrap}.seg.pkmode button{width:auto;height:38px;padding:0 16px;font-weight:700;font-size:13px;white-space:nowrap}
 .pkroom{display:flex;flex-direction:column;gap:12px}
 .pkcode{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:14px 16px;border-radius:var(--r-m);box-shadow:var(--in-s)}
@@ -583,7 +592,7 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .plate span{display:block;font-family:var(--f-mono);font-size:12px;color:var(--accent-ink);font-weight:600}
 .dbtn{width:18px;height:18px;border-radius:50%;background:#fff;color:#111;font-size:10px;display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .seat.turn .plate{box-shadow:var(--out-s),0 0 0 3px var(--accent)}
-.seat.turn .plate::after{content:"";display:block;height:3px;margin-top:5px;border-radius:3px;background:var(--accent);animation:tick 1s ease-in-out infinite alternate}
+.seat.turn .plate::after{display:none;content:"";display:block;height:3px;margin-top:5px;border-radius:3px;background:var(--accent);animation:tick 1s ease-in-out infinite alternate}
 @keyframes tick{from{opacity:.3}}
 .seat.folded{opacity:.55}
 .seat.out{opacity:.35}
@@ -982,7 +991,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
           <div class="pkover" id="pkOverlay" hidden></div>
         </div>
         <div class="pkact" id="pkActions">
-          <span class="pkhint" id="pkHint"></span>
+          <span class="pkhint"><span id="pkHint"></span> <b class="pkclock" id="pkClock"></b></span>
           <div class="pkbtns"><button class="btn" id="pkFold">Bỏ</button><button class="btn" id="pkCall">Xem</button><button class="btn primary" id="pkRaise">Tố</button><button class="btn" id="pkAllin">All-in</button></div>
           <div class="pkraise"><button class="btn sm" data-pot=".5">½ pot</button><button class="btn sm" data-pot="1">Pot</button><input type="range" id="pkSlider" aria-label="Mức tố"></div>
         </div>
@@ -1496,8 +1505,8 @@ const APPS=[
  {id:'poker',mode:'inline',icon:'cards',title:"Giải Hold'em",desc:'Giải poker Texas Hold\'em giải trí, chip ảo không quy đổi, blind tăng dần, chia bài bằng SHA-256 và tự kiểm chứng được.',vis:'cards',ver:'v0.1',updated:'10/2026',
   guide:{notice:'<strong>Chỉ để giải trí.</strong> Trò chơi không có nạp tiền, không mua bán, trao đổi hay quy đổi chip ra tiền, hiện vật hoặc bất kỳ giá trị nào. <strong>Nghiêm cấm</strong> sử dụng trò chơi này dưới mọi hình thức để đánh bạc, cá cược hoặc tổ chức đánh bạc. Người sử dụng trái mục đích tự chịu hoàn toàn trách nhiệm trước pháp luật; Bác sĩ Chain không liên quan và không chịu trách nhiệm đối với các hành vi đó.',intro:'Giải đấu Texas Hold\'em No-Limit 6 người, thể thức freezeout: mỗi người 1.500 chip ảo, ai giữ toàn bộ chip cuối cùng là vô địch. Chip chỉ để chơi, không quy đổi ra tiền hay hiện vật.',
    steps:[['Chọn chế độ','"Chơi với máy": đấu với 5 máy. "Chơi với bạn bè": tạo phòng, gửi mã 6 ký tự hoặc link mời; ghế trống có thể cho máy ngồi.'],['Đăng ký','Nhập tên hiển thị rồi vào bàn. Chơi với bạn bè thì chủ phòng bấm "Bắt đầu giải" khi mọi người đã vào.'],['Đánh theo lượt','Khi khung tên bạn sáng, chọn Bỏ, Xem/Theo, Tố (kéo thanh trượt hoặc ½ pot, Pot) hoặc All-in.'],['Blind tăng dần','Mỗi 6 ván lên một cấp blind, buộc giải đi đến hồi kết.'],['Bị loại','Hết chip là bị loại. Bạn có thể tua nhanh để xem ai vô địch.'],['Kiểm chứng','Mở "Kiểm chứng chia bài", bấm "Kiểm chứng" ở ván bất kỳ đã kết thúc.']],
-   tips:['Phím tắt khi đến lượt: F bỏ bài, C xem/theo, R tố.','Thứ tự bài từ cao xuống: Thùng phá sảnh, Tứ quý, Cù lũ, Thùng, Sảnh, Sám cô, Thú, Đôi, Mậu thầu.','Bot chơi theo xác suất thắng ước tính và có tính cách khác nhau: có bot hay tố, có bot chắc tay.'],
-   faq:[['Chơi với bạn bè có ai xem trộm bài không?','Bài tẩy của mỗi người được mã hóa riêng trước khi gửi qua mạng, người chơi khác không đọc được. Máy của chủ phòng là nơi chia bài, nên chủ phòng là người giữ bộ bài. Đến lượt ai mà quá 30 giây không đánh, hệ thống tự xem hoặc bỏ bài.'],['Chia bài có thật sự ngẫu nhiên không?','Seed 256 bit sinh bằng crypto.getRandomValues của trình duyệt. Bộ bài được xáo bằng thuật toán Fisher–Yates, mỗi bước lấy số từ SHA-256 và loại bỏ phần dư để không lệch xác suất.'],['Sao biết hệ thống không đổi bài giữa ván?','Cam kết SHA-256(seed) được công bố trước khi chia. Sau ván, seed được công bố; nút "Kiểm chứng" băm lại seed, so với cam kết và xáo lại để đối chiếu từng lá.'],['Hạt giống của tôi để làm gì?','Nó được trộn vào công thức xáo bài, nên bộ bài phụ thuộc cả vào bạn, không chỉ vào hệ thống.'],['Khi nào có giải chơi cùng bạn bè?','Bản chơi nhiều người cần máy chủ giữ bài kín và xác thực người chơi; sẽ mở khi hạ tầng sẵn sàng.']]}},
+   tips:['Mỗi lượt có 20 giây. Hết 20 giây sẽ trừ dần vào timebank riêng của bạn (60 giây, cộng thêm 10 giây mỗi lần lên cấp blind, tối đa 90 giây). Hết cả timebank: tự xem nếu không phải bỏ tiền, ngược lại tự bỏ bài.','Phím tắt khi đến lượt: F bỏ bài, C xem/theo, R tố.','Thứ tự bài từ cao xuống: Thùng phá sảnh, Tứ quý, Cù lũ, Thùng, Sảnh, Sám cô, Thú, Đôi, Mậu thầu.','Bot chơi theo xác suất thắng ước tính và có tính cách khác nhau: có bot hay tố, có bot chắc tay.'],
+   faq:[['Chơi với bạn bè có ai xem trộm bài không?','Bài tẩy của mỗi người được mã hóa riêng trước khi gửi qua mạng, người chơi khác không đọc được. Máy của chủ phòng là nơi chia bài, nên chủ phòng là người giữ bộ bài. Đến lượt ai mà hết cả 20 giây lẫn timebank, hệ thống tự xem hoặc bỏ bài; người đã rời phòng được tự động bỏ lượt sau vài giây.'],['Chia bài có thật sự ngẫu nhiên không?','Seed 256 bit sinh bằng crypto.getRandomValues của trình duyệt. Bộ bài được xáo bằng thuật toán Fisher–Yates, mỗi bước lấy số từ SHA-256 và loại bỏ phần dư để không lệch xác suất.'],['Sao biết hệ thống không đổi bài giữa ván?','Cam kết SHA-256(seed) được công bố trước khi chia. Sau ván, seed được công bố; nút "Kiểm chứng" băm lại seed, so với cam kết và xáo lại để đối chiếu từng lá.'],['Hạt giống của tôi để làm gì?','Nó được trộn vào công thức xáo bài, nên bộ bài phụ thuộc cả vào bạn, không chỉ vào hệ thống.'],['Khi nào có giải chơi cùng bạn bè?','Bản chơi nhiều người cần máy chủ giữ bài kín và xác thực người chơi; sẽ mở khi hạ tầng sẵn sàng.']]}},
  {id:'meetask',mode:'web',icon:'bot',title:'Meetask',desc:'Ghi âm cuộc họp, máy soạn biên bản tiếng Việt và tách thành dự án, đầu việc, hạn chót, người phụ trách.',vis:'flow',ver:'beta',updated:'10/2026',
   url:'https://meetask.laquoc.com',repo:'',
   guide:{intro:'Từ cuộc họp đến danh sách việc. <strong>Biên bản</strong> là sản phẩm chính: mục đích, nội dung công việc, mốc thời gian, ai làm gì.',
@@ -1979,6 +1988,7 @@ const Poker=(function(){
   const SUITS=['♠','♥','♦','♣'],RANKS='23456789TJQKA',RN=r=>RANKS[r]==='T'?'10':RANKS[r];
   const LEVELS=[[10,20],[15,30],[25,50],[50,100],[75,150],[100,200],[150,300],[200,400],[300,600],[500,1000],[800,1600],[1000,2000]];
   const HANDS_PER_LEVEL=6,START=1500,SEATS=6;
+  const ACT_MS=20000,BANK_MS=60000,BANK_ADD=10000,BANK_MAX=90000; /* 20 giây mỗi lượt + timebank 60 giây, +10 giây mỗi cấp blind */
   const BOTS=[['Minh',.55],['Lan',.35],['Tuấn',.75],['Hoa',.45],['Khang',.65]];
   const CAT=['Mậu thầu','Đôi','Thú','Sám cô','Sảnh','Thùng','Cù lũ','Tứ quý','Thùng phá sảnh'];
   let T=null,inited=false,busy=false,fast=false,timer=null,mode='bot',meIdx=0,net=null,netTimer=null;
@@ -2015,7 +2025,7 @@ const Poker=(function(){
   function newGame(list,client){
     T={name:list[0].name,client:client||randHex(4),hand:0,button:-1,log:[],history:[],over:false,
       players:list.map((p,i)=>({...p,id:i,stack:START})),start:Date.now(),place:null};
-    T.players.forEach(p=>Object.assign(p,{out:false,cards:[],bet:0,total:0,folded:false,allin:false,acted:false,last:''}));
+    T.actN=0;T.players.forEach(p=>Object.assign(p,{out:false,cards:[],bet:0,total:0,folded:false,allin:false,acted:false,last:'',bank:BANK_MS}));
   }
   function newTournament(name,client){mode='bot';meIdx=0;newGame([{name:name||'Bạn',human:true,cid:'local'}].concat(BOTS.map(([n,a])=>({name:n,bot:true,aggr:a}))),client)}
   const alive=()=>T.players.filter(p=>!p.out);
@@ -2028,7 +2038,8 @@ const Poker=(function(){
   function wait(ms){return new Promise(r=>{timer=setTimeout(r,fast?0:ms)})}
   async function startHand(){
     if(alive().length<2){finish();return}
-    const H=T.hand+1;T.board=[];T.street=0;T.showdown=false;T.winners=[];
+    if(T.hand>0&&T.hand%HANDS_PER_LEVEL===0)T.players.forEach(p=>{if(p.human&&!p.out)p.bank=Math.min(BANK_MAX,p.bank+BANK_ADD)});
+    const H=T.hand+1;T.board=[];T.street=0;T.showdown=false;T.winners=[];T.clock=null;
     T.players.forEach(p=>Object.assign(p,{cards:[],bet:0,total:0,folded:p.out,allin:false,acted:false,last:''}));
     T.button=nextIdx(T.button,p=>!p.out);const [sb,bb]=blinds();T.sbAmt=sb;T.bbAmt=bb;
     const heads=alive().length===2;
@@ -2053,10 +2064,11 @@ const Poker=(function(){
       if(roundDone()){if(T.street===3){await showdown();break}await nextStreet();continue}
       if(T.toAct<0){T.toAct=nextIdx(T.toAct,canAct)}
       const p=T.players[T.toAct];
-      if(p.human&&!p.out){busy=false;render();if(mode==='online'&&T.toAct!==meIdx)netWaitRemote();return}
+      if(p.human&&!p.out){busy=false;startClock();render();return}
       render();await wait(650);const a=botDecide(p);apply(p,a.type,a.to);render()}
     }finally{busy=false}}
   function apply(p,type,to){const need=T.curBet-p.bet;
+    if(T.clock&&T.clock.n===T.actN&&T.players[T.clock.idx]===p){clearTimeout(netTimer);const u=Date.now()-T.clock.t0-ACT_MS;if(u>0)p.bank=Math.max(0,p.bank-u);T.clock=null}
     if(type==='fold'){p.folded=true;p.last='Bỏ';log(`${p.name} bỏ bài`)}
     else if(type==='check'){p.last='Xem';log(`${p.name} xem`)}
     else if(type==='call'){const a=Math.min(need,p.stack);p.stack-=a;p.bet+=a;p.total+=a;if(!p.stack)p.allin=true;p.last=p.allin?'All-in':'Theo';log(`${p.name} theo ${a}`)}
@@ -2064,7 +2076,7 @@ const Poker=(function(){
     else if(type==='raise'){to=Math.min(to,p.stack+p.bet);const add=to-p.bet;const inc=to-T.curBet;if(inc>=T.minRaise)T.minRaise=inc;
       if(to>T.curBet){T.curBet=to;T.players.forEach(q=>{if(q!==p&&canAct(q))q.acted=false})}
       p.stack-=add;p.bet=to;p.total+=add;if(!p.stack)p.allin=true;p.last=p.allin?'All-in':(need>0?'Tố':'Cược');log(`${p.name} ${p.allin?'all-in':(need>0?'tố lên':'cược')} ${to}`)}
-    p.acted=true;T.toAct=nextIdx(T.players.indexOf(p),canAct)}
+    p.acted=true;T.actN++;T.toAct=nextIdx(T.players.indexOf(p),canAct)}
   async function nextStreet(){T.players.forEach(p=>{p.bet=0;p.acted=false;if(!p.folded&&!p.out&&!p.allin)p.last=''});T.curBet=0;T.minRaise=T.bbAmt;
     T.dp++;/* burn */const n=T.street===0?3:1;for(let i=0;i<n;i++)T.board.push(T.deck[T.dp++]);T.street++;
     log(`${['','Flop','Turn','River'][T.street]}: ${T.board.map(cardTxt).join(' ')}`);
@@ -2116,7 +2128,7 @@ const Poker=(function(){
       const cards=p.out?'':p.cards.length?p.cards.map(c=>cardHTML(show?c:null,p.folded?'dim':'')).join(''):'';
       return `<div class="seat p${pi} ${i===meIdx?'me':''} ${i===T.toAct&&!T.over&&!T.showdown&&canAct(p)?'turn':''} ${p.folded&&!p.out?'folded':''} ${p.out?'out':''} ${win?'win':''}" style="left:${x}%;top:${y}%">
         <div class="cards">${cards}</div>
-        <div class="plate"><b>${esc(p.name)}${i===T.button&&!p.out?'<span class="dbtn">D</span>':''}</b><span>${p.out?`Hạng ${p.place}`:p.stack.toLocaleString('vi-VN')}</span></div>
+        ${i===T.toAct&&p.human&&!T.over&&!T.showdown&&canAct(p)?'<em class="tclk"></em>':''}<div class="plate"><b>${esc(p.name)}${i===T.button&&!p.out?'<span class="dbtn">D</span>':''}</b><span>${p.out?`Hạng ${p.place}`:p.stack.toLocaleString('vi-VN')}</span>${p.human&&!p.out?`<small class="tbk" title="Timebank còn lại">⏱ ${Math.round((p.bank||0)/1000)}s</small>`:''}${i===T.toAct&&p.human&&!T.over&&!T.showdown&&canAct(p)?'<i class="tbar"><i></i></i>':''}</div>
         ${p.last&&!p.out?`<em class="tag">${p.last}</em>`:''}${win?`<em class="tag wint">+${win.amt}${win.hand?' · '+win.hand:''}</em>`:''}
         ${p.bet>0?`<span class="bet">${p.bet}</span>`:''}</div>`}).join('');
     const daLat=T.boardShown||0;$('#pkBoard').innerHTML=[0,1,2,3,4].map(i=>T.board[i]!=null?cardHTML(T.board[i],i>=daLat?'bd':''):'<span class="pc slot"></span>').join('');T.boardShown=T.board.length;
@@ -2128,7 +2140,7 @@ const Poker=(function(){
     const sl=$('#pkSlider');sl.min=minTo;sl.max=maxTo;sl.step=T.bbAmt||10;if(+sl.value<minTo||+sl.value>maxTo||!myTurn)sl.value=minTo;
     $('#pkRaise').textContent=(need>0?'Tố lên ':'Cược ')+(+sl.value).toLocaleString('vi-VN');$('#pkRaise').disabled=maxTo<=T.curBet;sl.disabled=maxTo<=minTo;
     const hint=$('#pkHint'),cur=T.players[T.toAct];if(!me)hint.textContent='Bạn đang xem giải này.';else if(me.out)hint.textContent='Bạn đã bị loại, đang xem tiếp.';else if(myTurn){const sc=me.cards.length?best(me.cards.concat(T.board)):0;hint.textContent=T.board.length?`Bài của bạn: ${CAT[catOf(sc)]}`:'Đến lượt bạn';}else hint.textContent=T.showdown?'Lật bài':(mode==='online'&&cur&&cur.human&&!T.over?`Chờ ${cur.name}…`:'Đang chờ người chơi khác…');
-    $('#pkLog').innerHTML=T.log.slice(0,14).map(l=>`<li>${esc(l)}</li>`).join('');if(mode==='online')netBroadcast()}
+    $('#pkLog').innerHTML=T.log.slice(0,14).map(l=>`<li>${esc(l)}</li>`).join('');tickClock();if(mode==='online')netBroadcast()}
   function renderFair(){$('#pkHist').innerHTML=T.history.map((h,i)=>`<li><div><b>Ván #${h.hand}</b><code title="Cam kết (SHA-256 của seed)">${h.commit.slice(0,16)}…</code><code title="Seed được công bố sau ván">seed ${h.seed.slice(0,12)}…</code></div><button class="btn sm" data-ver="${i}">Kiểm chứng</button></li>`).join('')||'<li>Chưa có ván nào kết thúc.</li>'}
   function showBust(){const me=T.players[0];$('#pkOverlay').innerHTML=`<div class="pkmodal"><span class="eyebrow pop">Kết thúc hành trình</span><h3>Bạn về hạng ${me.place}/${T.players.length}</h3><p>Trụ được ${me.outAt} ván. Muốn xem ai vô địch không?</p><div class="row"><button class="btn primary" id="pkFF"><span class="dot"></span>Tua nhanh đến hết giải</button><button class="btn" id="pkNew2">Đăng ký giải mới</button></div></div>`;$('#pkOverlay').hidden=false;
     $('#pkFF').onclick=()=>{fast=true;$('#pkOverlay').hidden=true;setTimeout(startHand,0)};$('#pkNew2').onclick=lobby}
@@ -2189,14 +2201,15 @@ const Poker=(function(){
       if(net.encHand!==T.hand){const e={};for(const p of T.players)if(p.human&&p.cid!==net.cid&&p.cards.length&&net.keys.has(p.cid)){
           const iv=crypto.getRandomValues(new Uint8Array(12));e[p.cid]={iv:b64(iv),ct:b64(await crypto.subtle.encrypt({name:'AES-GCM',iv},net.keys.get(p.cid),enc.encode(JSON.stringify(p.cards))))}}
         net.enc=e;net.encHand=T.hand}
-      const s={...T,deck:null,seed:null,dealt:null,log:T.log.slice(0,20),seq:++net.seq,enc:net.enc,hostPub:net.pub,
+      const L=clockLeft();
+      const s={...T,deck:null,seed:null,dealt:null,clock:null,clk:L?{idx:T.toAct,act:L.act,bank:L.bank}:null,log:T.log.slice(0,20),seq:++net.seq,enc:net.enc,hostPub:net.pub,
         players:T.players.map(p=>({...p,cards:T.showdown&&inHand(p)?p.cards:p.cards.map(()=>null)}))};
       await net.ch.send({type:'broadcast',event:'state',payload:s})}).catch(()=>{})}
   async function netState(s){if(net.host||s.seq<=net.lastSeq)return;net.lastSeq=s.seq;
     if(s.enc&&s.enc[net.cid]&&net.myHand!==s.hand){try{
         if(net.hostPubStr!==JSON.stringify(s.hostPub)){net.hostKey=await aesFrom(s.hostPub,'decrypt');net.hostPubStr=JSON.stringify(s.hostPub)}
         const e=s.enc[net.cid];net.myCards=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(e.iv)},net.hostKey,ub64(e.ct))));net.myHand=s.hand}catch(err){net.myCards=null}}
-    if(s.seq<net.lastSeq)return;T=s;meIdx=T.players.findIndex(p=>p.cid===net.cid);
+    if(s.seq<net.lastSeq)return;if(s.clk)s.clk.recv=performance.now();T=s;meIdx=T.players.findIndex(p=>p.cid===net.cid);
     if(meIdx>=0&&net.myHand===T.hand&&net.myCards&&!(T.showdown&&inHand(T.players[meIdx])))T.players[meIdx].cards=net.myCards.slice();
     if(!net.started){net.started=true;$('#pkLobby').hidden=true;$('#pkGame').hidden=false}
     $('#pkClientShow').textContent=T.client;render();renderFair();
@@ -2205,9 +2218,26 @@ const Poker=(function(){
     if(!p||p.cid!==a.cid||a.hand!==T.hand||!canAct(p)||!['fold','check','call','raise'].includes(a.type))return;
     clearTimeout(netTimer);let type=a.type;if(type==='check'&&T.curBet-p.bet>0)type='call';
     apply(p,type,Math.max(0,+a.to||0));render();loop()}
-  function netWaitRemote(){clearTimeout(netTimer);const i=T.toAct,h=T.hand,p=T.players[i];const gone=!net.peers.some(x=>x.cid===p.cid);
-    netTimer=setTimeout(()=>{if(!T||T.over||T.toAct!==i||T.hand!==h||busy)return;const need=T.curBet-p.bet;
-      apply(p,need>0?'fold':'check');p.last=need>0?'Bỏ (hết giờ)':'Xem (hết giờ)';render();loop()},gone?2500:30000)}
+  function netWaitRemote(){startClock()}
+  /* ---------- đồng hồ lượt + timebank ---------- */
+  function startClock(){clearTimeout(netTimer);if(!T||T.over)return;const i=T.toAct,h=T.hand,p=T.players[i];if(!p||!p.human||!canAct(p))return;
+    if(!T.clock||T.clock.n!==T.actN||T.clock.idx!==i)T.clock={idx:i,n:T.actN,t0:Date.now()};
+    const gone=mode==='online'&&net&&p.cid!==net.cid&&!net.peers.some(x=>x.cid===p.cid);
+    const left=ACT_MS+p.bank-(Date.now()-T.clock.t0);
+    netTimer=setTimeout(()=>timeUp(i,h,T.actN),Math.max(0,gone?Math.min(2500,left):left))}
+  function timeUp(i,h,n){if(!T||T.over||T.toAct!==i||T.hand!==h||T.actN!==n||busy)return;const p=T.players[i],need=T.curBet-p.bet;
+    apply(p,need>0?'fold':'check');p.bank=Math.max(0,p.bank);p.last=need>0?'Hết giờ · Bỏ':'Hết giờ · Xem';log(`${p.name} hết giờ`);render();loop()}
+  /* thời gian còn lại của lượt hiện tại: {act, bank} tính bằng ms */
+  function clockLeft(){if(!T||T.over||T.showdown)return null;
+    if(mode==='online'&&net&&!net.host){const c=T.clk;if(!c||c.idx!==T.toAct)return null;const el=performance.now()-c.recv;
+      const a=c.act-el;return a>0?{act:a,bank:c.bank}:{act:0,bank:Math.max(0,c.bank+a)}}
+    const c=T.clock;if(!c||c.idx!==T.toAct||c.n!==T.actN)return null;const p=T.players[c.idx],el=Date.now()-c.t0;
+    return el<ACT_MS?{act:ACT_MS-el,bank:p.bank}:{act:0,bank:Math.max(0,p.bank-(el-ACT_MS))}}
+  function tickClock(){if(!T||$('#pkGame').hidden)return;const L=clockLeft(),seat=$('#pkSeats .seat.turn'),out=$('#pkClock');
+    if(!L){if(out)out.textContent='';return}
+    const s=x=>Math.ceil(x/1000),bank=L.act<=0,txt=bank?`Timebank ${s(L.bank)}s`:`${s(L.act)}s`,frac=bank?L.bank/BANK_MAX:L.act/ACT_MS;
+    if(seat){const t=seat.querySelector('.tclk');if(t){t.textContent=txt;t.classList.toggle('bank',bank)}const k=seat.querySelector('.tbk');if(k)k.textContent=`⏱ ${s(L.bank)}s`;const b=seat.querySelector('.tbar i');if(b){b.style.width=Math.max(0,Math.min(100,frac*100))+'%';b.classList.toggle('bank',bank)}}
+    if(out){out.textContent=T.toAct===meIdx?(bank?`Đang dùng timebank · còn ${s(L.bank)} giây`:`Còn ${s(L.act)} giây`):'';out.classList.toggle('bank',bank)}}
   function netOverlay(h,t){$('#pkOverlay').innerHTML=`<div class="pkmodal"><h3>${h}</h3><p>${t}</p><button class="btn primary" id="pkBack"><span class="dot"></span>Về sảnh</button></div>`;$('#pkOverlay').hidden=false;$('#pkBack').onclick=lobby}
   function setPkMode(m){$$('[data-pkm]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pkm===m));$('#pkReg').hidden=m!=='bot';
     $('#pkNet').hidden=m!=='net'||!!(net&&!net.started);$('#pkRoom').hidden=m!=='net'||!net;
@@ -2232,6 +2262,7 @@ const Poker=(function(){
     $('#pkQuit').onclick=()=>{if(!T)return;$('#pkOverlay').innerHTML=`<div class="pkmodal"><h3>Rời giải?</h3><p>Tiến trình giải hiện tại sẽ mất.</p><div class="row"><button class="btn primary" id="pkYes">Rời giải</button><button class="btn" id="pkNo">Ở lại</button></div></div>`;$('#pkOverlay').hidden=false;$('#pkYes').onclick=lobby;$('#pkNo').onclick=()=>$('#pkOverlay').hidden=true};
     addEventListener('keydown',e=>{if(!T||$('#v-app').hidden||$('[data-app="poker"]').hidden||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
       if($('#pkActions').classList.contains('off'))return;const k=e.key.toLowerCase();if(k==='f')$('#pkFold').click();if(k==='c')$('#pkCall').click();if(k==='r')$('#pkRaise').click()});
+    setInterval(tickClock,250);
     inited=true}
   function human(type,to){if(!T||meIdx<0)return;const me=T.players[meIdx];if(T.toAct!==meIdx||!canAct(me)||T.over||T.showdown)return;
     if(mode==='online'&&!net.host){net.ch.send({type:'broadcast',event:'act',payload:{cid:net.cid,type,to,hand:T.hand}});$('#pkActions').classList.add('off');return}
