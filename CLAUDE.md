@@ -18,3 +18,8 @@ Không xóa `CNAME` (mất tên miền) hay `.nojekyll`.
 - Kho: Supabase dự án `laquoc-com` (mzqngrbbmlsuzlvrbzjl). Cấu trúc: `supabase/thong-ke.sql`.
 - Trang ghi ẩn danh vào `su_kien` bằng khóa công khai; chỉ email trong bảng `quan_tri` (đã xác nhận) mới gọi được `bao_cao`.
 - Lượt xem từ localhost ghi `may='localhost'`, báo cáo mặc định chỉ tính `laquoc.com`.
+
+## Giải Hold'em — chơi với bạn bè
+- Phòng riêng mã 6 ký tự, kết nối qua Supabase Realtime (kênh `pk-<mã>`, dự án `laquoc-com`), không lưu gì vào bảng.
+- Máy chủ phòng chạy luật và chia bài; bài tẩy mã hóa ECDH P-256 + AES-GCM cho từng người. Hết 30 giây không đánh → tự xem/bỏ.
+- PO đã chọn làm dù có rủi ro pháp lý (Nghị định 147/2024/NĐ-CP về trò chơi G1) — 2026-10-18. Lời miễn trừ "chỉ để giải trí, nghiêm cấm đánh bạc" phải luôn đứng đầu hướng dẫn và sảnh giải.
