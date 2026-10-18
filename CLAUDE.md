@@ -23,3 +23,7 @@ Không xóa `CNAME` (mất tên miền) hay `.nojekyll`.
 - Phòng riêng mã 6 ký tự, kết nối qua Supabase Realtime (kênh `pk-<mã>`, dự án `laquoc-com`), không lưu gì vào bảng.
 - Máy chủ phòng chạy luật và chia bài; bài tẩy mã hóa ECDH P-256 + AES-GCM cho từng người. Hết 30 giây không đánh → tự xem/bỏ.
 - PO đã chọn làm dù có rủi ro pháp lý (Nghị định 147/2024/NĐ-CP về trò chơi G1) — 2026-10-18. Lời miễn trừ "chỉ để giải trí, nghiêm cấm đánh bạc" phải luôn đứng đầu hướng dẫn và sảnh giải.
+
+## Hỏi đáp (/#hoi-dap) — dữ liệu người hỏi
+- Bảng `cau_hoi`: khách chỉ được gửi; câu công khai chỉ hiện khi anh Quốc đã trả lời (tab Quản trị → Câu hỏi).
+- `lien_he` của câu hỏi riêng là dữ liệu cá nhân: chỉ quản trị đọc, không bao giờ đưa ra trang công khai, không xuất đi đâu.

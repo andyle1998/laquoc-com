@@ -41,3 +41,6 @@ $function$;
 -- Trả về jsonb: tong · theo_ngay · trang · nguon · thiet_bi. Báo lỗi nếu không phải quản trị.
 revoke execute on function public.la_quan_tri() from public, anon;
 grant execute on function public.la_quan_tri() to authenticated;
+
+-- 2026-10-18: Hỏi Bác sĩ — bảng cau_hoi (công khai/riêng), trigger kiem_cau_hoi (5 câu/giờ/người, 300 câu/ngày),
+-- hàm hoi_dap_cong_khai() chỉ trả câu công khai đã trả lời, KHÔNG có cột lien_he. Quản trị đọc/sửa qua RLS la_quan_tri().

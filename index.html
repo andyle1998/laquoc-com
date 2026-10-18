@@ -96,10 +96,10 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding-block
 .mtabs{display:none}
 @media (max-width:860px){
   .nav .tabs-nav{display:none}
-  .mtabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;justify-content:space-around;gap:4px;
+  .mtabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;justify-content:space-around;gap:0;
     padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));
     background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 -6px 16px var(--shade)}
-  .mtabs a{flex:1;text-align:center;padding:12px 2px;border-radius:14px;text-decoration:none;font-weight:700;font-size:12.5px;color:var(--muted);white-space:nowrap;min-width:0}
+  .mtabs a{flex:1 1 auto;text-align:center;padding:12px 3px;letter-spacing:-.01em;border-radius:14px;text-decoration:none;font-weight:700;font-size:12.5px;color:var(--muted);white-space:nowrap;min-width:0}
   .mtabs a.on{color:var(--accent-ink);box-shadow:var(--in-s)}
   footer{padding-bottom:90px!important}
 }
@@ -394,6 +394,29 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .qt-row i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--c-in);border-radius:6px}
 .qt-row b{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
 .qt-foot{font-size:12px;color:var(--muted);margin-top:4px}
+.ask-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:24px;align-items:start}
+@media (max-width:900px){.ask-grid{grid-template-columns:1fr}}
+.ask-form{border-radius:var(--r-l);box-shadow:var(--out);padding:24px;display:flex;flex-direction:column;gap:14px;position:sticky;top:104px}
+@media (max-width:900px){.ask-form{position:static}}
+.seg.ask-mode{align-self:flex-start}.seg.ask-mode button{width:auto;height:38px;padding:0 16px;font-weight:700;font-size:13.5px;white-space:nowrap}
+.ask-note{font-size:14px;color:var(--muted)}
+.ask-count{align-self:flex-end;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.ask-consent{align-items:flex-start;font-size:13.5px;line-height:1.45}.ask-consent input{margin-top:2px;flex:none}
+.ask-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.ask-fine{font-size:12.5px;color:var(--muted);line-height:1.5}
+.ask-list{display:flex;flex-direction:column;gap:16px;min-width:0}
+.ask-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.ask-head b{font-size:18px;font-weight:800}
+.ask-item,.qa-item{border-radius:var(--r-l);box-shadow:var(--out);padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.qa-item{box-shadow:var(--in-s);margin-bottom:14px}
+.ask-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.ask-meta b{color:var(--accent-ink);font-weight:600}
+.ask-q{font-size:17px;font-weight:600;line-height:1.55;word-break:break-word}
+.ask-q::before{content:"“";color:var(--accent);font-weight:900;margin-right:2px}
+.ask-a{border-radius:var(--r-m);box-shadow:var(--in-s);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.ask-a p{font-size:15.5px;line-height:1.65;word-break:break-word}
+.ask-by{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;color:var(--accent-ink);font-weight:600}
+.ask-by .av{width:22px;height:22px;border-radius:50%;box-shadow:var(--in-s);display:grid;place-items:center}.ask-by .av svg{width:15px;fill:var(--accent)}
+.qa-contact{font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .latest{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .ncard{display:flex;flex-direction:column;gap:14px;border-radius:var(--r-l);padding:24px;box-shadow:var(--out);text-decoration:none;min-width:0;transition:transform .25s}
 .ncard:hover{transform:translateY(-4px)}
@@ -729,9 +752,10 @@ body.appmax main{z-index:auto}
 .ginfo dd{margin:0;font-weight:600;word-break:break-word}
 .ginfo a{color:var(--accent-ink)}
 @media (max-width:1040px){.runner,.runner.noguide{grid-template-columns:1fr}.guide{position:static;max-height:none}.viewport{min-height:0;padding:12px}}
-@media (max-width:560px){.seg{display:none}.rtools .btn{flex:1 1 auto;justify-content:center}}
+@media (max-width:560px){.seg:not(.pkmode):not(.ask-mode){display:none}.rtools .btn{flex:1 1 auto;justify-content:center}}
 footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:12px 20px;border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--out-s);font-weight:700;font-size:14px;z-index:80;color:var(--accent-ink)}
+@media (max-width:359px){.mtabs a{font-size:11px;padding:12px 2px}}
 @media (max-width:860px){#toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -755,6 +779,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
         <a href="#bai-viet" data-tab="feed">Bài viết</a>
         <a href="#lab" data-tab="lab">Lab</a>
         <a href="#bao-chi" data-tab="press">Báo chí</a>
+        <a href="#hoi-dap" data-tab="ask">Hỏi đáp</a>
         <a href="#gioi-thieu" data-tab="about">Giới thiệu</a>
       </div>
       <button class="theme" id="themeBtn" aria-label="Đổi giao diện sáng / tối">
@@ -764,7 +789,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
   </div>
 </header>
 <nav class="mtabs" data-tabs aria-label="Điều hướng">
-  <a href="#trang-chu" data-tab="home">Trang chủ</a><a href="#bai-viet" data-tab="feed">Bài viết</a><a href="#lab" data-tab="lab">Lab</a><a href="#bao-chi" data-tab="press">Báo chí</a><a href="#gioi-thieu" data-tab="about">Giới thiệu</a>
+  <a href="#trang-chu" data-tab="home">Trang chủ</a><a href="#bai-viet" data-tab="feed">Bài viết</a><a href="#lab" data-tab="lab">Lab</a><a href="#bao-chi" data-tab="press">Báo chí</a><a href="#hoi-dap" data-tab="ask">Hỏi đáp</a><a href="#gioi-thieu" data-tab="about">Giới thiệu</a>
 </nav>
 
 <main class="wrap">
@@ -1041,6 +1066,35 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
       <div class="timeline" id="timeline"></div>
     </section>
   </div>
+  <!-- HỎI ĐÁP -->
+  <div class="view" id="v-ask" hidden>
+    <section style="padding-top:36px">
+      <div class="sec-head">
+        <div><span class="eyebrow pop">Hỏi đáp</span><h2 class="ink-raise">Hỏi Bác sĩ</h2></div>
+        <p>Hỏi gì cũng được: blockchain, AI, khởi nghiệp hay chuyện đi làm. Câu hỏi chung tôi trả lời công khai ở đây, câu hỏi riêng tôi trả lời riêng cho bạn.</p>
+      </div>
+      <div class="ask-grid">
+        <form class="ask-form" id="askForm" novalidate>
+          <div class="seg ask-mode" role="group" aria-label="Kiểu câu hỏi"><button type="button" data-ak="cong-khai" aria-pressed="true">Hỏi công khai</button><button type="button" data-ak="rieng" aria-pressed="false">Hỏi riêng</button></div>
+          <p class="ask-note" id="askNote"></p>
+          <div class="field"><label for="askQ">Câu hỏi của bạn</label><textarea id="askQ" rows="5" maxlength="1500" placeholder="Ví dụ: Người không biết code nên bắt đầu học AI từ đâu?" required></textarea><small class="ask-count" id="askCount">0/1500</small></div>
+          <label class="qt-chk" id="askAnonWrap"><input type="checkbox" id="askAnon" checked> Gửi ẩn danh</label>
+          <div class="field" id="askNameWrap" hidden><label for="askName">Tên hiển thị</label><input id="askName" maxlength="60" placeholder="Tên hoặc biệt danh"></div>
+          <div class="field" id="askContactWrap" hidden><label for="askContact">Cách liên lạc với bạn</label><input id="askContact" maxlength="200" placeholder="Email, Zalo, số điện thoại hoặc Telegram"></div>
+          <label class="qt-chk ask-consent" id="askConsentWrap" hidden><input type="checkbox" id="askConsent"> Tôi đồng ý để Bác sĩ Chain dùng thông tin liên lạc này chỉ để trả lời câu hỏi của tôi.</label>
+          <input type="text" id="askHp" tabindex="-1" autocomplete="off" aria-hidden="true" class="ask-hp">
+          <button class="btn primary" type="submit" id="askSend"><span class="dot"></span>Gửi câu hỏi</button>
+          <p class="status" id="askMsg" hidden></p>
+          <p class="ask-fine">Đừng gửi mật khẩu, cụm từ khôi phục ví hay thông tin tài chính cá nhân. Thông tin liên lạc không bao giờ hiện công khai và không chia sẻ cho ai.</p>
+        </form>
+        <div class="ask-list">
+          <div class="ask-head"><b>Đã trả lời</b><span class="mono qt-note" id="askTotal"></span></div>
+          <div id="askItems"><p class="qt-note">Đang tải…</p></div>
+          <button class="btn sm" id="askMore" hidden>Xem thêm</button>
+        </div>
+      </div>
+    </section>
+  </div>
   <!-- ABOUT -->
   <div class="view" id="v-about" hidden>
     <section class="ab-hero">
@@ -1122,6 +1176,10 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
           <label class="qt-chk"><input type="checkbox" id="qtLocal"> Dữ liệu thử trên máy</label>
           <label class="qt-chk"><input type="checkbox" id="qtSelf"> Không đếm lượt xem của tôi trên trình duyệt này</label>
           <button class="btn sm" id="qtReload">↻ Cập nhật</button>
+        </div>
+        <div class="qt-card">
+          <div class="qt-head"><b>Câu hỏi</b><span class="mono qt-note" id="qtAskN"></span><div class="seg-pill" role="group" aria-label="Lọc câu hỏi"><button data-qak="cho" aria-pressed="true">Chờ xử lý</button><button data-qak="xong" aria-pressed="false">Đã xong</button></div></div>
+          <div id="qtAsk"></div>
         </div>
         <p class="status bad" id="qtErr" hidden></p>
         <div class="qt-kpi" id="qtKpi"></div>
@@ -1725,7 +1783,7 @@ $$('[data-pf]').forEach(b=>b.addEventListener('click',()=>{pf=b.dataset.pf;$$('[
 renderPress();
 
 /* ---------- ROUTER ---------- */
-const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press',about:'#v-about',admin:'#v-admin'};
+const views={home:'#v-home',feed:'#v-feed',article:'#v-article',lab:'#v-lab',app:'#v-app',press:'#v-press',about:'#v-about',admin:'#v-admin',ask:'#v-ask'};
 function route(){
   let h=location.hash.slice(1)||'trang-chu',view='home',tab='home';
   if(h==='bai-viet'){view='feed';tab='feed'}
@@ -1735,6 +1793,7 @@ function route(){
   else if(h==='bao-chi'){view='press';tab='press'}
   else if(h==='gioi-thieu'){view='about';tab='about'}
   else if(h==='quan-tri'){view='admin';tab=''}
+  else if(h==='hoi-dap'){view='ask';tab='ask'}
   Object.entries(views).forEach(([k,s])=>{const el=$(s);const show=k===view;if(el.hidden===show){el.hidden=!show;if(show){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}}else if(show&&k==='article'){el.classList.remove('view');void el.offsetWidth;el.classList.add('view')}});
   $$('[data-tabs] a').forEach(a=>a.classList.toggle('on',a.dataset.tab===tab));
   if(view!=='article')coverAnim=null;
@@ -1744,6 +1803,7 @@ function route(){
   if(view==='home'&&three)three.resize();
   tkMo(h);
   if(view==='admin')openAdmin();
+  if(view==='ask')openAsk();
 }
 addEventListener('hashchange',route);
 
@@ -2363,7 +2423,7 @@ async function openAdmin(){
   if(!ok){$('#qtBoard').hidden=true;$('#qtLogin').hidden=false;qtMsg('Tài khoản này chưa có quyền quản trị, hoặc email chưa được xác nhận.',true);return}
   if(store.get('bsc-khong-dem',null)===null)store.set('bsc-khong-dem',true);
   $('#qtSelf').checked=!!store.get('bsc-khong-dem',false);
-  $('#qtBoard').hidden=false;qtLoad()}
+  $('#qtBoard').hidden=false;qtLoad();qtAsk()}
 async function qtLoad(){const err=$('#qtErr');err.hidden=true;
   const {data,error}=await sb.rpc('bao_cao',{p_ngay:qtN,p_may:$('#qtLocal').checked?location.hostname:'laquoc.com'});
   if(error){err.textContent='Không lấy được số liệu: '+(error.message||'lỗi không rõ');err.hidden=false;return}
@@ -2400,6 +2460,65 @@ $('#qtOut').addEventListener('click',async()=>{await sb.auth.signOut();$('#qtBoa
 $$('[data-qn]').forEach(b=>b.addEventListener('click',()=>{qtN=+b.dataset.qn;$$('[data-qn]').forEach(x=>x.setAttribute('aria-pressed',x===b));qtLoad()}));
 $('#qtLocal').addEventListener('change',qtLoad);$('#qtReload').addEventListener('click',qtLoad);
 $('#qtSelf').addEventListener('change',e=>store.set('bsc-khong-dem',e.target.checked));
+
+/* ---------- HỎI ĐÁP ---------- */
+let akLoai='cong-khai',akLast=null,akLoaded=false;
+const fmtNgay=t=>new Date(t).toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'});
+function akMode(m){akLoai=m;$$('[data-ak]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.ak===m));const pub=m==='cong-khai';
+  $('#askAnonWrap').hidden=!pub;$('#askNameWrap').hidden=pub&&$('#askAnon').checked;$('#askContactWrap').hidden=pub;$('#askConsentWrap').hidden=pub;
+  $('#askNote').textContent=pub?'Câu hỏi sẽ hiện ở mục "Đã trả lời" khi tôi trả lời xong. Bạn có thể gửi ẩn danh.':'Chỉ mình tôi đọc được. Tôi sẽ liên lạc riêng với bạn theo thông tin bạn để lại.'}
+$$('[data-ak]').forEach(b=>b.addEventListener('click',()=>akMode(b.dataset.ak)));
+$('#askAnon').addEventListener('change',()=>akMode(akLoai));
+$('#askQ').addEventListener('input',()=>{$('#askCount').textContent=$('#askQ').value.length+'/1500'});
+function akMsg(t,bad){const m=$('#askMsg');m.textContent=t;m.className='status '+(bad?'bad':'ok');m.hidden=!t}
+$('#askForm').addEventListener('submit',async e=>{e.preventDefault();if($('#askHp').value)return;
+  const q=$('#askQ').value.trim(),pub=akLoai==='cong-khai',ten=pub&&$('#askAnon').checked?'':$('#askName').value.trim(),lh=$('#askContact').value.trim();
+  if(q.length<5){akMsg('Câu hỏi hơi ngắn, bạn viết rõ thêm một chút nhé.',true);return}
+  if(!pub&&lh.length<5){akMsg('Bạn để lại cách liên lạc để tôi trả lời riêng nhé.',true);$('#askContact').focus();return}
+  if(!pub&&!$('#askConsent').checked){akMsg('Bạn tích vào ô đồng ý để tôi được dùng thông tin liên lạc trả lời bạn.',true);return}
+  const btn=$('#askSend');btn.disabled=true;akMsg('Đang gửi…');
+  try{const r=await fetch(TK.url+'/rest/v1/cau_hoi',{method:'POST',headers:{apikey:TK.key,'Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify({loai:akLoai,noi_dung:q,ten:ten||null,lien_he:pub?null:lh,nguoi:tkNguoi})});
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(/hơi nhiều|đầy/.test(j.message||'')?j.message:'Chưa gửi được, bạn thử lại sau ít phút nhé.')}
+    $('#askQ').value='';$('#askContact').value='';$('#askConsent').checked=false;$('#askCount').textContent='0/1500';
+    akMsg(pub?'Đã gửi. Câu hỏi sẽ hiện ở đây khi tôi trả lời.':'Đã gửi. Tôi sẽ liên lạc riêng với bạn sớm.')}
+  catch(err){akMsg(err.message||'Chưa gửi được, bạn thử lại sau ít phút nhé.',true)}finally{btn.disabled=false}});
+async function akLoad(more){
+  try{const r=await fetch(TK.url+'/rest/v1/rpc/hoi_dap_cong_khai',{method:'POST',headers:{apikey:TK.key,'Content-Type':'application/json'},body:JSON.stringify({p_gioi_han:20,p_truoc:more?akLast:null})});
+    if(!r.ok)throw 0;const rows=await r.json();
+    const html=rows.map(x=>`<article class="ask-item"><div class="ask-meta"><b>#${x.id}</b><span>${esc(x.ten||'Ẩn danh')} · ${fmtNgay(x.ts)}</span></div>
+      <p class="ask-q">${esc(x.noi_dung).replace(/\n/g,'<br>')}</p>
+      <div class="ask-a"><span class="ask-by"><span class="av">${logoMini}</span>Bác sĩ Chain trả lời · ${fmtNgay(x.tra_loi_luc)}</span><p>${esc(x.tra_loi).replace(/\n/g,'<br>')}</p></div></article>`).join('');
+    if(!more)$('#askItems').innerHTML=html||'<p class="qt-note">Chưa có câu hỏi nào được trả lời. Bạn là người hỏi đầu tiên nhé.</p>';else $('#askItems').insertAdjacentHTML('beforeend',html);
+    if(rows.length)akLast=rows[rows.length-1].tra_loi_luc;$('#askMore').hidden=rows.length<20;akLoaded=true}
+  catch(e){if(!more)$('#askItems').innerHTML='<p class="qt-note">Chưa tải được câu trả lời. Bạn tải lại trang sau ít phút nhé.</p>'}}
+$('#askMore').addEventListener('click',()=>akLoad(true));
+function openAsk(){akMode(akLoai);if(!akLoaded)akLoad(false)}
+
+/* quản trị: câu hỏi */
+let qtAkLoc='cho';
+const AK_TT={cho:'Chờ xử lý','da-tra-loi':'Đã trả lời công khai','da-lien-he':'Đã liên hệ riêng',an:'Đã ẩn'};
+async function qtAsk(){const box=$('#qtAsk');if(!box)return;
+  let q=sb.from('cau_hoi').select('*').order('ts',{ascending:false}).limit(200);if(qtAkLoc!=='tat-ca')q=q.eq('trang_thai',qtAkLoc==='xong'?'da-tra-loi':'cho');
+  if(qtAkLoc==='xong')q=sb.from('cau_hoi').select('*').in('trang_thai',['da-tra-loi','da-lien-he','an']).order('ts',{ascending:false}).limit(200);
+  const {data,error}=await q;if(error){box.innerHTML='<p class="status bad">Không tải được câu hỏi.</p>';return}
+  const {count}=await sb.from('cau_hoi').select('id',{count:'exact',head:true}).eq('trang_thai','cho');$('#qtAskN').textContent=count?`${count} chờ xử lý`:'Không có câu hỏi chờ';
+  box.innerHTML=data.length?data.map(x=>`<div class="qa-item" data-id="${x.id}">
+    <div class="ask-meta"><b>#${x.id} · ${x.loai==='rieng'?'Hỏi riêng':'Công khai'}</b><span>${esc(x.ten||'Ẩn danh')} · ${new Date(x.ts).toLocaleString('vi-VN')} · ${AK_TT[x.trang_thai]}</span></div>
+    <p class="ask-q">${esc(x.noi_dung).replace(/\n/g,'<br>')}</p>
+    ${x.loai==='rieng'?`<p class="qa-contact">Liên lạc: <b>${esc(x.lien_he||'—')}</b> <button class="btn sm" data-copy="${esc(x.lien_he||'')}">Sao chép</button></p>
+      <div class="row"><button class="btn sm primary" data-st="da-lien-he"><span class="dot"></span>Đánh dấu đã liên hệ</button><button class="btn sm" data-st="an">Ẩn</button>${x.trang_thai!=='cho'?'<button class="btn sm" data-st="cho">Đưa về chờ</button>':''}</div>`
+    :`<div class="field"><label>Câu trả lời công khai</label><textarea rows="4" maxlength="5000">${esc(x.tra_loi||'')}</textarea></div>
+      <div class="row"><button class="btn sm primary" data-ans><span class="dot"></span>${x.trang_thai==='da-tra-loi'?'Cập nhật câu trả lời':'Đăng câu trả lời'}</button><button class="btn sm" data-st="an">Ẩn</button>${x.trang_thai!=='cho'?'<button class="btn sm" data-st="cho">Gỡ khỏi trang, đưa về chờ</button>':''}</div>`}</div>`).join('')
+    :'<p class="qt-note">Không có câu hỏi nào ở mục này.</p>'}
+$('#qtAsk')&&$('#qtAsk').addEventListener('click',async e=>{const it=e.target.closest('.qa-item');if(!it)return;const id=+it.dataset.id;
+  const cp=e.target.closest('[data-copy]');if(cp){navigator.clipboard&&navigator.clipboard.writeText(cp.dataset.copy).then(()=>toast('Đã sao chép liên lạc'));return}
+  let patch=null;const st=e.target.closest('[data-st]');
+  if(st)patch={trang_thai:st.dataset.st};
+  if(e.target.closest('[data-ans]')){const t=it.querySelector('textarea').value.trim();if(t.length<2){toast('Viết câu trả lời trước đã');return}patch={tra_loi:t,trang_thai:'da-tra-loi',tra_loi_luc:new Date().toISOString()}}
+  if(!patch)return;const {error}=await sb.from('cau_hoi').update(patch).eq('id',id);
+  if(error){toast('Chưa lưu được: '+error.message);return}toast(patch.trang_thai==='da-tra-loi'?'Đã đăng câu trả lời lên trang Hỏi đáp':'Đã cập nhật');akLoaded=false;qtAsk()});
+$$('[data-qak]').forEach(b=>b.addEventListener('click',()=>{qtAkLoc=b.dataset.qak;$$('[data-qak]').forEach(x=>x.setAttribute('aria-pressed',x===b));qtAsk()}));
 
 route();
 function loop(t){if(three)three.frame(t);drawVis(reduce?0:t);if(coverAnim)coverAnim(reduce?0:t);requestAnimationFrame(loop)}

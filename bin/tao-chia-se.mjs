@@ -40,6 +40,8 @@ const trang = [
     tieuDe: 'Lab sản phẩm', tomTat: 'Nơi các sản phẩm ấp ủ chạy thật ngay trên trình duyệt để bạn bè dùng thử và góp ý, trước khi thương mại hóa.' },
   { ten: 'bao-chi', duong: 'bao-chi/', bam: 'bao-chi', nhan: 'Báo chí', icon: 'quiz',
     tieuDe: 'Trên vài mặt báo', tomTat: 'Những buổi nói chuyện, lớp học và bài báo về blockchain, tài sản số và AI.' },
+  { ten: 'hoi-dap', duong: 'hoi-dap/', bam: 'hoi-dap', nhan: 'Hỏi đáp', icon: 'quiz',
+    tieuDe: 'Hỏi Bác sĩ', tomTat: 'Hỏi gì cũng được về blockchain, AI, khởi nghiệp. Câu hỏi chung được trả lời công khai, có thể ẩn danh; câu hỏi riêng được trả lời riêng.' },
   { ten: 'gioi-thieu', duong: 'gioi-thieu/', bam: 'gioi-thieu', nhan: 'Giới thiệu', icon: 'bot',
     tieuDe: 'Xin chào, tôi là Quốc', tomTat: 'Học Y, rẽ sang blockchain từ 2018, giờ học lại từ đầu cùng AI. Trang này để chia sẻ một tầm nhìn và ấp ủ vài sản phẩm.' },
   ...ARTICLES.map(a => ({ ten: 'bai-' + a.id, duong: `bai/${a.id}/`, bam: 'bai-' + a.id,
