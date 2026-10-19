@@ -1,0 +1,6 @@
+# Ghi chú nội bộ & công cụ: chỉ giữ trên máy, không đưa lên web
+CLAUDE.md
+bin/
+supabase/
+_thu-*.html
+.DS_Store

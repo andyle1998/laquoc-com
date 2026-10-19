@@ -1,4 +1,4 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><!--csp:start--><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-mW2vk6222YyuCUfqD7c64cNYCNYGob+6rbsgsp0qAAE=' 'sha256-2qrMr6W2MKRdADz9kgT/0zVcbLdNu4sbgLxwFqEm1YU=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://mzqngrbbmlsuzlvrbzjl.supabase.co wss://mzqngrbbmlsuzlvrbzjl.supabase.co https://cdn.jsdelivr.net; frame-src https://taichinh.laquoc.com https://meetask.laquoc.com https://financial-dashboard-chi-wine.vercel.app https://meetask-delta.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'"><meta name="referrer" content="strict-origin-when-cross-origin"><!--csp:end--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!--og:start-->
 <title>Bác sĩ Chain · Hành AI hay bị AI hành...</title>
 <meta name="description" content="Khám, chẩn đoán và kê đơn cho những khái niệm công nghệ khó nuốt: blockchain, tài sản số, AI. Giải thích bằng ví dụ đời thường, kèm sản phẩm chạy thử trong Lab.">
@@ -2191,7 +2191,7 @@ const Poker=(function(){
       return `<div class="seat p${pi} ${i===meIdx?'me':''} ${i===T.toAct&&!T.over&&!T.showdown&&canAct(p)?'turn':''} ${p.folded&&!p.out?'folded':''} ${p.out?'out':''} ${win?'win':''}" style="left:${x}%;top:${y}%">
         <div class="cards">${cards}</div>
         ${i===T.toAct&&p.human&&!T.over&&!T.showdown&&canAct(p)?'<em class="tclk"></em>':''}<div class="plate"><b>${esc(p.name)}${i===T.button&&!p.out?'<span class="dbtn">D</span>':''}</b><span>${p.out?`Hạng ${p.place}`:p.stack.toLocaleString('vi-VN')}</span>${p.human&&!p.out?`<small class="tbk" title="Timebank còn lại">⏱ ${Math.round((p.bank||0)/1000)}s</small>`:''}${i===T.toAct&&p.human&&!T.over&&!T.showdown&&canAct(p)?'<i class="tbar"><i></i></i>':''}</div>
-        ${p.last&&!p.out?`<em class="tag">${p.last}</em>`:''}${win?`<em class="tag wint">+${win.amt}${win.hand?' · '+win.hand:''}</em>`:''}
+        ${p.last&&!p.out?`<em class="tag">${esc(p.last)}</em>`:''}${win?`<em class="tag wint">+${+win.amt||0}${win.hand?' · '+esc(win.hand):''}</em>`:''}
         ${p.bet>0?`<span class="bet">${p.bet}</span>`:''}</div>`}).join('');
     const daLat=T.boardShown||0;$('#pkBoard').innerHTML=[0,1,2,3,4].map(i=>T.board[i]!=null?cardHTML(T.board[i],i>=daLat?'bd':''):'<span class="pc slot"></span>').join('');T.boardShown=T.board.length;
     $('#pkPot').textContent=pot()?`Pot ${pot().toLocaleString('vi-VN')}`:'';
@@ -2218,7 +2218,19 @@ const Poker=(function(){
   const newCode=()=>{const a=new Uint8Array(6);crypto.getRandomValues(a);return [...a].map(x=>CODE_CH[x%CODE_CH.length]).join('')};
   const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u))),ub64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
   const ECDH={name:'ECDH',namedCurve:'P-256'};
-  async function aesFrom(jwk,use){const pk=await crypto.subtle.importKey('jwk',jwk,ECDH,false,[]);return crypto.subtle.deriveKey({name:'ECDH',public:pk},net.kp.privateKey,{name:'AES-GCM',length:256},false,[use])}
+  async function aesFrom(jwk){const pk=await crypto.subtle.importKey('jwk',jwk,ECDH,false,[]);return crypto.subtle.deriveKey({name:'ECDH',public:pk},net.kp.privateKey,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+  async function seal(key,obj){const iv=crypto.getRandomValues(new Uint8Array(12));return{iv:b64(iv),ct:b64(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(typeof obj==='string'?obj:JSON.stringify(obj))))}}
+  async function open_(key,box){return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(box.iv)},key,ub64(box.ct)))}
+  const sha=async t=>hex(await crypto.subtle.digest('SHA-256',enc.encode(t)));
+  /* dữ liệu nhận qua mạng không đáng tin: ép kiểu, cắt độ dài, chỉ giữ trường cần cho hiển thị */
+  function sach(s){const N=x=>Number.isFinite(+x)?+x:0,S=(x,n)=>String(x==null?'':x).slice(0,n),C=x=>x==null?null:(Number.isInteger(+x)&&+x>=0&&+x<52?+x:null),A=(x,n)=>Array.isArray(x)?x.slice(0,n):[],H=x=>S(x,64).replace(/[^0-9a-f]/g,'');
+    return{players:A(s.players,SEATS).map((p,i)=>({id:i,name:S(p.name,16),human:!!p.human,bot:!!p.bot,cid:S(p.cid,40),stack:N(p.stack),bet:N(p.bet),total:N(p.total),folded:!!p.folded,allin:!!p.allin,out:!!p.out,acted:!!p.acted,
+        last:S(p.last,24),place:N(p.place)||null,outAt:N(p.outAt),bank:N(p.bank),cards:A(p.cards,2).map(C)})),
+      board:A(s.board,5).map(C).filter(x=>x!=null),hand:N(s.hand),button:N(s.button),toAct:N(s.toAct),curBet:N(s.curBet),minRaise:N(s.minRaise),sbAmt:N(s.sbAmt),bbAmt:N(s.bbAmt),
+      street:N(s.street),showdown:!!s.showdown,over:!!s.over,start:N(s.start),commit:H(s.commit),client:S(s.client,32).replace(/[^0-9A-Za-z_-]/g,''),
+      winners:A(s.winners,SEATS).map(w=>({id:N(w.id),amt:N(w.amt),hand:CAT.includes(w.hand)?w.hand:''})),log:A(s.log,20).map(x=>S(x,160)),
+      history:A(s.history,12).map(h=>({hand:N(h.hand),seed:H(h.seed),commit:H(h.commit),client:S(h.client,32),dealt:A(h.dealt,SEATS).map(d=>A(d,2).map(C)),board:A(h.board,5).map(C),dp:N(h.dp)})),
+      clk:s.clk?{idx:N(s.clk.idx),act:Math.min(N(s.clk.act),ACT_MS),bank:Math.min(N(s.clk.bank),BANK_MAX)}:null,boardShown:0}}
   function netMsg(t,bad){const m=$('#pkNetMsg');m.textContent=t||'';m.hidden=!t;m.className='status '+(bad?'bad':'ok')}
   function netLeave(){clearTimeout(netTimer);if(net&&net.ch){try{net.ch.untrack();sb.removeChannel(net.ch)}catch(e){}}net=null}
   async function netJoin(code,name,asHost){
@@ -2237,6 +2249,9 @@ const Poker=(function(){
       else if(st==='CHANNEL_ERROR'||st==='TIMED_OUT')netMsg('Không kết nối được phòng chơi. Thử lại sau ít phút.',true)})}
   function netSync(){const st=net.ch.presenceState();
     net.peers=Object.entries(st).map(([cid,a])=>({cid,...a[0]})).sort((a,b)=>(b.host-a.host)||(a.t-b.t));
+    if(!net.host){const hs=net.peers.filter(p=>p.host);
+      if(hs.length>1&&!net.hostPin)netMsg('Phòng có hơn một người tự xưng chủ phòng, có thể bị giả mạo. Bạn nên rời phòng.',true);
+      else if(hs.length===1&&!net.hostPin){net.hostPin=JSON.stringify(hs[0].pub);aesFrom(hs[0].pub).then(k=>{net.hostKey=k}).catch(()=>{net.hostPin=null})}}
     if(!net.started){showRoom();return}
     if(!net.host&&!net.peers.some(p=>p.host)&&T&&!T.over)netOverlay('Chủ phòng đã rời phòng','Giải này dừng lại. Bạn có thể quay về sảnh để tạo hoặc vào phòng khác.');
     if(net.host&&T&&!T.over){const p=T.players[T.toAct];if(p&&p.human&&T.toAct!==meIdx&&!net.peers.some(x=>x.cid===p.cid))netWaitRemote()}}
@@ -2254,8 +2269,9 @@ const Poker=(function(){
     if(net.host)$('#pkStart').onclick=netStart}
   async function netStart(){const humans=net.peers.slice(0,SEATS),nb=+($('#pkBots')||{}).value||0;
     if(humans.length+nb<2){netMsg('Cần ít nhất 2 người trên bàn: mời thêm bạn hoặc thêm máy.',true);return}
-    for(const h of humans)if(h.cid!==net.cid&&!net.keys.has(h.cid))net.keys.set(h.cid,await aesFrom(h.pub,'encrypt'));
-    newGame(humans.map(h=>({name:h.name,human:true,cid:h.cid})).concat(BOTS.slice(0,nb).map(([n,a])=>({name:n,bot:true,aggr:a}))),randHex(4));
+    for(const h of humans)if(h.cid!==net.cid&&!net.keys.has(h.cid)){try{net.keys.set(h.cid,await aesFrom(h.pub))}catch(e){}}
+    const ok=humans.filter(h=>h.cid===net.cid||net.keys.has(h.cid));
+    newGame(ok.map(h=>({name:String(h.name||'Bạn').slice(0,16),human:true,cid:h.cid})).concat(BOTS.slice(0,nb).map(([n,a])=>({name:n,bot:true,aggr:a}))),randHex(4));
     meIdx=T.players.findIndex(p=>p.cid===net.cid);net.started=true;
     $('#pkLobby').hidden=true;$('#pkGame').hidden=false;$('#pkClientShow').textContent=T.client;renderFair();startHand()}
   function netBroadcast(){if(!net||!net.host||net.bcq)return;net.bcq=true;
@@ -2264,19 +2280,26 @@ const Poker=(function(){
           const iv=crypto.getRandomValues(new Uint8Array(12));e[p.cid]={iv:b64(iv),ct:b64(await crypto.subtle.encrypt({name:'AES-GCM',iv},net.keys.get(p.cid),enc.encode(JSON.stringify(p.cards))))}}
         net.enc=e;net.encHand=T.hand}
       const L=clockLeft();
-      const s={...T,deck:null,seed:null,dealt:null,clock:null,clk:L?{idx:T.toAct,act:L.act,bank:L.bank}:null,log:T.log.slice(0,20),seq:++net.seq,enc:net.enc,hostPub:net.pub,
+      const s={...T,deck:null,seed:null,dealt:null,clock:null,clk:L?{idx:T.toAct,act:L.act,bank:L.bank}:null,log:T.log.slice(0,20),
         players:T.players.map(p=>({...p,cards:T.showdown&&inHand(p)?p.cards:p.cards.map(()=>null)}))};
-      await net.ch.send({type:'broadcast',event:'state',payload:s})}).catch(()=>{})}
-  async function netState(s){if(net.host||s.seq<=net.lastSeq)return;net.lastSeq=s.seq;
-    if(s.enc&&s.enc[net.cid]&&net.myHand!==s.hand){try{
-        if(net.hostPubStr!==JSON.stringify(s.hostPub)){net.hostKey=await aesFrom(s.hostPub,'decrypt');net.hostPubStr=JSON.stringify(s.hostPub)}
-        const e=s.enc[net.cid];net.myCards=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(e.iv)},net.hostKey,ub64(e.ct))));net.myHand=s.hand}catch(err){net.myCards=null}}
-    if(s.seq<net.lastSeq)return;if(s.clk)s.clk.recv=performance.now();T=s;meIdx=T.players.findIndex(p=>p.cid===net.cid);
+      const body=JSON.stringify(s),h=await sha(body),auth={};for(const [cid,k] of net.keys)auth[cid]=await seal(k,h);
+      await net.ch.send({type:'broadcast',event:'state',payload:{seq:++net.seq,body,auth,enc:net.enc,hostPub:net.pub}})}).catch(()=>{})}
+  async function netState(m){if(net.host||!m||typeof m.body!=='string'||m.body.length>200000||!(+m.seq>net.lastSeq))return;
+    if(!net.hostPin||JSON.stringify(m.hostPub)!==net.hostPin||!net.hostKey)return;
+    const mine=m.auth&&m.auth[net.cid];
+    if(mine){try{if(await open_(net.hostKey,mine)!==await sha(m.body))return}catch(e){return}}
+    else if(T&&T.players&&T.players.some(p=>p.cid===net.cid))return; /* đang ngồi bàn mà thiếu chữ ký → bỏ */
+    let raw;try{raw=JSON.parse(m.body)}catch(e){return}
+    if(+m.seq<=net.lastSeq)return;net.lastSeq=+m.seq;const s=sach(raw);
+    const e=m.enc&&m.enc[net.cid];if(e&&net.myHand!==s.hand){try{const c=JSON.parse(await open_(net.hostKey,e));net.myCards=Array.isArray(c)?c.slice(0,2).map(x=>Number.isInteger(x)&&x>=0&&x<52?x:null):null;net.myHand=s.hand}catch(err){net.myCards=null}}
+    if(s.clk)s.clk.recv=performance.now();T=s;meIdx=T.players.findIndex(p=>p.cid===net.cid);
     if(meIdx>=0&&net.myHand===T.hand&&net.myCards&&!(T.showdown&&inHand(T.players[meIdx])))T.players[meIdx].cards=net.myCards.slice();
     if(!net.started){net.started=true;$('#pkLobby').hidden=true;$('#pkGame').hidden=false}
     $('#pkClientShow').textContent=T.client;render();renderFair();
     if(T.over&&!net.shownOver){net.shownOver=true;showResult(T.players.find(p=>p.place===1)||T.players[0])}}
-  function netAct(a){if(!net.host||!T||T.over||busy)return;const p=T.players[T.toAct];
+  async function netAct(m){if(!net.host||!T||T.over||busy||!m||!m.box)return;const k=net.keys.get(String(m.cid));if(!k)return;
+    let a;try{a=JSON.parse(await open_(k,m.box));a.cid=String(m.cid)}catch(e){return}
+    if(!T||T.over||busy)return;const p=T.players[T.toAct];
     if(!p||p.cid!==a.cid||a.hand!==T.hand||!canAct(p)||!['fold','check','call','raise'].includes(a.type))return;
     clearTimeout(netTimer);let type=a.type;if(type==='check'&&T.curBet-p.bet>0)type='call';
     apply(p,type,Math.max(0,+a.to||0));render();loop()}
@@ -2327,7 +2350,7 @@ const Poker=(function(){
     setInterval(tickClock,250);
     inited=true}
   function human(type,to){if(!T||meIdx<0)return;const me=T.players[meIdx];if(T.toAct!==meIdx||!canAct(me)||T.over||T.showdown)return;
-    if(mode==='online'&&!net.host){net.ch.send({type:'broadcast',event:'act',payload:{cid:net.cid,type,to,hand:T.hand}});$('#pkActions').classList.add('off');return}
+    if(mode==='online'&&!net.host){if(!net.hostKey)return;seal(net.hostKey,{type,to,hand:T.hand}).then(box=>net.ch.send({type:'broadcast',event:'act',payload:{cid:net.cid,box}}));$('#pkActions').classList.add('off');return}
     if(busy)return;apply(me,type,to);render();loop()}
   return{open(){if(!window.crypto||!crypto.subtle){$('#pkLobby').innerHTML='<p>Trình duyệt này không hỗ trợ Web Crypto nên không thể chia bài công bằng.</p>';return}if(!inited)init();const ph=new URLSearchParams(location.search).get('phong');if(ph&&!T&&!net){setPkMode('net');$('#pkCode').value=ph.toUpperCase().slice(0,6)}},
     reset(){lobby()},_t:0};
