@@ -1,4 +1,4 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><!--csp:start--><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Ray8mr8YTAhjOt/27BPODWDOMeL+nB8pKASpajCtgMA=' 'sha256-TkIeVf+NJTjfOSPQ+D+rEXuZ+o+4+icZDLBj5gdSsts=' 'sha256-vh2syppNOSuaXfF34QbXP3DKsjTQtEuVBf8+rphvbc8=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://mzqngrbbmlsuzlvrbzjl.supabase.co wss://mzqngrbbmlsuzlvrbzjl.supabase.co https://cdn.jsdelivr.net; frame-src https://giaiphau.laquoc.com https://giai-phau-3d-seven.vercel.app https://taichinh.laquoc.com https://meetask.laquoc.com https://financial-dashboard-chi-wine.vercel.app https://meetask-delta.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'"><meta name="referrer" content="strict-origin-when-cross-origin"><!--csp:end--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><!--csp:start--><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Ray8mr8YTAhjOt/27BPODWDOMeL+nB8pKASpajCtgMA=' 'sha256-ps+cg6sT5cd1Y+H+8eig90yL/NG4lIvfL/p05x+P81k=' 'sha256-vh2syppNOSuaXfF34QbXP3DKsjTQtEuVBf8+rphvbc8=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://mzqngrbbmlsuzlvrbzjl.supabase.co wss://mzqngrbbmlsuzlvrbzjl.supabase.co https://cdn.jsdelivr.net; frame-src https://giaiphau.laquoc.com https://giai-phau-3d-seven.vercel.app https://taichinh.laquoc.com https://meetask.laquoc.com https://financial-dashboard-chi-wine.vercel.app https://meetask-delta.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'"><meta name="referrer" content="strict-origin-when-cross-origin"><!--csp:end--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!--og:start-->
 <title>Bác sĩ Chain · Hành AI hay bị AI hành...</title>
 <meta name="description" content="Khám, chẩn đoán và kê đơn cho những khái niệm công nghệ khó nuốt: blockchain, tài sản số, AI. Giải thích bằng ví dụ đời thường, kèm sản phẩm chạy thử trong Lab.">
@@ -720,6 +720,11 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .shell.max{position:fixed;inset:0;z-index:95;border-radius:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
 .shell.max .viewport,.shell:fullscreen .viewport{flex:1;min-height:0}
 .shell:fullscreen{border-radius:0}
+.shell.max .viewport{padding:0}
+.shell.max .vp-inner:not(.tab):not(.mob) .panel{border-radius:0;min-height:100%}
+.shell.max .viewport .panel.ext{padding:0}
+.shell.max .vp-inner .panel.ext,.shell.max .extwrap{height:100%;min-height:0}
+.shell.max .extwrap iframe{height:100%;min-height:0;border-radius:0}
 body.appmax header,body.appmax .mtabs,body.appmax #glow{display:none}
 body.appmax main{z-index:auto}
 .extwrap{min-height:520px;display:grid;place-items:center;text-align:center}
@@ -1832,8 +1837,8 @@ $('#tglGuide').addEventListener('click',()=>setGuide(runner.classList.contains('
 $$('[data-dev]').forEach(b=>b.addEventListener('click',()=>{$$('[data-dev]').forEach(x=>x.setAttribute('aria-pressed',x===b));const v=$('#vpInner');v.classList.remove('tab','mob');if(b.dataset.dev!=='full')v.classList.add(b.dataset.dev);requestAnimationFrame(collectVis)}));
 function enterMax(){shell.classList.add('max');document.body.classList.add('appmax');$('#exitMax').hidden=false;document.body.style.overflow='hidden'}
 function exitMax(){shell.classList.remove('max');document.body.classList.remove('appmax');$('#exitMax').hidden=true;document.body.style.overflow=''}
-function toggleFs(){if(document.fullscreenElement){document.exitFullscreen();return}if(shell.classList.contains('max')){exitMax();return}
-  const r=shell.requestFullscreen?shell.requestFullscreen():null;if(r&&r.catch)r.catch(enterMax);else if(!r)enterMax()}
+/* "Toàn màn hình" = app phủ kín cửa sổ trang (như mở thẳng tên miền của app), không bật chế độ F11 của trình duyệt */
+function toggleFs(){if(document.fullscreenElement){document.exitFullscreen();return}if(shell.classList.contains('max'))exitMax();else enterMax()}
 $('#fsBtn').addEventListener('click',toggleFs);$('#exitMax').addEventListener('click',exitMax);
 document.addEventListener('fullscreenchange',()=>{$('#exitMax').hidden=!document.fullscreenElement&&!shell.classList.contains('max')});
 addEventListener('keydown',e=>{if($('#v-app').hidden||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
