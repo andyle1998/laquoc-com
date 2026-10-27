@@ -1,4 +1,4 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><!--csp:start--><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-I84ay/9zMGbiXvFGi+0IjzGavs77bchPZuGllYLsq+k=' 'sha256-AWNhssB3RzoAm4yBUVd2LzrQmwyxuxOu+SViH79vH/8=' 'sha256-0ki64LVRvhICrG9yt+S1n/eJFUDgpxOKhK6xK3X3lJ4=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://mzqngrbbmlsuzlvrbzjl.supabase.co wss://mzqngrbbmlsuzlvrbzjl.supabase.co https://cdn.jsdelivr.net; frame-src https://giaiphau.laquoc.com https://giai-phau-3d-seven.vercel.app https://taichinh.laquoc.com https://meetask.laquoc.com https://financial-dashboard-chi-wine.vercel.app https://meetask-delta.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'"><meta name="referrer" content="strict-origin-when-cross-origin"><!--csp:end--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><!--csp:start--><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-kYf6Bdp/a5zIsb8ogWat0PYFzZ9EpUJh0bjyvBjlmwA=' 'sha256-nCotaXxrRmVNDCtd2Wve4AqbPO1GNbcouFyK78kMWos=' 'sha256-0ki64LVRvhICrG9yt+S1n/eJFUDgpxOKhK6xK3X3lJ4=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://mzqngrbbmlsuzlvrbzjl.supabase.co wss://mzqngrbbmlsuzlvrbzjl.supabase.co https://cdn.jsdelivr.net; frame-src https://giaiphau.laquoc.com https://giai-phau-3d-seven.vercel.app https://taichinh.laquoc.com https://meetask.laquoc.com https://financial-dashboard-chi-wine.vercel.app https://meetask-delta.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'"><meta name="referrer" content="strict-origin-when-cross-origin"><!--csp:end--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!--og:start-->
 <title>Bác sĩ Chain · Hành AI hay bị AI hành...</title>
 <meta name="description" content="Khám, chẩn đoán và kê đơn cho những khái niệm công nghệ khó nuốt: blockchain, tài sản số, AI. Giải thích bằng ví dụ đời thường, kèm sản phẩm chạy thử trong Lab.">
@@ -448,6 +448,36 @@ section{padding-block:64px 16px;scroll-margin-top:90px}
 .next a:hover b{color:var(--accent-ink)}
 @media (max-width:560px){.next{grid-template-columns:1fr}.body{font-size:18px}.body blockquote{font-size:21px}.cover{height:180px}}
 
+/* lộ trình */
+.lt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.lt{border-radius:var(--r-l);box-shadow:var(--in-s);padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lt-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.lt-n{font-size:12px;color:var(--muted)}
+.lt h3{font-size:20px;font-weight:900;margin:0}
+.lt-mo{font-size:14.5px;color:var(--muted)}
+.lt-track{grid-template-columns:repeat(var(--n),minmax(0,1fr));margin:12px 0 4px}
+.lt-track .fill{width:var(--p);transition:width .6s ease}
+.stop-pt.xong i{background:var(--accent);color:#fff;box-shadow:none}
+.lt-f{display:flex;justify-content:flex-start;margin-top:4px}
+.lt-side{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.lt-side>li>b{font-size:13px;display:block;margin-bottom:6px}
+.lt-side ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.lt-side li.xong a{color:var(--accent-ink)}.lt-side li.xong::marker{content:"✓  ";color:var(--accent)}
+.lt-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 6px;padding:12px 16px;border-radius:var(--r-m);box-shadow:var(--in-s)}
+.lt-bar-t{display:flex;flex-direction:column;text-decoration:none;min-width:0;flex:1 1 200px}
+.lt-bar-t b{font-size:14px;font-weight:800}.lt-bar-t span{font-size:12px;color:var(--muted)}
+.lt-dots{display:flex;gap:8px;align-items:center}
+.lt-dots a{width:12px;height:12px;border-radius:50%;box-shadow:var(--in-s);display:block}
+.lt-dots a.xong{background:color-mix(in srgb,var(--accent) 55%,var(--bg));box-shadow:none}
+.lt-dots a.on{width:28px;border-radius:8px;background:var(--accent);box-shadow:none}
+.lt-bar-nut{display:flex;gap:8px}
+.lt-bar-nut .ibtn{width:38px;height:38px;justify-content:center;padding:0;text-decoration:none;font-weight:800}
+.next a.tiep{box-shadow:var(--out),inset 0 -3px 0 var(--accent)}
+.lt-sang{margin-top:16px;font-size:14px;color:var(--muted);text-align:right}.lt-sang a{color:var(--accent-ink);font-weight:700}
+.lab-nav{margin-top:28px}
+@media (max-width:900px){.lt-grid{grid-template-columns:1fr}}
+@media (max-width:760px){.lt-track{grid-template-columns:1fr}.lt-track .fill{width:6px;height:var(--p)}.lt{padding:18px}}
+
 /* lab */
 .apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .app{position:relative;border-radius:var(--r-l);padding:26px;background:var(--bg);box-shadow:var(--out);display:flex;flex-direction:column;gap:14px;text-decoration:none;min-width:0;min-height:300px;
@@ -835,10 +865,6 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
         <p>Mỗi thẻ là một chủ đề. Bấm vào để đọc bài đầy đủ.</p>
       </div>
       <div class="topics" id="topics"></div>
-      <div class="orbit">
-        <h3>Phác đồ học: từ con số 0 đến ứng dụng</h3>
-        <div class="track" id="track"><i class="fill"></i></div>
-      </div>
     </section>
 
     <section>
@@ -881,7 +907,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
       </div>
       <aside class="side">
         <div><h4>Chuyên mục</h4><div class="chips" id="feedChips" role="group" aria-label="Lọc chuyên mục"></div></div>
-        <div><h4>Phác đồ học</h4><ol id="feedPath"></ol></div>
+        <div><h4>Lộ trình đọc</h4><ol class="lt-side" id="feedPath"></ol></div>
         <div><h4>Thử bằng tay</h4><p style="font-size:14px;color:var(--muted);margin-bottom:12px">Đọc xong, mở Lab để tự chạy thử khái niệm.</p><a class="btn sm" href="#lab">Mở Lab</a></div>
       </aside>
     </div>
@@ -1018,6 +1044,7 @@ footer{padding-block:40px 30px;display:flex;flex-wrap:wrap;justify-content:space
       </div>
       <aside class="guide" id="guide" aria-label="Hướng dẫn sử dụng"></aside>
     </div>
+    <nav class="next lab-nav" id="labNav" aria-label="Khám phá sản phẩm theo thứ tự"></nav>
   </div>
 
   <!-- PRESS -->
@@ -1505,7 +1532,14 @@ const ARTICLES=[
  ]}
 ];
 
-const PATH=[['Nền tảng','Hash, chữ ký, sổ cái','hash'],['Ví & khóa','Tự giữ tài sản an toàn','khoa-rieng'],['Hợp đồng thông minh','Logic tự thực thi','hop-dong-thong-minh'],['Định danh','Ai cấp, ai giữ, ai kiểm','dinh-danh'],['Tài sản số','Stablecoin, rủi ro','stablecoin'],['Token hóa','Tài sản thực trên chuỗi','rwa'],['AI × Chain','AI Agent trong vận hành','ai-agent']];
+/* LỘ TRÌNH: thứ tự đọc đề xuất. Mỗi bài thuộc đúng một lộ trình; bài mới phải thêm vào đây thì mới có Back/Next.
+   ten ngắn hiện trên chặng; thuc: app trong Lab để thực hành khi xong lộ trình. */
+const LO_TRINH=[
+ {id:'chain',so:1,ten:'Blockchain & tài sản số',mo:'Từ dấu vân tay của dữ liệu đến căn nhà nằm trên chuỗi. Không cần biết gì trước.',
+  bai:[['hash','Hash'],['khoa-rieng','Ví & khóa'],['hop-dong-thong-minh','Hợp đồng thông minh'],['dinh-danh','Định danh'],['stablecoin','Stablecoin'],['rwa','Token hóa (RWA)']],thuc:['chain','hash','quiz']},
+ {id:'ai',so:2,ten:'AI từ hiểu đến làm',mo:'Hiểu AI làm được gì và sai ở đâu, rồi tự làm phần mềm và đưa AI vào công việc thật.',
+  bai:[['ai-agent','AI Agent'],['ao-giac-ai','Ảo giác AI'],['tu-0-den-phan-mem','Phần mềm đầu tiên'],['he-thong-da-agent','Hệ thống đa agent'],['ai-ke-toan','AI kế toán'],['ai-quan-tri-tai-chinh','Dashboard tài chính']],thuc:['hst-finance','meetask']}];
+
 
 /* LAB_DOMAIN: tên miền gốc cho các bản web. Đổi một chỗ này khi có domain thật. */
 const LAB_DOMAIN='laquoc.com/lab';
@@ -1641,6 +1675,19 @@ const logoMini='<svg viewBox="0 0 1242 942" aria-hidden="true"><use href="#logo"
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function isDark(){const t=root.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+/* lộ trình đọc (dữ liệu LO_TRINH ở khối dữ liệu phía trên) */
+const daDoc=()=>new Set(store.get('bsc-da-doc',[]));
+function danhDauDoc(id){const s=daDoc();if(s.has(id))return;s.add(id);store.set('bsc-da-doc',[...s])}
+const ltCua=id=>{for(const l of LO_TRINH){const k=l.bai.findIndex(b=>b[0]===id);if(k>=0)return{l,k}}return null};
+const ltTiep=l=>{const d=daDoc();return(l.bai.find(b=>!d.has(b[0]))||l.bai[0])[0]};
+/* thẻ một lộ trình: các chặng (đã đọc ✓), thanh tiến độ, nút đọc tiếp */
+function ltThe(l){const d=daDoc(),xong=l.bai.filter(b=>d.has(b[0])).length,tiep=ltTiep(l),hetBai=xong===l.bai.length;
+  return `<div class="lt"><div class="lt-h"><span class="eyebrow pop">Lộ trình ${l.so}</span><span class="mono lt-n">${xong}/${l.bai.length} bài đã đọc</span></div>
+   <h3>${l.ten}</h3><p class="lt-mo">${l.mo}</p>
+   <div class="track lt-track" style="--n:${l.bai.length}"><i class="fill" style="--p:${Math.round(xong/l.bai.length*92)}%"></i>${l.bai.map(([id,t],i)=>`<a class="stop-pt${d.has(id)?' xong':''}" href="#bai-${id}"><i>${d.has(id)?'✓':i+1}</i><div><b>${t}</b></div></a>`).join('')}</div>
+   <div class="lt-f">${hetBai?`<a class="btn sm primary" href="#lab-${l.thuc[0]}"><span class="dot"></span>Đã xong · thực hành trong Lab</a>`:`<a class="btn sm primary" href="#bai-${tiep}"><span class="dot"></span>${xong?'Đọc tiếp':'Bắt đầu'}: ${l.bai.find(b=>b[0]===tiep)[1]}</a>`}</div></div>`}
+function veLoTrinh(){const h=$('#loTrinh');if(h)h.innerHTML=LO_TRINH.map(ltThe).join('');
+  const f=$('#feedPath');if(f){const d=daDoc();f.innerHTML=LO_TRINH.map(l=>`<li><b>Lộ trình ${l.so} · ${l.ten}</b><ol>${l.bai.map(([id,t])=>`<li class="${d.has(id)?'xong':''}"><a href="#bai-${id}">${t}</a></li>`).join('')}</ol></li>`).join('')}}
 const t0=store.get('bsc-theme',null);if(t0)root.setAttribute('data-theme',t0);
 const themeHooks=[];const onTheme=()=>themeHooks.forEach(f=>f());
 $('#themeBtn').addEventListener('click',()=>{root.setAttribute('data-theme',isDark()?'light':'dark');store.set('bsc-theme',root.getAttribute('data-theme'));onTheme()});
@@ -1663,10 +1710,9 @@ $('#latest').innerHTML=LATEST.map((F,k)=>`<a class="ncard" href="#bai-${F.id}"><
   <div style="min-width:0"><span class="eyebrow pop">${F.cat} · Bài ${F.n}</span><h3 style="margin-top:8px">${F.title}</h3></div><p>${F.sub}</p>
   <div class="go"><span>${readMin(F)} phút đọc</span><b>Đọc bài →</b></div></a>`).join('');
 $('#topics').innerHTML=ARTICLES.filter(a=>!a.feature).map(a=>`<a class="topic" href="#bai-${a.id}">
-  <div class="row1"><span class="ico">${svg(a.icon)}</span><span class="k">${a.n} / 08</span></div>
+  <div class="row1"><span class="ico">${svg(a.icon)}</span><span class="k">${a.n} / ${String(ARTICLES.length).padStart(2,'0')}</span></div>
   <div><h3>${a.title.split(':')[0]}</h3><p class="sym" style="margin-top:6px">Triệu chứng: ${a.sym}</p></div>
   <div class="go"><span>${a.cat} · ${readMin(a)} phút</span><b>Đọc bài →</b></div></a>`).join('');
-$('#track').insertAdjacentHTML('beforeend',PATH.map(([t,s,id],i)=>`<a class="stop-pt" href="#bai-${id}"><i>${i+1}</i><div><b>${t}</b><span>${s}</span></div></a>`).join(''));
 const qHTML=([q,o,d,u])=>`<figure class="qcard" style="margin:0"><q>${q}</q><figcaption class="src">${d} · <a href="${u}" target="_blank" rel="noopener">${o} ↗</a></figcaption></figure>`;
 $('#homeQuotes').innerHTML=QUOTES.map(qHTML).join('');
 $('#pressQuotes').innerHTML=QUOTES.map(qHTML).join('');
@@ -1706,7 +1752,7 @@ function renderFeed(){
   $('#feedList').innerHTML=ARTICLES.filter(a=>curCat==='Tất cả'||a.cat===curCat).map(a=>`<a class="fitem" href="#bai-${a.id}">
     <div style="min-width:0"><div class="by"><span class="av">${logoMini}</span>Bác sĩ Chain</div><h3>${a.title}</h3><p>${a.sub}</p>
     <div class="meta"><b>${a.cat}</b><span>${readMin(a)} phút đọc</span></div></div><span class="thumb">${svg(a.icon)}</span></a>`).join('');
-  $('#feedPath').innerHTML=PATH.map(([t,s,id])=>`<li><a href="#bai-${id}">${t}</a></li>`).join('')}
+  veLoTrinh()}
 $('#feedChips').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;curCat=b.dataset.c;renderFeed()});
 renderFeed();
 
@@ -1726,10 +1772,21 @@ function renderArticle(id){
     if(t==='steps')return`<ol class="flowb">${c.map(([a,b])=>`<li><b>${a}</b><span>${b}</span></li>`).join('')}</ol>`;
     if(t==='lab')return`<div class="box labcta"><div><span class="lbl">THỬ TRONG LAB</span>${x}</div><a class="btn primary sm" href="#lab-${c}"><span class="dot"></span>Mở sản phẩm</a></div>`;return''}).join('');
   const prev=ARTICLES[(i-1+ARTICLES.length)%ARTICLES.length],next=ARTICLES[(i+1)%ARTICLES.length];
+  const lt=ltCua(a.id),dd=daDoc(),tenBai=id=>(ARTICLES.find(x=>x.id===id)||{}).title||'';
+  let ltTren='',ltDuoi=`<div class="next"><a href="#bai-${prev.id}"><span>← Bài trước</span><b>${prev.title}</b></a><a href="#bai-${next.id}" style="text-align:right"><span>Bài tiếp →</span><b>${next.title}</b></a></div>`;
+  if(lt){const {l,k}=lt,n=l.bai.length,khac=LO_TRINH.find(x=>x!==l);
+    ltTren=`<nav class="lt-bar" aria-label="Lộ trình ${l.so}"><a class="lt-bar-t" href="#bai-viet"><b>Lộ trình ${l.so} · ${l.ten}</b><span class="mono">Bài ${k+1}/${n}</span></a>
+      <div class="lt-dots">${l.bai.map(([id,t],j)=>`<a href="#bai-${id}" title="${t}" class="${j===k?'on':''}${dd.has(id)?' xong':''}" aria-label="Bài ${j+1}: ${t}${j===k?' (đang đọc)':''}"></a>`).join('')}</div>
+      <div class="lt-bar-nut">${k>0?`<a class="ibtn" href="#bai-${l.bai[k-1][0]}" aria-label="Bài trước trong lộ trình">←</a>`:''}${k<n-1?`<a class="ibtn" href="#bai-${l.bai[k+1][0]}" aria-label="Bài tiếp trong lộ trình">→</a>`:''}</div></nav>`;
+    const truoc=k>0?`<a href="#bai-${l.bai[k-1][0]}"><span>← Back · bài ${k}/${n}</span><b>${tenBai(l.bai[k-1][0])}</b></a>`:`<a href="#bai-viet"><span>← Back</span><b>Tất cả bài viết và lộ trình</b></a>`;
+    const sau=k<n-1?`<a class="tiep" href="#bai-${l.bai[k+1][0]}" style="text-align:right"><span>Next · bài ${k+2}/${n} →</span><b>${tenBai(l.bai[k+1][0])}</b></a>`
+      :`<a class="tiep" href="#lab-${l.thuc[0]}" style="text-align:right"><span>Xong lộ trình ${l.so} · Next →</span><b>Thực hành trong Lab: ${(APPS.find(x=>x.id===l.thuc[0])||{}).title||'Lab'}</b></a>`;
+    ltDuoi=`<div class="next lt-next">${truoc}${sau}</div>${k===n-1&&khac?`<p class="lt-sang">Hoặc sang <a href="#bai-${ltTiep(khac)}">Lộ trình ${khac.so} · ${khac.ten} →</a></p>`:''}`}
   const clapBtn=`<button class="ibtn ${claps?'clapped':''}" data-clap><svg viewBox="0 0 24 24"><path d="M7 11.5V6.8a1.4 1.4 0 0 1 2.8 0v3.4M9.8 10V5.4a1.4 1.4 0 0 1 2.8 0V10M12.6 10V6.6a1.4 1.4 0 0 1 2.8 0v5.2M15.4 9.6a1.4 1.4 0 0 1 2.8 0v3.9c0 4-2.6 6.5-6.2 6.5-2.4 0-3.8-1-5.1-2.8L4.6 13.4a1.4 1.4 0 0 1 2.3-1.6L7 11.5"/></svg><span data-cc>${claps}</span></button>`;
   const shareBtn=`<button class="ibtn" data-share><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Sao chép liên kết</button>`;
   $('#v-article').innerHTML=`
    <a class="back" href="#bai-viet">← Tất cả bài viết</a>
+   ${ltTren}
    <div class="tagline"><b>${a.cat}</b><span class="mono" style="font-size:12px;color:var(--muted)">Bài ${a.n} / ${String(ARTICLES.length).padStart(2,'0')}</span></div>
    <h1 class="ink-raise">${a.title}</h1>
    <p class="sub">${a.sub}</p>
@@ -1739,7 +1796,10 @@ function renderArticle(id){
    <div class="body">${blocks}</div>
    <p class="disc">Bài viết mang tính phổ biến kiến thức, không phải tư vấn đầu tư hay tư vấn pháp lý.</p>
    <div class="endbar"><div class="grp" style="display:flex;gap:6px">${clapBtn}${shareBtn}</div><a class="btn sm" href="#bai-viet">Đọc bài khác</a></div>
-   <div class="next"><a href="#bai-${prev.id}"><span>← Bài trước</span><b>${prev.title}</b></a><a href="#bai-${next.id}" style="text-align:right"><span>Bài tiếp →</span><b>${next.title}</b></a></div>`;
+   <div id="docXong"></div>
+   ${ltDuoi}`;
+  /* đọc tới cuối bài = đã đọc (đánh dấu ✓ trên lộ trình) */
+  if(window.IntersectionObserver){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){danhDauDoc(a.id);io.disconnect()}});io.observe($('#docXong'))}else danhDauDoc(a.id);
   $$('#v-article [data-clap]').forEach(b=>b.addEventListener('click',()=>{const n=store.get('clap-'+a.id,0)+1;store.set('clap-'+a.id,n);
     $$('#v-article [data-clap]').forEach(x=>{x.classList.add('clapped');x.querySelector('[data-cc]').textContent=n})}));
   $$('#v-article [data-share]').forEach(b=>b.addEventListener('click',()=>{const u=location.origin+'/bai/'+a.id+'/';
@@ -1803,6 +1863,7 @@ function route(){
   {const TEN={feed:'Bài viết',lab:'Lab sản phẩm',press:'Báo chí',ask:'Hỏi đáp',about:'Giới thiệu',admin:'Quản trị'};
    const ten=view==='article'?(ARTICLES.find(a=>a.id===h.slice(4))||{}).title:view==='app'?(APPS.find(a=>a.id===h.slice(4))||{}).title:TEN[view];
    document.title=ten?String(ten).replace(/<[^>]+>/g,'')+' · Bác sĩ Chain':'Bác sĩ Chain · Hành AI hay bị AI hành...'}
+  if(view==='home'||view==='feed')veLoTrinh();
   tkMo(h);
   if(view==='admin')openAdmin();
   if(view==='ask')openAsk();
@@ -1848,7 +1909,12 @@ const Am=(()=>{let ac=null,bat=store.get('bsc-am',true),mua=0;
 Am.dat(Am.bat);
 $('#amBtn').addEventListener('click',()=>Am.dat(!Am.bat));
 
-function openApp(app){curApp=app;const web=app.mode==='web';$('#amBtn').hidden=web;
+/* Back/Next giữa các sản phẩm trong Lab, theo thứ tự APPS (bỏ app riêng) */
+function veLabNav(app){const ds=APPS.filter(a=>!a.rieng),k=ds.findIndex(a=>a.id===app.id),n=ds.length,nav=$('#labNav');
+  if(k<0){nav.hidden=true;return}nav.hidden=false;
+  nav.innerHTML=(k>0?`<a href="#lab-${ds[k-1].id}"><span>← Back · sản phẩm ${k}/${n}</span><b>${esc(ds[k-1].title)}</b></a>`:`<a href="#lab"><span>← Back</span><b>Tất cả sản phẩm trong Lab</b></a>`)
+    +(k<n-1?`<a class="tiep" href="#lab-${ds[k+1].id}" style="text-align:right"><span>Next · sản phẩm ${k+2}/${n} →</span><b>${esc(ds[k+1].title)}</b></a>`:`<a class="tiep" href="#bai-viet" style="text-align:right"><span>Đã xem hết Lab · Next →</span><b>Đọc bài theo lộ trình</b></a>`)}
+function openApp(app){curApp=app;const web=app.mode==='web';$('#amBtn').hidden=web;veLabNav(app);
   $('#appTitle').textContent=app.title;$('#appIco').innerHTML=svg(app.icon);
   $('#appMeta').innerHTML=`<b>${web?(app.url?'Bản web':'Sắp triển khai'):'Đang chạy'}</b> · ${esc(app.ver)} · cập nhật ${esc(app.updated)}`;
   const host=app.url?app.url.replace(/^https?:\/\//,''):LAB_DOMAIN+'/'+app.id;$('#appUrl').textContent=host;
