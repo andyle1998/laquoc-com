@@ -7,6 +7,18 @@
   $('#doiNen').addEventListener('click',()=>{const t=toi()?'light':'dark';root.setAttribute('data-theme',t);try{localStorage.setItem('bsc-theme',JSON.stringify(t))}catch(e){}});
   $('#inPdf').addEventListener('click',()=>window.print());
 
+  /* ngôn ngữ: ?lang=en (link gửi thẳng bản Anh) > lựa chọn đã nhớ > tiếng Việt */
+  const TIEU={vi:'Lê Anh Quốc · CV',en:'Lê Anh Quốc · Resume'};
+  function datNgon(l,nho){if(l!=='en')l='vi';root.lang=l;document.title=TIEU[l];
+    document.querySelectorAll('[data-l]').forEach(e=>{e.hidden=e.dataset.l!==l});
+    document.querySelectorAll('[data-chon]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.chon===l));
+    if(nho){try{localStorage.setItem('bsc-cv-lang',l)}catch(e){}
+      const u=new URL(location.href);if(l==='en')u.searchParams.set('lang','en');else u.searchParams.delete('lang');try{history.replaceState(null,'',u)}catch(e){}}}
+  let dau=new URLSearchParams(location.search).get('lang');
+  if(!dau)try{dau=localStorage.getItem('bsc-cv-lang')}catch(e){}
+  datNgon(dau||'vi',false);
+  document.querySelectorAll('[data-chon]').forEach(b=>b.addEventListener('click',()=>datNgon(b.dataset.chon,true)));
+
   /* khung ảnh 3D */
   const the=$('#the3d');
   function nghieng(x,y){/* x,y trong khoảng -1..1 */
